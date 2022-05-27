@@ -1,0 +1,14 @@
+[
+  {
+    "cuit": "30537520643",
+    "incomeNumber": "004-00003575",
+    "date": "24/05/2022",
+    "products": [
+      {
+        "varCode": "347 1 043168",
+        "quantity": 5
+      }
+    ],
+    "id": "be9452a3ab69a08ea9cd"
+  }
+]

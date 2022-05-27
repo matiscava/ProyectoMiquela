@@ -1,0 +1,15 @@
+[
+  {
+    "name": "Matías",
+    "lastname": "Scavarelli",
+    "email": "matiscava@hotmail.com",
+    "phone": 1155633083,
+    "password": "$2b$10$Cy920iU/Q7rsVRWx6DuCl.8XFyRbx6vb5O/OksNer0sUVx52Zi4we",
+    "dni": 35375605,
+    "id": "0596bfbaa01f0639879d",
+    "history": [],
+    "admin": true,
+    "ingress_access": true,
+    "egress_access": true
+  }
+]
