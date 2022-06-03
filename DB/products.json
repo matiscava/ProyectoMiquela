@@ -2,20 +2,31 @@
   {
     "varCode": "347 1 043168",
     "code": "FE001001",
-    "stock": 100,
+    "stock": 500,
     "minStock": 50,
     "name": "Tornillo punta mecha 8' x 2'",
     "description": "Tornillo de madera",
     "type": "ferreteria",
-    "id": "10ed3dcae94408b3222a",
-    "history": [
-      {
-        "incomeNumber": "004-00003575",
-        "quantity": 5,
-        "type": "Ingreso",
-        "responsable": "Anonimo",
-        "date": "27/5/2022 16:10:52"
-      }
-    ]
+    "id": "10ed3dcae94408b3222a"
+  },
+  {
+    "varCode": "347 1 043167",
+    "code": "FE001002",
+    "minStock": 50,
+    "name": "Tarugo con punta 8mm",
+    "description": "Tarugo de plastico con punta 8mm",
+    "type": "ferreteria",
+    "id": "555ae7ad5f2f2a8a76f9",
+    "stock": 150
+  },
+  {
+    "varCode": "347 1 043166",
+    "code": "FE001003",
+    "minStock": 10,
+    "name": "Disco de corte 4 1/2",
+    "description": "Disco de corte 4 1/2",
+    "type": "ferreteria",
+    "id": "46dab34ad74f9c40265c",
+    "stock": 495
   }
 ]

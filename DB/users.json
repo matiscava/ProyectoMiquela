@@ -1,15 +1,23 @@
 [
   {
-    "name": "Matías",
-    "lastname": "Scavarelli",
+    "name": "pepe",
+    "lastname": "grillo",
+    "phone": "11111",
+    "dni": "111111",
+    "email": "pepegrillo@hotmail.com",
+    "id": "faed5381a2115c62990f",
+    "salt": "5ec8090af5101ef4039e00f772c7e23884b7d57c4b4b71abb0bd2513ce9dddca",
+    "hash": "e80de7c051e2cba869ce3f046604729822cdfd199c842d8d5bb9af6a6b7aab3c7d253e6b7f021deabd95dff20df8928f08b25dd7e09f8260ed209e16d9b190c5"
+  },
+  {
+    "name": "Matias",
+    "lastname": "scavarelli",
+    "phone": "1155633083",
+    "dni": "35375605",
     "email": "matiscava@hotmail.com",
-    "phone": 1155633083,
-    "password": "$2b$10$Cy920iU/Q7rsVRWx6DuCl.8XFyRbx6vb5O/OksNer0sUVx52Zi4we",
-    "dni": 35375605,
-    "id": "0596bfbaa01f0639879d",
-    "history": [],
+    "id": "eb12c264dd2f4ef0c8be",
     "admin": true,
-    "ingress_access": true,
-    "egress_access": true
+    "salt": "8d578c80db83195e8d11c87565a5eba04f06a59882b730763d47f3f57cfdfcab",
+    "hash": "b847eac68d553501f8ca445076281f1d8d6b46a816860479104cab0e1df6c97b0c230eeb4ed3f74a82cbb24a5694ea3fb427f9db480a1a3c2c1dba9bfdea95b9"
   }
 ]

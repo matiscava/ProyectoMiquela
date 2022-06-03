@@ -5,19 +5,22 @@
     "adress": "",
     "phone": 44554455,
     "email": "ernestorossi@hotmail.com",
-    "id": "1579cae3eded975ce6c0",
-    "history": [
-      {
-        "incomeNumber": "004-00003575",
-        "products": [
-          {
-            "varCode": "347 1 043168",
-            "quantity": 5
-          }
-        ],
-        "responsable": "Anonimo",
-        "date": "27/5/2022 16:10:52"
-      }
-    ]
+    "id": "1579cae3eded975ce6c0"
+  },
+  {
+    "cuit": "20222002126",
+    "name": "SUNLIGHT",
+    "adress": "",
+    "phone": 55886633,
+    "email": "sunglight@hotmail.com",
+    "id": "f1992fe78f9e0528b2a0"
+  },
+  {
+    "cuit": "20353756053",
+    "name": "Pedro Alfonso",
+    "adress": "",
+    "phone": 55886633,
+    "email": "Peter@hotmail.com",
+    "id": "f1992fe78f9e048as2a0"
   }
 ]

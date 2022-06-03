@@ -1,0 +1,40 @@
+<%- include('./head.ejs')  %> 
+<header>
+  <div class="container  header">
+    <div>
+      <p class="logo">Miquela Stock</p>
+    </div>
+    <nav class="nav-menu">
+      <a href="/users/login">Login</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <h1><%= title %> </h1>
+  
+  <form action="/users/signup" method="post" id="signupForm">
+    <label for="name">Ingrese su Nombre: <input type="text" name="name" placeholder="Jose" title="El nombre solo acepta letras y espacios en blanco" pattern="^[a-zA-ZÑñÁÉÍÓÚáéíóúüÜ\s]+$" required></label>
+    <label for="lastname">Ingrese su Apellido: <input type="text" name="lastname" placeholder="Perez" title="El Apellido solo acepta letras y espacios en blanco" pattern="^[a-zA-ZÑñÁÉÍÓÚáéíóúüÜ\s]+$" required></label>
+    <label for="phone">Ingrese su Telefono: <input type="number" name="phone" placeholder="1155663377" title="El telefono solo acepta números" pattern="[0-9]" minlength="8" maxlength="10" required></label>
+    <label for="dni">Ingrese su DNI: <input type="number" name="dni" placeholder="35742568" title="El DNI solo acepta números" pattern="[0-9]" required></label>
+    <label for="email">Ingrese su Email: <input type="text" name="email" title="Email incorrecto" pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$" placeholder="joseperez@yahoo.com.ar" required></label>
+    <label for="password">Ingrese su Contraseña: <input type="password" name="password" placeholder="Contraseña" title="Input Password and Submit [8 to 20 characters which contain at least one numeric digit, one uppercase and one lowercase letter]" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ -/:-@\[-`{-~]).{8,20}$" required></label>
+    <label for="repassword">Repita su Contraseña: <input type="password" name="repassword" placeholder="Repetir Contraseña" title="Debe coincidir con la contraseña ingresada" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ -/:-@\[-`{-~]).{8,20}$" required></label>
+    <input type="submit" id="btnSubmitForm" value="Enviar">
+    <!-- <input type="submit" value="Enviar" > -->
+  </form>
+  <a href="/users/login" class="inner-link">Ir al login</a>
+  <aside class="panel">
+  </aside>
+  <template id="show-template">
+    <article class="problem">
+      <h3></h3>
+      <p></p>
+      <input type="button">
+    </article>
+  </template>
+</main>
+
+
+<%- include('./footer.ejs')  %> 
+

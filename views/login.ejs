@@ -1,0 +1,38 @@
+<%- include('./head.ejs')  %> 
+<header>
+  <div class="container  header">
+    <div>
+      <p class="logo">Miquela Stock</p>
+    </div>
+    <nav class="nav-menu">
+      <% if(user && user.admin) { %>  
+       <a href="/users/signup">Signup</a>
+      <% } %>  
+    </nav>
+  </div>
+</header>
+<main>
+  <h1><%= title %> </h1>
+  <% if(user) { %>  
+   <h2><%= user %> </h2>
+    <% } %>  
+  
+  <form action="/users/login" method="post" id="loginForm">
+    <label for="username">Ingrese su Email: <input type="text" name="username" title="Email incorrecto" pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$" placeholder="joseperez@yahoo.com.ar" required></label>
+    <label for="password">Ingrese su Contraseña: <input type="password" name="password" placeholder="Contraseña" title="Input Password and Submit [8 to 20 characters which contain at least one numeric digit, one uppercase and one lowercase letter]" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ -/:-@\[-`{-~]).{8,20}$" required></label>
+    <input type="submit" id="btnSubmitForm" value="Enviar">
+  </form>
+  <% if(user && user.admin) { %>  
+  <a href="/users/signup" class="inner-link">Ir al Signup</a>
+  <% } %>  
+  <aside class="panel">
+  </aside>
+  <template id="show-template">
+    <article class="problem">
+      <h3></h3>
+      <p></p>
+      <input type="button">
+    </article>
+  </template>
+</main>
+<%- include('./footer.ejs')  %> 
