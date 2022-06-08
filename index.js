@@ -31,13 +31,13 @@ app
   .use(apiSession)
   .use( passport.initialize() )
   .use( passport.session() )
-  .use((req, res, next) => {
-    // console.log(req.session);
-    // console.log(req.user);
-    console.log(req.url);
+  // .use((req, res, next) => {
+  //   console.log(req.session);
+  //   // console.log(req.user);
+  //   console.log(req.url);
     
-    next()
-  })
+  //   next()
+  // })
   .set('views','./views')
   .set('view engine', 'ejs');
 

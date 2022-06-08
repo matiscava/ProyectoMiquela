@@ -1,0 +1,34 @@
+<%- include('./head.ejs')  %>
+<%- include('./scanVarcode.ejs')  %> 
+<%- include('./menu.ejs')  %> 
+<main>
+  <h1><%= title %></h1>
+  <form action="/clients/new-client" method="POST" id="new-client-form">
+    <label for="client"> Nombre del proveedor/cliente: 
+      <input type="text" name="name" placeholder="Empresa S.A." required>
+    </label>
+    <label for="cuit"> N° de CUIT/CUIL : <input type="number" pattern="^[0-9]{11}$" placeholder="Ingresar CUIT o CUIL sin guiones" title="Ingresar CUIT o CUIL sin guiones, se eperan 11 digitos" name="cuit" required></label>
+    <label for="email">Ingrese su Email: <input type="text" name="email" title="Email incorrecto" pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$" placeholder="joseperez@yahoo.com.ar" required></label>
+    <label for="adress">Dirección: <input type="text" name="adress" placeholder="Avenida Siempreviva" required></label>
+    <label for="phone">Telefono: <input type="number" name="phone" pattern="[0-9]" placeholder="45544455" required></label>
+    <label for="type">
+      Sleccione el tipo de relación:
+      <input type="radio" name="type" id="proveedor" value="proveedor" required checked>
+      <label for="proveedor">proveedor</label>
+      <input type="radio" name="type" id="cliente" value="cliente" required>
+      <label for="cliente">cliente</label>
+    </label>
+    <input type="submit" id="btnSubmitForm" value="Enviar">
+  </form>
+  <template id="show-template">
+    <article class="problem">
+      <h3></h3>
+      <p></p>
+      <input type="button">
+    </article>
+  </template>
+</main>
+<script>
+  const clientsList = <%-JSON.stringify(clients)  %>;
+</script>
+<%- include('./footer.ejs')  %> 

@@ -9,7 +9,9 @@ const isAuth = (req, res, next) => {
 const isAdmin = (req, res, next) => {
   if( req.isAuthenticated() && req.user.admin){
     next();
-  } else {
+  } else if (!req.isAuthenticated()){
+    res.redirect('/users/login')
+  }else{
     res.status(401).json( { msg: 'You are not authorized to view this resource, because you are not admin' });
   }
 }

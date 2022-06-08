@@ -1,41 +1,40 @@
 import { SetOptions } from "./settings/setOptions.js";
 
-export function HistoryTable (){
-
+export function ClientTable(){
   const d = document,
-  $historyTable = d.getElementById('history-table'),
-  $historyTemplate = d.getElementById('history-template').content,
-  $historyFragment = d.createDocumentFragment(),
+  $clientTable = d.getElementById('client-table'),
+  $clientTemplate = d.getElementById('client-template').content,
+  $clientFragment = d.createDocumentFragment(),
   $buttons = d.querySelectorAll('button[data-filter-name]'),
   $loaderPanel = d.querySelector('.panel-loader');
   let ready = false;
-  
-  function setHistoryTable (list) {
+
+  function setClientTable (list) {
     ready = false;
     list.forEach( (el) => {
-      $historyTemplate.querySelector('.form-reference-number').textContent = el.referenceNumber;
-      $historyTemplate.querySelector('.form-date').textContent = el.date;
-      $historyTemplate.querySelector('.form-client').textContent = el.client;
-      $historyTemplate.querySelector('.form-item').textContent = el.item;
-      $historyTemplate.querySelector('.form-quantity').textContent = el.quantity;
-      $historyTemplate.querySelector('.form-type').textContent = el.type;
-      let $clone = d.importNode($historyTemplate,true);
-      $historyFragment.appendChild($clone);
-    })
-    $historyTable.querySelector('tbody').innerHTML= '';
-    $historyTable.querySelector('tbody').appendChild($historyFragment);
+       const tds = $clientTemplate.querySelectorAll('td');
+       tds[0].textContent = el.cuit;
+       tds[1].textContent = el.name;
+       tds[2].textContent = el.adress;
+       tds[3].textContent = el.phone;
+       tds[4].textContent = el.email;
+       tds[5].textContent = el.type;
+       let $clone = d.importNode($clientTemplate, true);
+       $clientFragment.appendChild($clone);
+    });
+    $clientTable.querySelector('tbody').innerHTML = '';
+    $clientTable.querySelector('tbody').appendChild($clientFragment);
   }
 
-  SetOptions($historyTable, historyList );
-    
-  d.addEventListener('click', (e) => {
-    $buttons.forEach($button => {
-      if(e.target === $button){
+  SetOptions($clientTable, clientList);
 
+  $clientTable.addEventListener('click', (e) => {
+    $buttons.forEach($button => {
+      if( e.target === $button) {
         let filtername = $button.getAttribute('data-filter-name'),
-          $select = d.getElementsByName(filtername)[0],
-          isActive = $button.getAttribute('data-filter-active');
-        
+        $select = d.getElementsByName(filtername)[0],
+        isActive = $button.getAttribute('data-filter-active');
+
         if(isActive === 'inactive') {
           $select.classList.remove('none');
           $button.setAttribute('data-filter-active', 'active');
@@ -45,13 +44,14 @@ export function HistoryTable (){
           $button.setAttribute('data-filter-active', 'inactive');
           $button.textContent ='\u25be';
         }
-        $select.addEventListener('change', e => {
+
+        $select.addEventListener('change', (e) => {
           let option = e.target.value;
 
           if (option ==='todos') {
-            setHistoryTable(historyList)
+            setClientTable(clientList)
           }else if (option === 'ascendente') { 
-            let newList = [...historyList];
+            let newList = [...clientList];
             newList.sort(function (a, b) {
               if (a[filtername] > b[filtername]) {
                 return 1;
@@ -62,9 +62,9 @@ export function HistoryTable (){
               // a must be equal to b
               return 0;
             });
-            setHistoryTable(newList)
+            setClientTable(newList)
           } else if (option === 'descendente') { 
-            let newList = [...historyList];
+            let newList = [...clientList];
             newList.sort(function (a, b) {
               if (a[filtername] < b[filtername]) {
                 return 1;
@@ -75,24 +75,20 @@ export function HistoryTable (){
               // a must be equal to b
               return 0;
             });
-            setHistoryTable(newList)
+            setClientTable(newList)
           } else {
-            let newList = historyList.filter( el => el[filtername] == option)
-            setHistoryTable(newList)
+            let newList = clientList.filter( el => el[filtername] == option)
+            setClientTable(newList)
           }
           $select.classList.add('none');
           $button.setAttribute('data-filter-active', 'inactive');
           $button.textContent ='\u25be';
-
         })
       }
     })
   })
-
-  
-  
   setTimeout(() => {
-    setHistoryTable(historyList);
+    setClientTable(clientList);
     $loaderPanel.classList.remove('is-active');
     
     ready = true;

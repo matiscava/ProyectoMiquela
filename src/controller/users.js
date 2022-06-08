@@ -30,7 +30,8 @@ userController.getUsers = async (req , res) => {
 }
 
 userController.getSignup = ( req , res ) => {
-  res.render( path.join(process.cwd(),'/views/signup.ejs'),{title: 'Signup'})
+  let user = req.user;
+  res.render( path.join(process.cwd(),'/views/signup.ejs'),{title: 'Signup',user})
 }
 
 // userController.signupUser = async ( req , res ) => {
@@ -54,6 +55,7 @@ userController.getSignup = ( req , res ) => {
 // }
 
 userController.getLogin = ( req , res ) => {
+  if(req.user) res.redirect('/history')
   res.render( path.join(process.cwd(),'/views/login.ejs'),{ title: 'Login',user : req.user })
 }
 

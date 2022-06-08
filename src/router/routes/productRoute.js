@@ -5,6 +5,7 @@ const productRoute = express.Router();
 
 productRoute
   .get('/', productController.getProducts )
-  .post('/', productController.createProduct )
+  .get('/new-product', productController.getCreateProduct )
+  .post('/new-product', productController.createProduct )
 
 export default productRoute;

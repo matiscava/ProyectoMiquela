@@ -5,6 +5,7 @@ const clientRoute = express.Router();
 
 clientRoute
   .get('/', clientController.getClients )
-  .post('/', clientController.createClient );
+  .get('/new-client', clientController.getCreateClient )
+  .post('/new-client', clientController.createClient );
 
 export default clientRoute;

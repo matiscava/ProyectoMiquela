@@ -1,4 +1,5 @@
 import FSDao from "../daos/fs/productDaoFS.js";
+import path from "path";
 
 const productController = () => {},
   USERS_DB = './DB/users.json',
@@ -9,7 +10,8 @@ const productController = () => {},
   productController.getProducts = async ( req , res ) => {
     try {
       let products = await FSDao.getAll(PRODUCTS_DB)
-      res.json(products)
+      res.render(path.join(process.cwd(),'/views/products.ejs'),{ title: 'Productos' , user: req.user, products })
+
     } catch (err) {
       let message = err || "Ocurrio un error";
       console.log(`Error ${err.status}: ${message}`);
@@ -18,14 +20,21 @@ const productController = () => {},
       <p>Error ${err.status}: ${message}</p>
       ` )
     }
-  } 
+  }
+
+  productController.getCreateProduct = async ( req , res ) => {
+    let products = await FSDao.getAll(PRODUCTS_DB);
+    res.render(path.join(process.cwd(),'/views/product-new.ejs'),{ title: 'Cargar un nuevo Producto' , user: req.user,products })
+  }
 
   productController.createProduct = async ( req , res ) => {
     try {
       const data = req.body;
+      delete data.varCodeDos;
+      data.responsable = req.user.email;
       if( ! (data instanceof Object) ) throw new Error('El dato enviado no es un objeto');
       const newProduct = await FSDao.createProduct(PRODUCTS_DB,data);
-      res.json(newProduct)
+      res.json(data)
     } catch (err) {
       let message = err || "Ocurrio un error";
       console.log(`Error ${err.status}: ${message}`);

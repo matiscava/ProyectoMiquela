@@ -1,0 +1,47 @@
+<header>
+  <div class="container  header">
+    <div>
+      <p class="logo">Miquela Stock</p>
+    </div>
+    <nav class="nav-menu">
+      <% if(user && user.admin) { %>  
+        <ul>
+          <li>
+            <a href="/users/signup" class="menu">Signup</a>
+          </li>
+          <li>
+            <a href="/history" class="menu">
+              Historial
+            </a>
+            <ul class="menu-dropdown">
+              <li><a href="/history/ingress">Cargar Ingreso</a></li>
+              <li><a href="/history/egress">Cargar Egreso</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="/clients" class="menu">
+              Clientes / Proveedor
+            </a>
+            <ul class="menu-dropdown">
+              <li><a href="/clients/new-client">Crear Cliente / Proveedor</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="/products" class="menu">
+              Productos
+            </a>
+            <ul class="menu-dropdown">
+              <li><a href="/products/new-product">Crear Producto</a></li>
+            </ul>
+          </li>
+        </ul>
+
+
+      <% }else{ %>
+        <a href="/history" class="menu">Historial</a>
+        <a href="/clients" class="menu">Clientes</a>
+        <a href="/products" class="menu">Productos</a>
+      <% } %>  
+    </nav>
+  </div>
+</header>

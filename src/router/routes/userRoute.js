@@ -3,7 +3,7 @@ import userController from "./../../controller/users.js";
 import passport from "passport";
 import FSDao from '../../daos/fs/productDaoFS.js';
 import { loginStrategy , signupStrategy } from "../../config/passport.js"
-import { isAuth } from "../../utils/authMiddelware.js";
+import { isAdmin, isAuth } from "../../utils/authMiddelware.js";
 
 const userRoute = express.Router();
 
@@ -32,7 +32,7 @@ userRoute
     passport.authenticate('login', {failureRedirect: '/users/fail-login'}),
     userController.getHome
   )
-  .get('/signup', userController.getSignup)
+  .get('/signup', isAdmin, userController.getSignup)
   .post('/signup',
     passport.authenticate('signup', {failureRedirect: '/users/fail-signup'} ),
     userController.getHome

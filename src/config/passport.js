@@ -25,7 +25,6 @@ const loginCallback = async ( username , password , done ) => {
 const signupCallback = async ( req , username , password , done ) => {
   try {
     let user = await FSDao.findUser(USERS_DB,username);
-    console.log('signupCallback user', user);
 
     if (user){
       console.log('el Usuario ya existe');
@@ -34,8 +33,6 @@ const signupCallback = async ( req , username , password , done ) => {
     let data = req.body;
     delete data.repassword;
     user = await FSDao.createUser(USERS_DB,data);
-    console.log('signupCallback new user', user);
-
 
     return done(null, user)
   } catch (err) {

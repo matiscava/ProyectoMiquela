@@ -1,65 +1,62 @@
-<%- include('./head.ejs')  %>
+<%- include('./head.ejs')  %> 
 <%- include('./loader.ejs')  %> 
 <%- include('./menu.ejs')  %> 
 <main>
   <h1><%= title %></h1>
   <div class="container">
-    <table class="table" id="history-table">
+    <table class="table" id="client-table">
       <thead>
         <tr>
           <th>
-            Número de Remito
-            <button class="filter-btn" data-filter-name="referenceNumber" data-filter-active="inactive">&#9662;</button>
+            CUIT / CUIL
+            <button class="filter-btn" data-filter-name="cuit" data-filter-active="inactive">&#9662;</button>
             <br>
-            <select name="referenceNumber" class="none">
+            <select name="cuit" class="none">
               <option value="todos">Todos</option>
               <option value="ascendente">De menor a Mayor</option>
               <option value="descendente">De menor a Mayor</option>
-
             </select>
           </th>
           <th>
-            Fecha
-            <button class="filter-btn" data-filter-name="date" data-filter-active="inactive">&#9662;</button>
-            <!-- <button class="filter-btn" data-filter-name="date" data-filter-active="desc">&#9662; &#8595;</button> -->
+            Nombre
+            <button class="filter-btn" data-filter-name="name" data-filter-active="inactive">&#9662;</button>
             <br>
-            <select name="date" class="none">
+            <select name="name" class="none">
+              <option value="todos">Todos</option>
+              <option value="ascendente">De menor a Mayor</option>
+              <option value="descendente">De menor a Mayor</option>
+            </select>
+          </th>
+          <th>
+            Dirección
+            <button class="filter-btn" data-filter-name="adress" data-filter-active="inactive">&#9662;</button>
+            <br>
+            <select name="adress" class="none">
               <option value="todos">Todos</option>
               <option value="ascendente" selected>De menor a Mayor</option>
               <option value="descendente">De menor a Mayor</option>
             </select>
           </th>
           <th>
-            Proveedor/Cliente
-            <button class="filter-btn" data-filter-name="client" data-filter-active="inactive">&#9662;</button>
+            Teléfono
+            <button class="filter-btn" data-filter-name="phone" data-filter-active="inactive">&#9662;</button>
             <br>
-            <select name="client" class="none">
+            <select name="phone" class="none">
               <option value="todos">Todos</option>
               <option value="ascendente">De menor a Mayor</option>
               <option value="descendente">De menor a Mayor</option>
             </select>
           </th>
           <th>
-            Item
-            <button class="filter-btn" data-filter-name="item" data-filter-active="inactive">&#9662;</button>
+            Correo electrónico
+            <button class="filter-btn" data-filter-name="email" data-filter-active="inactive">&#9662;</button>
             <br>
-            <select name="item" class="none">
+            <select name="email" class="none">
               <option value="todos">Todos</option>
               <option value="ascendente">De menor a Mayor</option>
               <option value="descendente">De menor a Mayor</option>
             </select>
           </th>
-          <th>
-            Cantidad
-            <button class="filter-btn" data-filter-name="quantity" data-filter-active="inactive">&#9662;</button>
-            <br>
-            <select name="quantity" class="none">
-              <option value="todos">Todos</option>
-              <option value="ascendente">De menor a Mayor</option>
-              <option value="descendente">De menor a Mayor</option>
-            </select>
-          </th>
-
           <th>
             Tipo
             <button class="filter-btn" data-filter-name="type" data-filter-active="inactive">&#9662;</button>
@@ -70,26 +67,25 @@
               <option value="descendente">De menor a Mayor</option>
             </select>
           </th>
-
         </tr>
       </thead>
       <tbody></tbody>
     </table>
   </div>
 
-    <template id="history-template">
+    <template id="client-template">
       <tr>
-        <td class="form-reference-number"></td>
-        <td class="form-date"></td>
-        <td class="form-client"></td>
-        <td class="form-item"></td>
-        <td class="form-quantity"></td>
-        <td class="form-type"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
       </tr>
     </template>
 
 </main>
 <script>
-  const historyList = <%-JSON.stringify(historyList)  %>;
+  const clientList = <%-JSON.stringify(clients)  %>;
 </script>
 <%- include('./footer.ejs')  %> 

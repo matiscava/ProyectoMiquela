@@ -2,11 +2,13 @@
   {
     "varCode": "347 1 043168",
     "code": "FE001001",
-    "stock": 500,
+    "stock": 1050,
     "minStock": 50,
     "name": "Tornillo punta mecha 8' x 2'",
     "description": "Tornillo de madera",
     "type": "ferreteria",
+    "responsable": "matiscava@hotmail.com",
+    "date": 1653914881445,
     "id": "10ed3dcae94408b3222a"
   },
   {
@@ -16,8 +18,10 @@
     "name": "Tarugo con punta 8mm",
     "description": "Tarugo de plastico con punta 8mm",
     "type": "ferreteria",
+    "responsable": "matiscava@hotmail.com",
+    "date": 1653914881445,
     "id": "555ae7ad5f2f2a8a76f9",
-    "stock": 150
+    "stock": 2150
   },
   {
     "varCode": "347 1 043166",
@@ -26,7 +30,9 @@
     "name": "Disco de corte 4 1/2",
     "description": "Disco de corte 4 1/2",
     "type": "ferreteria",
+    "responsable": "matiscava@hotmail.com",
+    "date": 1653914881445,
     "id": "46dab34ad74f9c40265c",
-    "stock": 495
+    "stock": 995
   }
 ]

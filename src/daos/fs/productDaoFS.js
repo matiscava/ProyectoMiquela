@@ -1,6 +1,7 @@
 import fs from 'fs';
 import { createHash , isValidPassword} from '../../utils/hash.js';
 import crypto from 'crypto';
+import { doesNotMatch } from 'assert';
 
 const FSDao = () => {};
 
@@ -110,6 +111,7 @@ FSDao.createProduct = async ( DB , element ) => {
     let list = await FSDao.getAll(DB);
     if(!element.id) element.id = crypto.randomBytes(10).toString('hex');
     element.stock = 0;
+    element.timestamp = new Date().getTime();
     list.push(element);
     const dataToJSON = JSON.stringify(list,null,2);
     fs.writeFileSync( DB , dataToJSON);
@@ -132,6 +134,7 @@ FSDao.createClient = async ( DB , element ) => {
     if( ! (element instanceof Object) ) throw new Error('El dato enviado no es un objeto');
     if(!element.id) element.id = crypto.randomBytes(10).toString('hex');
 
+    element.timestamp = new Date().getTime();
     
     clients.push(element);
     const dataToJSON = JSON.stringify(clients,null,2);
@@ -168,23 +171,25 @@ FSDao.setProductStock = async (DB,element) => {
 FSDao.createIngress = async (DB, productsDB , element) => {
   try {
     const history = await FSDao.getAll(DB);
-
     if(!element.products.length) throw new Error(`No ha cargado ningun producto en este ingreso.`);
-    const date = new Date().toLocaleString();
+    const date = new Date().getTime();
+    
     for(let i=0 ; i < element.products.length ; i++){
       let prod = element.products[i]
+      prod.quantity = parseInt(prod.quantity);
       if(element.type === 'Egreso') Math.sign(prod.quantity);
       let prodExists = await FSDao.setProductStock(productsDB, prod );
+      
       let historyData = {
         referenceNumber: element.referenceNumber,
         quantity: prod.quantity,
         type: element.type,
-        responsable: element.userSession,
+        responsable: element.responsable,
         date,
         name: prodExists.name,
         id: crypto.randomBytes(10).toString('hex'),
         varCode: prodExists.varCode,
-        clientID: element.cuit
+        clientID: element.clientID
       }
       history.push(historyData);
     }

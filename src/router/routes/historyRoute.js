@@ -5,7 +5,9 @@ const historyRoute = express.Router();
 
 historyRoute
   .get('/', historyController.getHistory )
+  .get('/ingress', historyController.getIngress)
   .post('/ingress', historyController.postIngress)
+  .get('/egress', historyController.getEgress)
   .post('/egress', historyController.postEgress)
 
 export default historyRoute;

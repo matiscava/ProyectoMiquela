@@ -1,0 +1,92 @@
+<%- include('./head.ejs')  %> 
+<%- include('./loader.ejs')  %> 
+<%- include('./menu.ejs')  %> 
+
+<main>
+  <h1><%= title %></h1>
+  <div class="container">
+    <table class="table" id="product-table">
+      <thead>
+        <tr>
+          <th>
+            Codigo de Barra
+            <button class="filter-btn" data-filter-name="varCode" data-filter-active="inactive">&#9662;</button>
+            <br>
+            <select name="varCode" class="none">
+              <option value="todos">Todos</option>
+              <option value="ascendente">De menor a Mayor</option>
+              <option value="descendente">De menor a Mayor</option>
+            </select>
+          </th>
+          <th>
+            Código Interno
+            <button class="filter-btn" data-filter-name="code" data-filter-active="inactive">&#9662;</button>
+            <br>
+            <select name="code" class="none">
+              <option value="todos">Todos</option>
+              <option value="ascendente">De menor a Mayor</option>
+              <option value="descendente">De menor a Mayor</option>
+            </select>
+          </th>
+          <th>
+            Item
+            <button class="filter-btn" data-filter-name="name" data-filter-active="inactive">&#9662;</button>
+            <br>
+            <select name="name" class="none">
+              <option value="todos">Todos</option>
+              <option value="ascendente" selected>De menor a Mayor</option>
+              <option value="descendente">De menor a Mayor</option>
+            </select>
+          </th>
+          <th>
+            Descripción
+            <button class="filter-btn" data-filter-name="description" data-filter-active="inactive">&#9662;</button>
+            <br>
+            <select name="description" class="none">
+              <option value="todos">Todos</option>
+              <option value="ascendente">De menor a Mayor</option>
+              <option value="descendente">De menor a Mayor</option>
+            </select>
+          </th>
+          <th>
+            Tipo
+            <button class="filter-btn" data-filter-name="type" data-filter-active="inactive">&#9662;</button>
+            <br>
+            <select name="type" class="none">
+              <option value="todos">Todos</option>
+              <option value="ascendente">De menor a Mayor</option>
+              <option value="descendente">De menor a Mayor</option>
+            </select>
+          </th>
+          <th>
+            Stock
+            <button class="filter-btn" data-filter-name="stock" data-filter-active="inactive">&#9662;</button>
+            <br>
+            <select name="stock" class="none">
+              <option value="todos">Todos</option>
+              <option value="ascendente">De menor a Mayor</option>
+              <option value="descendente">De menor a Mayor</option>
+            </select>
+          </th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+    <template id="product-template">
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </template>
+
+</main>
+<script>
+  const productList = <%-JSON.stringify(products)  %>;
+</script>
+<%- include('./footer.ejs')  %> 
