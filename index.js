@@ -2,6 +2,7 @@ import express from 'express';
 import session from 'express-session';
 import passport from 'passport';
 import router from './src/router/index.js';
+import expressMethodOverride from 'express-method-override' 
 
 //VARIABLES
 
@@ -22,6 +23,10 @@ const apiSession = session({
   }
 })
 
+//METHOD-OVERRIDE
+
+const restFul = expressMethodOverride('_method');
+
 //CONFIGURACION SERVER
 
 app
@@ -29,6 +34,7 @@ app
   .use(express.urlencoded({extended:true}))
   .use(express.static('public'))
   .use(apiSession)
+  .use( restFul )
   .use( passport.initialize() )
   .use( passport.session() )
   // .use((req, res, next) => {

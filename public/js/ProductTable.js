@@ -12,15 +12,18 @@ export function ProductTable(){
   function setProducTable (list) {
     ready = false;
     list.forEach( (el) => {
-      const tds = $productTemplate.querySelectorAll('td');
-       tds[0].textContent = el.varCode;
-       tds[1].textContent = el.code;
-       tds[2].textContent = el.name;
-       tds[3].textContent = el.description;
-       tds[4].textContent = el.type;
-       tds[5].textContent = el.stock;
-       let $clone = d.importNode($productTemplate, true);
-       $productFragment.appendChild($clone);
+      const $tds = $productTemplate.querySelectorAll('td'),
+        $tableLink = $productTemplate.querySelector('.table-btn');
+      $tds[0].textContent = el.varCode;
+      $tds[1].textContent = el.code;
+      $tds[2].textContent = el.name;
+      $tds[3].textContent = el.description;
+      $tds[4].textContent = el.type;
+      $tds[5].textContent = el.stock;
+      $tableLink.textContent = 'Ver Producto';
+      $tableLink.setAttribute('href', `/products/product-${el.id}`)
+      let $clone = d.importNode($productTemplate, true);
+      $productFragment.appendChild($clone);
     });
     $productTable.querySelector('tbody').innerHTML= '';
     $productTable.querySelector('tbody').appendChild($productFragment);

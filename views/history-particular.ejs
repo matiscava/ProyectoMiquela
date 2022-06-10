@@ -1,0 +1,20 @@
+<%- include('./head.ejs')  %>
+<%- include('./loader.ejs')  %> 
+<%- include('./menu.ejs')  %> 
+<main>
+  <h1><%= title %></h1>
+  <div class="container">
+    <p class="details">N° de <% if(historyList[0].type === 'Ingreso'){%>Remito<%}else{%>Orden<%}%>: <%= historyList[0].referenceNumber %> </p>
+    <p class="details"><% if(historyList[0].type === 'Ingreso'){%>Proveedor<%}else{%>Cliente<%}%>: <%= historyList[0].client %></p>
+    <p class="details  datails-date">Última modificación: <%= new Date(historyList[0].timestamp).toLocaleDateString() %></p>
+    <% if(user.admin) { %> 
+      <p class="details  datails-responsable">Cargado por: <%= historyList[0].responsable %></p>
+    <% } %> 
+  </div>
+  <%- include('./history-table.ejs')  %> 
+</main>
+<script>
+  const historyList = <%-JSON.stringify(historyList)  %>;
+  const userAdmin = <%-JSON.stringify(user.admin)  %>;
+</script>
+<%- include('./footer.ejs')  %> 

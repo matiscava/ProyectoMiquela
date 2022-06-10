@@ -1,0 +1,25 @@
+<%- include('./head.ejs')  %>
+<%- include('./loader.ejs')  %> 
+<%- include('./menu.ejs')  %> 
+<main>
+  <h1><%= title %></h1>
+  <div class="container">
+    <p class="details"><% if(clientSelected.type === 'proveedor'){%>CUIT<%}else{%>CUIL<%}%>: <%= clientSelected.cuit %> </p>
+    <p class="details">Dirección: <%= clientSelected.adress %></p>
+    <p class="details">Teléfono: <%= clientSelected.phone %></p>
+    <p class="details">Mail: <%= clientSelected.email %></p>
+    <% if(user.admin) { %> 
+      <p class="details  datails-responsable">Cargado por: <%= clientSelected.responsable %></p>
+      <p class="details  datails-date">Última modificación: <%= new Date(clientSelected.timestamp).toLocaleDateString() %></p>
+      <button class="details-btn" onclick='location.href=`/clients/upgrade/<%= clientSelected.id %>`' >Editar <%= clientSelected.type %></button>
+    <% } %> 
+  </div>
+  <%- include('./history-table.ejs')  %> 
+</main>
+<script>
+  const historyList = <%-JSON.stringify(clientHistory)  %>;
+  const userAdmin = <%-JSON.stringify(user.admin)  %>;
+
+
+</script>
+<%- include('./footer.ejs')  %> 

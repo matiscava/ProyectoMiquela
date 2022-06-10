@@ -42,7 +42,7 @@ export function HistoryEgress() {
       $inputText.value = 'Chewbacca';
     }
     
-    if(e.target.matches('.new-item .btn-delete-item')){
+    if(e.target.matches('.create-item .btn-delete-item')){
       let $div = e.target.parentNode;
       d.querySelector('.items-list').removeChild($div);
     }

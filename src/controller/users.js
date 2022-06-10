@@ -6,9 +6,8 @@ const userController = () => {},
   USERS_DB = './DB/users.json';
 
 userController.getHome = async ( req , res ) => {
-  let userSession = req.user
-  if(!userSession) return res.redirect('/users/login')
-  res.redirect('/history')
+  if(!req.user) return res.redirect('/users/login')
+  res.redirect('/products')
 } 
 
 userController.getUsers = async (req , res) => {
@@ -55,7 +54,7 @@ userController.getSignup = ( req , res ) => {
 // }
 
 userController.getLogin = ( req , res ) => {
-  if(req.user) res.redirect('/history')
+  if(req.user) res.redirect('/products')
   res.render( path.join(process.cwd(),'/views/login.ejs'),{ title: 'Login',user : req.user })
 }
 

@@ -5,7 +5,10 @@ const productRoute = express.Router();
 
 productRoute
   .get('/', productController.getProducts )
-  .get('/new-product', productController.getCreateProduct )
-  .post('/new-product', productController.createProduct )
+  .get('/product-:id', productController.getProductByID )
+  .get('/create-product', productController.getCreateProduct )
+  .post('/create-product', productController.createProduct )
+  .get('/upgrade/:id', productController.getUpgradeProduct )
+  .put('/upgrade', productController.putUpgradeProduct )
 
 export default productRoute;

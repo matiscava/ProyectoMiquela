@@ -7,7 +7,12 @@
       <% if(user && user.admin) { %>  
         <ul>
           <li>
-            <a href="/users/signup" class="menu">Signup</a>
+            <a href="/products" class="menu">
+              Productos
+            </a>
+            <ul class="menu-dropdown">
+              <li><a href="/products/create-product">Crear Producto</a></li>
+            </ul>
           </li>
           <li>
             <a href="/history" class="menu">
@@ -23,25 +28,20 @@
               Clientes / Proveedor
             </a>
             <ul class="menu-dropdown">
-              <li><a href="/clients/new-client">Crear Cliente / Proveedor</a></li>
+              <li><a href="/clients/create-client">Crear Cliente / Proveedor</a></li>
             </ul>
           </li>
           <li>
-            <a href="/products" class="menu">
-              Productos
-            </a>
-            <ul class="menu-dropdown">
-              <li><a href="/products/new-product">Crear Producto</a></li>
-            </ul>
+            <a href="/users/signup" class="menu">Crear Usuario</a>
           </li>
         </ul>
 
 
-      <% }else{ %>
+        <% }else{ %>
         <a href="/history" class="menu">Historial</a>
         <a href="/clients" class="menu">Clientes</a>
         <a href="/products" class="menu">Productos</a>
-      <% } %>  
-    </nav>
-  </div>
+        <% } %>  
+      </nav>
+    </div>
 </header>

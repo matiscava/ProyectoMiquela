@@ -1,6 +1,8 @@
-export function ValidationsClientForm ( d , formValues ) {
-  const $form = d.getElementById('new-client-form'),
+export function ValidationsClientForm ( id ) {
+  const d = document,
+    $form = d.getElementById(id),
     $inputs = $form.querySelectorAll('[required]');
+  let formValues = {};
 
   $inputs.forEach( (el) => {
     const $span = d.createElement('span');
@@ -10,7 +12,7 @@ export function ValidationsClientForm ( d , formValues ) {
     el.insertAdjacentElement('afterend', $span); 
   });
   $form.addEventListener('keyup', (e) => {
-    if(e.target.matches('#new-client-form [required]')) {
+    if(e.target.matches(`${id} [required]`)) {
       let $input = e.target,
         pattern = $input.pattern;
 

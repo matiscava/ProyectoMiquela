@@ -371,3 +371,55 @@ form {
   border: thin solid var(--form-error-color);
 
 }
+
+.table-link {
+  color: #fcfcec;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.table-link:hover {
+  color: rgb(215, 243, 182);
+  font-weight: bold;
+}
+
+.table-btn {
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  padding: 0.5rem 0.9rem;
+  border-radius: 3rem;
+  border: thin solid ;
+  color: #fcfcec;
+  transition: .3s;
+}
+
+#client-table .table-btn {
+  border-color: rgb(245 178 178);
+  background-color: #6d3838;
+}
+
+#client-table .table-btn:hover {
+  color: #6d3838;
+  background-color:rgb(245 178 178) ;
+}
+
+#product-table .table-btn {
+  border-color: #57ad7e;
+  background-color: #2d5e43;
+}
+
+#product-table .table-btn:hover {
+  background-color: #57ad7e;
+  color: #2d5e43;
+}
+
+#history-table .table-btn {
+  border-color: #578dac;
+  background-color: #004c79;
+}
+
+#history-table .table-btn:hover {
+  background-color: #578dac;
+  color: #004c79;
+}
+

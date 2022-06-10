@@ -39,7 +39,7 @@ export function HistoryIngress (){
         $inputText.value = 'Chewbacca';
       }
 
-      if(e.target.matches('.new-item .btn-delete-item')){
+      if(e.target.matches('.create-item .btn-delete-item')){
         let $div = e.target.parentNode;
         d.querySelector('.items-list').removeChild($div);
       }
@@ -48,10 +48,9 @@ export function HistoryIngress (){
 
     d.addEventListener('change', (e) => {
       if(e.target === $select){
-        let option = e.target.value;
-        if(option !== '0'){
-          let client = clientsList.find( client => client.name === option)
-          d.querySelector('input[name=clientID]').value = client.cuit;
+        let $option = $select.options[$select.options.selectedIndex];
+        if($option.value !== '0'){
+          d.querySelector('input[name=clientID]').value = $option.getAttribute('data-cuit');
         }else{
           d.querySelector('input[name=clientID]').value = "";
         }

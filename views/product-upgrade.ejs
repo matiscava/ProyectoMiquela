@@ -1,0 +1,48 @@
+<%- include('./head.ejs')  %>
+<%- include('./scanVarcode.ejs')  %> 
+<%- include('./menu.ejs')  %> 
+<main>
+  <h1><%= title %></h1>
+  <form action="/products/upgrade" method="POST" id="upgrade-product-form">
+    <label for="name"> Nombre del producto: 
+      <input type="text" name="name" placeholder="Electródo para madera" value="<%= product.name %>" required>
+    </label>
+    <label for="description">Descripción: 
+      <input type="text" name="description" placeholder="Electródo para soldar madera" value="<%= product.description %>" required>
+    </label>
+    <label for="code"> Código Interno : 
+      <input type="text" pattern="^([A-Z]{2})+([0-9]{6})$" title="El codigo debe iniciar con 2 letras mayúsculas y finalizar con 6 números" value="<%= product.code %>" placeholder="CR001001" name="code" required>
+    </label>
+    <label for="minStock">Stock Mínimo: 
+      <input type="number" name="minStock" title="Debe ingresar el Stock minimo con Numeros enteros" pattern="^[0-9]{1,20}$" placeholder="50" value="<%= product.minStock %>" required>
+    </label>
+    <label for="varCode">Escanear Código De Barra: <input type="text" name="varCodeScan" placeholder="347 1 06548725" value="<%= product.varCode %>" required></label>
+    <!-- <label for="varCode">Escanear Código De Barra: <input type="text" name="varCodeScan" placeholder="347 1 06548725" value="<%= product.varCode %>" disabled required></label> -->
+    <input type="button" value="Escanear Código" class="btn-code-scan">
+    <label for="varCodeDos">Repita el Código De Barra: <input type="text" name="varCode" placeholder="347 1 06548725" value="<%= product.varCode %>" required></label>
+    <label for="type">
+      Seleccione el tipo de producto:
+      <select name="type">
+        <option value="ferreteria"<% if(product.type === "fereteria") {%> selected<% } %> >Ferretería</option>
+        <option value="pintureria" <% if(product.type === "pintureria") {%> selected<% } %> >Pinturería</option>
+        <option value="carpintería" <% if(product.type === "carpintería") {%> selected<% } %> >Carpintería</option>
+      </select>
+    </label>
+    <input type="hidden" name="id" value="<%= product.id %>" required>
+    <input type="hidden" name="stock" value="<%= product.stock %>" required>
+
+    <input type="submit" id="btnSubmitForm" value="Enviar">
+    <input type="hidden" name="_method" value="PUT">
+  </form>
+  <template id="show-template">
+    <article class="problem">
+      <h3></h3>
+      <p></p>
+      <input type="button">
+    </article>
+  </template>
+</main>
+<script>
+  const productsList = <%-JSON.stringify(productsList)  %>;
+</script>
+<%- include('./footer.ejs')  %> 

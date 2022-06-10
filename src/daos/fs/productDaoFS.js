@@ -106,37 +106,41 @@ FSDao.logUser = async ( DB , element ) => {
   }
 }
 
-FSDao.createProduct = async ( DB , element ) => {
+FSDao.saveProduct = async ( DB , element ) => {
   try {
     let list = await FSDao.getAll(DB);
-    if(!element.id) element.id = crypto.randomBytes(10).toString('hex');
-    element.stock = 0;
     element.timestamp = new Date().getTime();
-    list.push(element);
+    if(!element.id) {
+      element.id = crypto.randomBytes(10).toString('hex');
+      element.stock = 0;
+      list.push(element);
+    }else {
+      let prodIndex = list.findIndex(el => el.varCode == element.varCode);
+      delete element.varCodeScan;
+      list.splice(prodIndex,1,element);
+    }
     const dataToJSON = JSON.stringify(list,null,2);
     fs.writeFileSync( DB , dataToJSON);
-    return element;
+    return true;
   } catch (err) {
     let message = err || "Ocurrio un error";
     console.error(`Error ${err.status}: ${message}`);
   }
 }
 
-FSDao.createClient = async ( DB , element ) => {
+FSDao.saveClient = async ( DB , element ) => {
   try {
-    let clients = await FSDao.getAll(DB);
-    //sacamos los '-' si tiene
-    element.cuit = element.cuit.split('-').join('');
-    
-    let cuitRepeated = await FSDao.getBy(DB, 'cuit', element);
-    if(cuitRepeated) throw new Error(`El Proveedor con el CUIT: ${element.cuit} ya existe, por favor ingrese un otro CUIT o corrobore la informacíon.`);
-
     if( ! (element instanceof Object) ) throw new Error('El dato enviado no es un objeto');
-    if(!element.id) element.id = crypto.randomBytes(10).toString('hex');
-
+    let clients = await FSDao.getAll(DB);
     element.timestamp = new Date().getTime();
+    if( !element.id){
+      element.id = crypto.randomBytes(10).toString('hex');
+      clients.push(element);
+    }else{
+      let clientIndex = clients.findIndex(el => el.id === element.id);
+      clients.splice( clientIndex, 1, element );
+    }
     
-    clients.push(element);
     const dataToJSON = JSON.stringify(clients,null,2);
     fs.writeFileSync( DB , dataToJSON);
 
@@ -153,8 +157,11 @@ FSDao.setProductStock = async (DB,element) => {
     let prodExists = await FSDao.getBy(DB,'varCode',element),
       prodList = await FSDao.getAll(DB);
 
+    const date = new Date().getTime();
+
     if(!prodExists) throw new Error(`El producto ${element.varCode} no existe en nuestro inventario. Debe cargarlo primero antes de continuar.`);
     prodExists.stock += element.quantity;
+    prodExists.timestamp = date;
     let prodIndex = prodList.findIndex(el => el.varCode == element.varCode);
     prodList.splice(prodIndex,1,prodExists);
     let dataToJSON = JSON.stringify(prodList,null,2);

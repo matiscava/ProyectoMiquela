@@ -1,0 +1,27 @@
+<%- include('./head.ejs')  %>
+<%- include('./loader.ejs')  %> 
+<%- include('./menu.ejs')  %> 
+<main>
+  <h1><%= title %></h1>
+  <div class="container">
+    <p class="details">Descripción: <%= product.description %> </p>
+    <p class="details">Codigo de Barras: <%= product.varCode %></p>
+    <p class="details">Codigo Interno: <%= product.code %></p>
+    <p class="details">Stock Mínimo: <%= product.minStock %></p>
+    <p class="details">Stock Actual: <%= product.stock %></p>
+    <p class="details">Clasificación: <%= product.type %></p>
+    <% if(user.admin) { %> 
+      <p class="details  datails-responsable">Cargado por: <%= product.responsable %></p>
+      <p class="details  datails-date">Última modificación: <%= new Date(product.timestamp).toLocaleDateString() %></p>
+      <button class="details-btn" onclick='location.href=`/products/upgrade/<%= product.id %>`' >Editar Producto</button>
+    <% } %> 
+  </div>
+  <%- include('./history-table.ejs')  %> 
+</main>
+<script>
+  const historyList = <%-JSON.stringify(productHistory)  %>;
+  const userAdmin = <%-JSON.stringify(user.admin)  %>;
+
+
+</script>
+<%- include('./footer.ejs')  %> 

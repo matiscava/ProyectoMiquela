@@ -1,0 +1,50 @@
+<%- include('./head.ejs')  %>
+<%- include('./scanVarcode.ejs')  %> 
+<%- include('./menu.ejs')  %> 
+<main>
+  <h1><%= title %></h1>
+  <form action="/history/upgrade" method="POST" id="upgrade-history-form">
+    <label for="client"> Seleccione el proveedor: 
+      <select name="client">
+        <option value="0">...Selecciona un Proveedor...</option>
+      </select>
+    </label>
+    <label for="clientID" required> N° de Cuit: <input type="text" value="<%= history.clientID %>" name="clientIDDisabled" disabled required></label>
+    <label for="referenceNumber"> N° de Remito: <input type="text" name="referenceNumber"  value="<%= history.referenceNumber %>" required></label>
+    
+    <label for="name"> Nombre del producto: 
+      <input type="text" name="name" placeholder="Electródo para madera" value="<%= history.name %>" required>
+    </label>
+    <label for="varCode">Escanear Código De Barra: <input type="text" name="varCodeScan" placeholder="347 1 06548725" value="<%= history.varCode %>" required></label>
+    <!-- <label for="varCode">Escanear Código De Barra: <input type="text" name="varCodeScan" placeholder="347 1 06548725" value="<%= history.varCode %>" disabled required></label> -->
+    <input type="button" value="Escanear Código" class="btn-code-scan">
+    <label for="varCodeDos">Repita el Código De Barra: <input type="text" name="varCode" placeholder="347 1 06548725" value="<%= history.varCode %>" required></label>
+    <label for="quantity">Cantidad: <input type="number" min="0" name="quantity" value="<%= history.quantity %>" required> </label>
+    
+    <label for="type">
+      Seleccione el tipo:
+      <select name="type">
+        <option value="Ingreso"<% if(history.type === "Ingreso") {%> selected<% } %> >Ingreso</option>
+        <option value="Egreso" <% if(history.type === "Egreso") {%> selected<% } %> >Egreso</option>
+      </select>
+    </label>
+    <input type="hidden" name="id" value="<%= history.id %>" required>
+    <input type="hidden" value="<%= history.clientID %>" name="clientID" required>
+
+    <input type="submit" id="btnSubmitForm" value="Enviar">
+    <input type="hidden" name="_method" value="PUT">
+  </form>
+  <template id="show-template">
+    <article class="problem">
+      <h3></h3>
+      <p></p>
+      <input type="button">
+    </article>
+  </template>
+</main>
+<script>
+  const clientsList = <%-JSON.stringify(clients)  %>;
+  const itemsList = <%-JSON.stringify(items)  %>;
+  const histoyCuit = <%-JSON.stringify(history.clientID)  %>;
+</script>
+<%- include('./footer.ejs')  %> 

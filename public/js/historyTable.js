@@ -1,7 +1,6 @@
 import { SetOptions } from "./settings/setOptions.js";
 
 export function HistoryTable (){
-
   const d = document,
   $historyTable = d.getElementById('history-table'),
   $historyTemplate = d.getElementById('history-template').content,
@@ -13,12 +12,26 @@ export function HistoryTable (){
   function setHistoryTable (list) {
     ready = false;
     list.forEach( (el) => {
-      $historyTemplate.querySelector('.form-reference-number').textContent = el.referenceNumber;
-      $historyTemplate.querySelector('.form-date').textContent = el.date;
-      $historyTemplate.querySelector('.form-client').textContent = el.client;
-      $historyTemplate.querySelector('.form-item').textContent = el.item;
+      let $a = $historyTemplate.querySelectorAll('.table-link');
+      
+      $a[0].textContent = el.referenceNumber;
+      $a[0].setAttribute('href',`/history/history-${el.referenceNumber}`);
+      
+      $a[1].textContent = el.client;
+      $a[1].setAttribute('href',`/clients/client-${el.clientID}`);   
+      
+      $a[2].textContent = el.item;
+      $a[2].setAttribute('href',`/products/product-${el.itemID}`); 
+
+      $historyTemplate.querySelector('.form-date').textContent = el.timestamp;
       $historyTemplate.querySelector('.form-quantity').textContent = el.quantity;
       $historyTemplate.querySelector('.form-type').textContent = el.type;
+      if(userAdmin) {
+        const $tableLink = $historyTemplate.querySelector('.table-btn');
+        $tableLink.textContent = 'Editar';
+        $tableLink.setAttribute('href', `/history/upgrade/${el.id}`);
+      } 
+
       let $clone = d.importNode($historyTemplate,true);
       $historyFragment.appendChild($clone);
     })

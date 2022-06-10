@@ -11,15 +11,15 @@
     "responsable": "matiscava@hotmail.com"
   },
   {
-    "cuit": "20222002126",
     "name": "SUNLIGHT",
-    "adress": "",
-    "phone": 55886633,
+    "cuit": "20222002126",
     "email": "sunglight@hotmail.com",
-    "id": "f1992fe78f9e0528b2a0",
+    "adress": "Av Cabildo 2023",
+    "phone": "55886633",
     "type": "proveedor",
-    "timestamp": 1654695565568,
-    "responsable": "matiscava@hotmail.com"
+    "id": "f1992fe78f9e0528b2a0",
+    "responsable": "matiscava@hotmail.com",
+    "timestamp": 1654883795597
   },
   {
     "cuit": "20353756053",

@@ -12,13 +12,17 @@ export function ClientTable(){
   function setClientTable (list) {
     ready = false;
     list.forEach( (el) => {
-       const tds = $clientTemplate.querySelectorAll('td');
+       const tds = $clientTemplate.querySelectorAll('td'),
+        $tableLink = $clientTemplate.querySelector('.table-btn');
+       
        tds[0].textContent = el.cuit;
        tds[1].textContent = el.name;
        tds[2].textContent = el.adress;
        tds[3].textContent = el.phone;
        tds[4].textContent = el.email;
        tds[5].textContent = el.type;
+      $tableLink.textContent = 'Ver Cliente';
+       $tableLink.setAttribute('href', `/clients/client-${el.id}`);
        let $clone = d.importNode($clientTemplate, true);
        $clientFragment.appendChild($clone);
     });
