@@ -1,16 +1,16 @@
-import { ClientTable } from "./js/ClientTable.js";
-import { HistoryEgress } from "./js/HistoryEgress.js";
-import { HistoryIngress } from "./js/HistoryIngress.js";
-import { HistoryTable } from "./js/HistoryTable.js";
-import { ProductTable } from "./js/ProductTable.js";
-import { SignupForm } from "./js/SignupForm.js";
-import { ProductUpgradeForm } from "./js/ProductUpgradeForm.js";
-import { ProductCreateForm } from "./js/ProductCreateForm.js";
-import { ClientCreateForm } from "./js/ClientCreateForm.js";
-import { ClientUpgradeForm } from "./js/ClientUpgradeForm.js";
-import { HistoryUpgradeForm } from "./js/HistoryUpgradeForm.js";
-import { ScanBarEgress } from "./js/ScanBarEgress.js";
-import hamburgerMenu from "./js/hamburgerButton.js";
+import { ClientTable } from "./ClientTable.js";
+import { HistoryEgress } from "./HistoryEgress.js";
+import { HistoryIngress } from "./HistoryIngress.js";
+import { HistoryTable } from "./HistoryTable.js";
+import { ProductTable } from "./ProductTable.js";
+import { SignupForm } from "./SignupForm.js";
+import { ProductUpgradeForm } from "./ProductUpgradeForm.js";
+import { ProductCreateForm } from "./ProductCreateForm.js";
+import { ClientCreateForm } from "./ClientCreateForm.js";
+import { ClientUpgradeForm } from "./ClientUpgradeForm.js";
+import { HistoryUpgradeForm } from "./HistoryUpgradeForm.js";
+import { ScanBarEgress } from "./ScanBarEgress.js";
+import hamburgerMenu from "./hamburgerButton.js";
 
 let getLocation = window.location.pathname;
 document.addEventListener('DOMContentLoaded', (e) => {
