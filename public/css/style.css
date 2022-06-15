@@ -853,8 +853,6 @@ input[type="submit"]#btnSubmitForm:hover {
   background-color: var(--second-modal-color) ;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  overflow-y: auto;
 }
 .panel-scan-cam button {
   display: block;
@@ -873,7 +871,9 @@ input[type="submit"]#btnSubmitForm:hover {
   padding: 2rem 1rem;
   border-radius: 0.75rem;
   border: medium solid silver;
-  box-shadow: 0 0 10px 10px silver
+  box-shadow: 0 0 10px 10px silver;
+  overflow: hidden;
+  overflow-y: auto;
 }
 
 @media screen and (max-width: 650px) {
