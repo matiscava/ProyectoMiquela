@@ -1,4 +1,4 @@
-import { validationsSignupForm } from "./validations/ValidationsSignupForm.js";
+import validationsSignupForm from './validations/ValidationsSignupForm.js';
 
 export function SignupForm (){
   const d = document;

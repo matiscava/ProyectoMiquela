@@ -1,4 +1,4 @@
-export function validationsSignupForm (d,formValues) {
+export default function validationsSignupForm (d,formValues) {
   const $form = d.getElementById('signup-form'),
   $inputs = d.querySelectorAll('#signup-form [required]');
 
