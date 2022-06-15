@@ -2,6 +2,8 @@ import express from 'express';
 import session from 'express-session';
 import passport from 'passport';
 import router from './src/router/index.js';
+import mime from 'mime';
+import path from 'path';
 import expressMethodOverride from 'express-method-override' 
 
 //VARIABLES
@@ -23,6 +25,22 @@ const apiSession = session({
   }
 })
 
+//GET MIME TYPE
+
+const mimeType = mime.getType(path);
+const setHeadersOnStatic = (res, path, stat) => {
+  const type = mime.getType(path);
+  res.set('content-type', type);
+}
+
+const staticOptions = {
+  setHeaders: setHeadersOnStatic
+}
+
+
+
+
+
 //METHOD-OVERRIDE
 
 const restFul = expressMethodOverride('_method');
@@ -32,7 +50,8 @@ const restFul = expressMethodOverride('_method');
 app
   .use(express.json())
   .use(express.urlencoded({extended:true}))
-  .use(express.static('public'))
+  // .use(express.static('public'))
+  .use(express.static(path.join('public'), staticOptions))
   .use(apiSession)
   .use( restFul )
   .use( passport.initialize() )
