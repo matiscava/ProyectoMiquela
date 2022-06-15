@@ -1,4 +1,4 @@
-import { SetOptions } from "./settings/setOptions.js";
+import { SetOptions } from "./settings/SetOptions.js";
 
 export function ProductTable(){
   const d = document,

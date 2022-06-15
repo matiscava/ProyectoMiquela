@@ -1,4 +1,4 @@
-import { SetOptions } from "./settings/setOptions.js";
+import { SetOptions } from "./settings/SetOptions.js";
 
 export default function HistoryTable (){
   const d = document,
