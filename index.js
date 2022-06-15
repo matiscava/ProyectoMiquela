@@ -50,7 +50,7 @@ const restFul = expressMethodOverride('_method');
 app
   .use(express.json())
   .use(express.urlencoded({extended:true}))
-  .use(express.static('public'))
+  .use(express.static(process.cwd() +'/public'))
   .set('content-type', mimeType)
   // .use(express.static(path.join('public'), staticOptions))
   .use(apiSession)
