@@ -1,9 +1,9 @@
-import validationsSignupForm from './validations/ValidationsSignupForm.js';
+import { ValidationsSignupForm } from './validations/ValidationsSignupForm.js';
 
 export function SignupForm(){
   const d = document;
   let formValues = {}
 
-  setTimeout(()=>validationsSignupForm(d,formValues),0);
+  setTimeout(()=>ValidationsSignupForm(d,formValues),0);
 
 }
