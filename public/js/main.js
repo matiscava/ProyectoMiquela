@@ -1,7 +1,7 @@
 import { ClientTable } from "./ClientTable.js";
 import { HistoryEgress } from "./HistoryEgress.js";
 import { HistoryIngress } from "./HistoryIngress.js";
-import { HistoryTable } from "./HistoryTable.js";
+import HistoryTable from "./HistoryTable.js";
 import { ProductTable } from "./ProductTable.js";
 import { SignupForm } from "./SignupForm.js";
 import { ProductUpgradeForm } from "./ProductUpgradeForm.js";
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
     ClientUpgradeForm();
   }
   if(getLocation === '/history'){
-    HistoryTable();
+    HistoryTable()
   }
   if(getLocation === '/history/egress'){
     HistoryEgress();

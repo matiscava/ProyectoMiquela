@@ -1,6 +1,6 @@
 import { SetOptions } from "./settings/setOptions.js";
 
-export function HistoryTable (){
+export default function HistoryTable (){
   const d = document,
   $historyTable = d.getElementById('history-table'),
   $historyTemplate = d.getElementById('history-template').content,
