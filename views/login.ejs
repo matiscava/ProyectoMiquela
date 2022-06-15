@@ -16,15 +16,16 @@
   <% if(user) { %>  
    <h2><%= user.name %> </h2>
     <% } %>  
-  
-  <form action="/users/login" method="post" id="loginForm">
-    <label for="username">Ingrese su Email: <input type="text" name="username" title="Email incorrecto" pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$" placeholder="joseperez@yahoo.com.ar" required></label>
-    <label for="password">Ingrese su Contraseña: <input type="password" name="password" placeholder="Contraseña" title="La contraseña debe tener entre 8 y 20 caracteres, debe tener al menos una Mayúscula, una Minúscula, un Número y un carácter especial." pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ -/:-@\[-`{-~]).{8,20}$" required></label>
-    <input type="submit" id="btnSubmitForm" value="Enviar">
-  </form>
-  <% if(user && user.admin) { %>  
-  <a href="/users/signup" class="inner-link">Ir al Signup</a>
-  <% } %>  
+  <div class="container container-form">
+    <form action="/users/login" method="post" id="login-form">
+      <label for="username">Ingrese su Email: <input type="text" name="username" title="Email incorrecto" pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$" placeholder="joseperez@yahoo.com.ar" required></label>
+      <label for="password">Ingrese su Contraseña: <input type="password" name="password" placeholder="Contraseña" title="La contraseña debe tener entre 8 y 20 caracteres, debe tener al menos una Mayúscula, una Minúscula, un Número y un carácter especial." pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ -/:-@\[-`{-~]).{8,20}$" required></label>
+      <input type="submit" id="btnSubmitForm" value="Enviar">
+    </form>
+    <% if(user && user.admin) { %>  
+    <a href="/users/signup" class="inner-link">Ir al Signup</a>
+    <% } %>  
+  </div>
   <aside class="panel">
   </aside>
   <template id="show-template">

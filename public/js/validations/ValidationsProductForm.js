@@ -1,7 +1,8 @@
 export function ValidationsProductForm (id) {
   const d = document,
     $form = d.getElementById(id),
-    $inputs = $form.querySelectorAll('[required]');
+    $inputs = $form.querySelectorAll('[required]'),
+    $scanCamPanel = d.querySelector('.panel-scan-cam');
   let formValues = {};
   
   
@@ -31,6 +32,23 @@ export function ValidationsProductForm (id) {
       }
     }
   })
+  $form.addEventListener('click', (e) => {
+    if(e.target.matches('.btn-code-scan')){
+      $scanCamPanel.querySelector('.scan-cam-container #scan-cam-send').setAttribute('data-barCode',`${e.target.getAttribute('data-barCode')}`)
+      $scanCamPanel.classList.add('is-active')
+    }
+  })
+  $scanCamPanel.addEventListener('click', (e) => {
+    if( e.target.matches('.scan-cam-container button')){
+      $scanCamPanel.classList.remove('is-active')
+      let $inputBarCodeDisabled = $form.querySelector(`input[name='barCodeScan']`)
+      let text = sessionStorage.barCode;
+      $inputBarCodeDisabled.value = text; 
+      sessionStorage.removeItem('barCode');
+      let $resultContainer = document.getElementById('qr-reader-results');
+      $resultContainer.querySelector('.qr-result').textContent = 'Resultado: ';
+    }
+  })
   $form.addEventListener('submit', (e) => {
     let $panel = d.querySelector('.panel'),
     $template = d.getElementById('show-template').content,
@@ -41,7 +59,7 @@ export function ValidationsProductForm (id) {
     })
 
     let oldCode = productsList.find(el=> el.code === formValues.code);
-    let oldVarCode = productsList.find(el=> el.varCode === formValues.varCode);
+    let oldVarCode = productsList.find(el=> el.barCode === formValues.barCode);
 
     if (oldCode){
       e.preventDefault()

@@ -22,7 +22,7 @@ historyController.getHistory = async (req , res) => {
       let client = clients.find(client => client.cuit === el.clientID);
       let newDate = new Date(el.timestamp).toLocaleDateString();
 
-      let item = items.find(item => item.varCode === el.varCode );
+      let item = items.find(item => item.barCode === el.barCode );
       el.type == 'Egreso' ? data.quantity = el.quantity*-1 : data.quantity = el.quantity;
 
       data = {...data, client: client.name, clientID: client.id,timestamp: newDate, item: item.name, itemID: item.id,id : el.id }
@@ -76,7 +76,7 @@ historyController. getIngressById = async ( req , res ) => {
       el.item = el.name;
       delete el.name;
       el.timestamp = new Date(el.timestamp).toLocaleDateString();
-      el.itemID = productsList.find( prod => prod.varCode === el.varCode).id;
+      el.itemID = productsList.find( prod => prod.barCode === el.barCode).id;
     })
     
     res.render(path.join(process.cwd(),'/views/history-particular.ejs'),{ title: `Edite el ${historyList[0].type} N°: ${referenceNumber}` , user: req.user , historyList });
@@ -100,10 +100,10 @@ historyController.postIngress = async (req , res) => {
     data.responsable = user.email;
     data.type = 'Ingreso';
 
-    FSDao.createIngress(HISTORY_DB , PRODUCTS_DB , data);
+    FSDao.saveHistory(HISTORY_DB , PRODUCTS_DB , data);
           
     res.redirect('/history')
-    // res.json(data)
+    // res.json(data)  
   } catch (err) {
     let message = err || "Ocurrio un error";
 
@@ -122,8 +122,10 @@ historyController.postEgress = async (req , res) => {
     data.responsable = user.email;
     data.type = 'Egreso';
 
+    console.log(data);
 
-    FSDao.createIngress(HISTORY_DB , PRODUCTS_DB , data);
+
+    FSDao.saveHistory(HISTORY_DB , PRODUCTS_DB , data);
     
     res.redirect('/history')
     // res.json(data)
@@ -151,11 +153,24 @@ historyController.getUpgradeHistory = async ( req , res ) => {
   const historyID = req.params.id;
   let history = await FSDao.getByID(HISTORY_DB, historyID);
   const clients = await FSDao.getAll(CLIENTS_DB);
-  const items = await FSDao.getAll(PRODUCTS_DB);
-
-  res.render(path.join(process.cwd(),'/views/history-upgrade.ejs'),{ title: `Editar ${history.type}` , user: req.user,clients,items,history })
+  let items = await FSDao.getAll(PRODUCTS_DB);
+  items = items.filter(el => el.barCode !== history.barCode);
 
   
+  res.render(path.join(process.cwd(),'/views/history-upgrade.ejs'),{ title: `Editar ${history.type}` , user: req.user,clients,items,history })
+}
+
+historyController.upgradeHistory = async ( req , res ) => {
+  let data = req.body;
+  data.responsable = req.user.email;
+  delete data.barCodeScan
+  delete data.client
+
+  let updated = await FSDao.saveHistory(HISTORY_DB,PRODUCTS_DB,data);
+
+  if (!updated) throw new Error(`Ocurrio un error al editar el ${data.type}`);
+
+  res.redirect('/history')
 }
 
   export default historyController;

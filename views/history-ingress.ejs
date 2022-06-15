@@ -1,43 +1,54 @@
 <%- include('./head.ejs')  %>
-<%- include('./scanVarcode.ejs')  %> 
+<%- include('./scanBarCode.ejs')  %> 
 <%- include('./menu.ejs')  %> 
 
 <main>
   <h1><%= title %></h1>
-  <form action="/history/ingress" method="POST" id="history-ingress-form">
-    <label for="client"> Seleccione el proveedor: 
-      <select name="client" >
-        <option value="0">...Selecciona un Proveedor...</option>
-      </select>
-    </label>
-    <label for="clientID"> N° de Cuit: <input type="text" name="clientID"></label>
-    <label for="referenceNumber"> N° de Remito: <input type="text" name="referenceNumber" required></label>
-
-    <a href="/clients/create-client" class="btn-form-add">Agregar Proveedor Nuevo</a>
-    <div class="items-list">
-      <div class="create-item">
-        <label for="[products][0][varCode]">Código de Barras: <input type="text" class="var-code-input" name="[products][0][varCode]" data-next-input="[products][0][name]" title="El item debe existir en el inventario de productos." required></label>
-        <input type="button" value="Scanear Codigo" class="btn-code-scan" data-varCode="[products][0][varCode]">
-        <label for="[products][0][name]">Nombre del Item: <input type="text" name="[products][0][name]" required></label>
-        <label for="[products][0][quantity]">Cantidad: <input type="number" min="0" name="[products][0][quantity]" required> </label>
+  <div class="container container-form">
+    <form action="/history/ingress" method="POST" class="history-form" id="history-ingress-form">
+      <label for="client"> Seleccione el proveedor: 
+        <select name="client" >
+          <option value="0">...Selecciona un Proveedor...</option>
+        </select>
+      </label>
+      <label for="clientIDHidden"> N° de Cuit: <input type="text" name="clientIDHidden" disabled></label>
+      <input type="hidden" name="clientID" required>
+      <label for="referenceNumber"> N° de Remito: <input type="text" name="referenceNumber" required></label>
+  
+      <a href="/clients/create-client" class="btn-form-add">Agregar Proveedor Nuevo</a>
+      <div class="items-list">
+        <div class="create-item">
+          <label for="[products][0][barCodeScan]">Código de Barras: <input type="text" class="bar-code-input" name="[products][0][barCodeScan]"  disabled title="El item debe existir en el inventario de productos." required></label>          
+          <label for="[products][0][nameScan]">Nombre del Item: <input type="text" name="[products][0][nameScan]" disabled required></label>
+          <button class="btn-code-scan" data-barCode="0">Escanear Código <img id="camera-icon" src="/assets/camera-icon.svg" alt="Saca una foto"></button>
+          <label for="[products][0][quantity]">Cantidad: <input type="number" min="0" name="[products][0][quantity]" required> </label>
+          <input type="hidden" class="bar-code-input" data-barCode="0" name="[products][0][barCode]" title="El item debe existir en el inventario de productos." required>
+          <input type="hidden" name="[products][0][name]" required>
+        </div>
       </div>
-    </div>
-    <input type="button" id="btn-add-item" value="Agregar otro Item">
-    <input type="submit" value="Cargar ingreso">
-    <a href="/products/create-product" class="btn-form-add">Agregar Producto Nuevo</a>
-
-  </form>
+      <div class="btn-container">
+        <input type="button" id="btn-add-item" value="Agregar otro Item">
+        <input type="submit" id="btnSubmitForm" value="Cargar ingreso">
+      </div>
+      <a href="/products/create-product" class="btn-form-add">Agregar Producto Nuevo</a>
+  
+    </form>
+  </div>
 </main>
 <template id="history-ingress-template">
   <div class="create-item">
-    <label>Código de Barras: <input type="text" class="var-code-input" required></label>
-    <input type="button" value="Scanear Codigo" class="btn-code-scan">
-    <label>Nombre del Item: <input type="text" required></label>
-    <label>Cantidad: <input type="number" min="0" required></label>
+    <label>Código de Barras: <input type="text" class="bar-code-input" disabled required></label>
+    <label>Nombre del Item: <input type="text" disabled required></label>
+    <div class="create-item-row">
+      <button class="btn-code-scan">Escanear Código <img id="camera-icon" src="/assets/camera-icon.svg" alt="Saca una foto"></button>
+      <label>Cantidad: <input type="number" min="0" required></label>
+    </div>
     <input type="button" value="Quitar Item" class="btn-delete-item">
+    <input type="hidden" class="bar-code-input" required>
+    <input type="hidden" required>
   </div>
 </template>
-
+<script src="https://unpkg.com/html5-qrcode"></script>
 <script>
   const clientsList = <%-JSON.stringify(clients)  %>;
   const itemsList = <%-JSON.stringify(items)  %>;

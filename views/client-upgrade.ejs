@@ -1,28 +1,30 @@
 <%- include('./head.ejs')  %>
-<%- include('./scanVarcode.ejs')  %> 
+<%- include('./scanBarCode.ejs')  %> 
 <%- include('./menu.ejs')  %> 
 <main>
   <h1><%= title %></h1>
-  <form action="/clients/upgrade" method="POST" id="upgrade-client-form">
-    <label for="client"> Nombre del proveedor/cliente: 
-      <input type="text" name="name" placeholder="Empresa S.A." value="<%= clientSelected.name%>" required>
-    </label>
-    <label for="cuit"> N° de CUIT/CUIL : <input type="number" pattern="^[0-9]{11}$" value="<%= clientSelected.cuit%>" placeholder="Ingresar CUIT o CUIL sin guiones" title="Ingresar CUIT o CUIL sin guiones, se eperan 11 digitos" name="cuit" required></label>
-    <label for="email">Ingrese su Email: <input type="text" name="email" title="Email incorrecto" value="<%= clientSelected.email%>" pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$" placeholder="joseperez@yahoo.com.ar" required></label>
-    <label for="adress">Dirección: <input type="text" name="adress" placeholder="Avenida Siempreviva" value="<%= clientSelected.adress%>" required></label>
-    <label for="phone">Telefono: <input type="number" name="phone" pattern="[0-9]" placeholder="45544455" value="<%= clientSelected.phone%>" required></label>
-    <label for="type">
-      Sleccione el tipo de relación:
-      <input type="radio" name="type" id="proveedor" value="proveedor" required <% if(clientSelected.type === "proveedor") {%> checked<% } %>>
-      <label for="proveedor">proveedor</label>
-      <input type="radio" name="type" id="cliente" value="cliente" required <% if(clientSelected.type === "cliente") {%> checked<% } %>>
-      <label for="cliente">cliente</label>
-    </label>
-    <input type="hidden" name="id" value="<%= clientSelected.id %>" required>
-    
-    <input type="submit" id="btnSubmitForm" value="Enviar">
-    <input type="hidden" name="_method" value="PUT">
-  </form>
+  <div class="container container-form">
+    <form action="/clients/upgrade" method="POST" class="client-form" id="upgrade-client-form">
+      <label for="client"> Nombre del proveedor/cliente: 
+        <input type="text" name="name" placeholder="Empresa S.A." value="<%= clientSelected.name%>" required>
+      </label>
+      <label for="cuit"> N° de CUIT/CUIL : <input type="number" pattern="^[0-9]{11}$" value="<%= clientSelected.cuit%>" placeholder="Ingresar CUIT o CUIL sin guiones" title="Ingresar CUIT o CUIL sin guiones, se eperan 11 digitos" name="cuit" required></label>
+      <label for="email">Ingrese su Email: <input type="text" name="email" title="Email incorrecto" value="<%= clientSelected.email%>" pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$" placeholder="joseperez@yahoo.com.ar" required></label>
+      <label for="adress">Dirección: <input type="text" name="adress" placeholder="Avenida Siempreviva" value="<%= clientSelected.adress%>" required></label>
+      <label for="phone">Telefono: <input type="number" name="phone" pattern="[0-9]" placeholder="45544455" value="<%= clientSelected.phone%>" required></label>
+      <label for="type">
+        Sleccione el tipo de relación:
+        <input type="radio" name="type" id="proveedor" value="proveedor" required <% if(clientSelected.type === "proveedor") {%> checked<% } %>>
+        <label for="proveedor">proveedor</label>
+        <input type="radio" name="type" id="cliente" value="cliente" required <% if(clientSelected.type === "cliente") {%> checked<% } %>>
+        <label for="cliente">cliente</label>
+      </label>
+      <input type="hidden" name="id" value="<%= clientSelected.id %>" required>
+      
+      <input type="submit" id="btnSubmitForm" value="Enviar">
+      <input type="hidden" name="_method" value="PUT">
+    </form>
+  </div>
   <template id="show-template">
     <article class="problem">
       <h3></h3>

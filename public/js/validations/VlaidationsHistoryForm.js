@@ -4,7 +4,9 @@ export   function ValidationsHistoryForm(id) {
   const d = document,
     $form = d.getElementById(id),
     $inputs = $form.querySelectorAll('[required]'),
-    $select = $form.querySelector('select[name=client]');
+    $select = $form.querySelector('select[name=client]'),
+    $scanCamPanel = d.querySelector('.panel-scan-cam');
+    
   let formValues = {};
   SetClientsList('todos', $select);
   $inputs.forEach( (el) => {
@@ -29,7 +31,23 @@ export   function ValidationsHistoryForm(id) {
         d.querySelector('input[name=clientID]').value = "";
       }
   })
-
+  $form.addEventListener('click', (e) => {
+    if(e.target.matches('.btn-code-scan')){
+      $scanCamPanel.querySelector('.scan-cam-container #scan-cam-send').setAttribute('data-barCode',`${e.target.getAttribute('data-barCode')}`)
+      $scanCamPanel.classList.add('is-active')
+    }
+  })
+  $scanCamPanel.addEventListener('click', (e) => {
+    if( e.target.matches('.scan-cam-container button')){
+      $scanCamPanel.classList.remove('is-active')
+      let $inputBarCodeDisabled = $form.querySelector(`input[name='barCodeScan']`)
+      let text = sessionStorage.barCode;
+      $inputBarCodeDisabled.value = text; 
+      sessionStorage.removeItem('barCode');
+      let $resultContainer = document.getElementById('qr-reader-results');
+      $resultContainer.querySelector('.qr-result').textContent = 'Resultado: ';
+    }
+  })
   $form.addEventListener('keyup', (e) => {
     if(e.target.matches(`${id} [required]`)){
       let $input = e.target,
@@ -58,7 +76,7 @@ export   function ValidationsHistoryForm(id) {
       formValues[`${$input.name}`] =  $input.value;
     })
     let oldCuit = clientsList.find(el => el.cuit === formValues.cuit );
-    let oldVarCode = clientsList.find(el => el.varCode === formValues.varCode )
+    let oldVarCode = itemsList.find(el => el.barCode === formValues.barCode )
     if(oldCuit) {
     e.preventDefault();
   
@@ -78,8 +96,8 @@ export   function ValidationsHistoryForm(id) {
       $panel.appendChild($fragment);
     }else if(oldVarCode) {
     e.preventDefault();
-    $inputs[3].value = '';
     $inputs[4].value = '';
+    $inputs[5].value = '';
     $panel.classList.add('is-active');
     $template.querySelector('h3').textContent = 'Ocurrio un Error';
     $template.querySelector('p').textContent = 'El Código de Barra ingresado pertenece a un producto existente.'; 
@@ -93,7 +111,7 @@ export   function ValidationsHistoryForm(id) {
     })
     $panel.innerHTML = "";
     $panel.appendChild($fragment);
-    } else if($inputs[3].value !== $inputs[4].value) {
+    } else if($inputs[4].value !== $inputs[5].value) {
       e.preventDefault()
       $panel.classList.add('is-active');
       $template.querySelector('h3').textContent = 'Ocurrio un Error';

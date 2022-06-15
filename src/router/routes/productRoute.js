@@ -9,6 +9,6 @@ productRoute
   .get('/create-product', productController.getCreateProduct )
   .post('/create-product', productController.createProduct )
   .get('/upgrade/:id', productController.getUpgradeProduct )
-  .put('/upgrade', productController.putUpgradeProduct )
+  .put('/upgrade', productController.upgradeProduct )
 
 export default productRoute;

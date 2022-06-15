@@ -9,9 +9,11 @@ import { ProductCreateForm } from "./js/ProductCreateForm.js";
 import { ClientCreateForm } from "./js/ClientCreateForm.js";
 import { ClientUpgradeForm } from "./js/ClientUpgradeForm.js";
 import { HistoryUpgradeForm } from "./js/HistoryUpgradeForm.js";
+import { ScanBarEgress } from "./js/ScanBarEgress.js";
+import hamburgerMenu from "./js/hamburgerButton.js";
 
+let getLocation = window.location.pathname;
 document.addEventListener('DOMContentLoaded', (e) => {
-  let getLocation = window.location.pathname;
   if(getLocation === '/clients'){
     ClientTable();
   }
@@ -49,3 +51,14 @@ document.addEventListener('DOMContentLoaded', (e) => {
     SignupForm();
   } 
 })
+
+if( 
+  getLocation === '/history/egress' || 
+  getLocation === '/history/ingress' || 
+  getLocation === '/products/create-product' ||
+  getLocation.includes('/products/upgrade/') ||
+  getLocation.includes('/history/upgrade/')){
+  ScanBarEgress();
+}
+
+hamburgerMenu('.panel-btn','.panel-menu','menu-responsive')

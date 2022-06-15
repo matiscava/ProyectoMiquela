@@ -28,7 +28,7 @@ const productController = () => {},
       const product = await FSDao.getByID(PRODUCTS_DB,productID);
       const historyList = await FSDao.getAll(HISTORY_DB);
       const clientList = await FSDao.getAll(CLIENTS_DB);
-      const productHistory = historyList.filter(el => el.varCode === product.varCode);
+      const productHistory = historyList.filter(el => el.barCode === product.barCode);
       productHistory.forEach( el => {
         el.itemID = productID;
         el.item = product.name;
@@ -64,7 +64,6 @@ const productController = () => {},
   productController.createProduct = async ( req , res ) => {
     try {
       const data = req.body;
-      delete data.varCodeDos;
       data.responsable = req.user.email;
       if( ! (data instanceof Object) ) throw new Error('El dato enviado no es un objeto');
       const created = await FSDao.saveProduct(PRODUCTS_DB,data);
@@ -90,7 +89,7 @@ const productController = () => {},
 
   }
 
-  productController.putUpgradeProduct = async (req , res ) => {
+  productController.upgradeProduct = async (req , res ) => {
     let data = req.body;
     data.responsable = req.user.email;
     let updated = await FSDao.saveProduct(PRODUCTS_DB,data)

@@ -7,19 +7,19 @@
     "timestamp": 1653914881445,
     "name": "Tornillo punta mecha 8' x 2'",
     "id": "1e883e8f5fd2238a2ec1",
-    "varCode": "347 1 043168",
+    "barCode": "347 1 043168",
     "clientID": "30537520643"
   },
   {
     "referenceNumber": "004-00003575",
-    "quantity": 50,
-    "type": "Ingreso",
-    "responsable": "matiscava@hotmail.com",
-    "timestamp": 1653914881445,
     "name": "Tarugo con punta 8mm",
+    "barCode": "347 1 043167",
+    "quantity": 100,
+    "type": "Ingreso",
     "id": "32e9c06bfce5a80fcdc8",
-    "varCode": "347 1 043167",
-    "clientID": "30537520643"
+    "clientID": "30537520643",
+    "responsable": "matiscava@hotmail.com",
+    "timestamp": 1655145698787
   },
   {
     "referenceNumber": "0000003",
@@ -29,7 +29,7 @@
     "timestamp": 1653916528445,
     "name": "Tornillo punta mecha 8' x 2'",
     "id": "89b1288832c77019badb",
-    "varCode": "347 1 043168",
+    "barCode": "347 1 043168",
     "clientID": "20353756053"
   },
   {
@@ -40,7 +40,7 @@
     "timestamp": 1653916528445,
     "name": "Tarugo con punta 8mm",
     "id": "53c3b12cbfd1bc491173",
-    "varCode": "347 1 043167",
+    "barCode": "347 1 043167",
     "clientID": "20353756053"
   },
   {
@@ -50,7 +50,7 @@
     "timestamp": 1653925707445,
     "name": "Disco de corte 4 1/2",
     "id": "9abd38361c277b49d69f",
-    "varCode": "347 1 043166",
+    "barCode": "347 1 043166",
     "clientID": "30537520643"
   },
   {
@@ -60,19 +60,19 @@
     "timestamp": 1653925707445,
     "name": "Tarugo con punta 8mm",
     "id": "3152e703928f01c44973",
-    "varCode": "347 1 043167",
+    "barCode": "347 1 043167",
     "clientID": "30537520643"
   },
   {
     "referenceNumber": "0000004",
+    "name": "Disco de corte 4 1/2",
+    "barCode": "347 1 043166",
     "quantity": 5,
     "type": "Egreso",
-    "responsable": "Anonimo",
-    "timestamp": 1653926499445,
-    "name": "Disco de corte 4 1/2",
     "id": "7181a214e6f2d962a835",
-    "varCode": "347 1 043166",
-    "clientID": "20353756053"
+    "clientID": "20353756053",
+    "responsable": "matiscava@hotmail.com",
+    "timestamp": 1655128600812
   },
   {
     "referenceNumber": "0000004",
@@ -82,7 +82,7 @@
     "timestamp": 1653926499445,
     "name": "Tarugo con punta 8mm",
     "id": "4f37ffd0351c93bb15ad",
-    "varCode": "347 1 043167",
+    "barCode": "347 1 043167",
     "clientID": "20353756053"
   },
   {
@@ -93,7 +93,7 @@
     "responsable": "Anonimo",
     "name": "Tornillo punta mecha 8' x 2'",
     "id": "23693097f5b6560d14c3",
-    "varCode": "347 1 043168",
+    "barCode": "347 1 043168",
     "clientID": "30537520643"
   },
   {
@@ -104,19 +104,19 @@
     "timestamp": 1653926521445,
     "name": "Tarugo con punta 8mm",
     "id": "0d3c476bd7e0339570a3",
-    "varCode": "347 1 043167",
+    "barCode": "347 1 043167",
     "clientID": "30537520643"
   },
   {
     "referenceNumber": "00005-00006381",
-    "quantity": 450,
-    "type": "Ingreso",
-    "responsable": "Anonimo",
-    "timestamp": 1654542388445,
     "name": "Tornillo punta mecha 8' x 2'",
+    "barCode": "347 1 043168",
+    "quantity": 500,
+    "type": "Ingreso",
     "id": "193a390699be9097d253",
-    "varCode": "347 1 043168",
-    "clientID": "30537520643"
+    "clientID": "30537520643",
+    "responsable": "matiscava@hotmail.com",
+    "timestamp": 1655127696253
   },
   {
     "referenceNumber": "00005-00006381",
@@ -126,30 +126,30 @@
     "responsable": "Anonimo",
     "name": "Tarugo con punta 8mm",
     "id": "fa1eb8848b212bc5a3a2",
-    "varCode": "347 1 043167",
+    "barCode": "347 1 043167",
     "clientID": "30537520643"
   },
   {
     "referenceNumber": "55440014",
+    "name": "Tarugo con punta 8mm",
+    "barCode": "347 1 043167",
     "quantity": 800,
     "type": "Egreso",
-    "responsable": "matiscava@hotmail.com",
-    "timestamp": 1654607610347,
-    "name": "Tarugo con punta 8mm",
     "id": "d96ecea8f120bf98aae7",
-    "varCode": "347 1 043167",
-    "clientID": "20353756053"
+    "clientID": "20353756053",
+    "responsable": "matiscava@hotmail.com",
+    "timestamp": 1655128286824
   },
   {
     "referenceNumber": "00005-00006384",
+    "name": "Tornillo punta mecha 8' x 2'",
+    "barCode": "347 1 043168",
     "quantity": 100,
     "type": "Ingreso",
-    "responsable": "matiscava@hotmail.com",
-    "timestamp": 1654608789598,
-    "name": "Tornillo punta mecha 8' x 2'",
     "id": "5b6cf67ad476d5bff130",
-    "varCode": "347 1 043168",
-    "clientID": "20222002126"
+    "clientID": "20222002126",
+    "responsable": "matiscava@hotmail.com",
+    "timestamp": 1655128543975
   },
   {
     "referenceNumber": "00005-00006384",
@@ -159,7 +159,128 @@
     "timestamp": 1654608789598,
     "name": "Tarugo con punta 8mm",
     "id": "0e5f37a2ac13570cfab8",
-    "varCode": "347 1 043167",
+    "barCode": "347 1 043167",
     "clientID": "20222002126"
+  },
+  {
+    "referenceNumber": "55440014",
+    "quantity": 10,
+    "type": "Egreso",
+    "responsable": "matiscava@hotmail.com",
+    "timestamp": 1655132714809,
+    "name": "Disco de corte 4 1/2",
+    "id": "76d0ea279f14d8fc3298",
+    "barCode": "347 1 043166",
+    "clientID": "20353756053"
+  },
+  {
+    "referenceNumber": "00005-00006387",
+    "quantity": 50,
+    "type": "Ingreso",
+    "responsable": "matiscava@hotmail.com",
+    "timestamp": 1655141116911,
+    "name": "Tarugo con punta 8mm",
+    "id": "b3162dfe77ed399ef7a3",
+    "barCode": "347 1 043167",
+    "clientID": "30537520643"
+  },
+  {
+    "referenceNumber": "00005-00006387",
+    "quantity": 100,
+    "type": "Ingreso",
+    "responsable": "matiscava@hotmail.com",
+    "timestamp": 1655141116911,
+    "name": "Tornillo punta mecha 8' x 2' ",
+    "id": "a4ba2d4ee2b304ddcd68",
+    "barCode": "347 1 043168",
+    "clientID": "30537520643"
+  },
+  {
+    "referenceNumber": "00005-00006352",
+    "quantity": 100,
+    "type": "Ingreso",
+    "responsable": "matiscava@hotmail.com",
+    "timestamp": 1655141571439,
+    "name": "Tarugo con punta 8mm",
+    "id": "c5259ab4891ce7850e1a",
+    "barCode": "347 1 043167",
+    "clientID": "30537520643"
+  },
+  {
+    "referenceNumber": "00005-000063842",
+    "quantity": 100,
+    "type": "Ingreso",
+    "responsable": "matiscava@hotmail.com",
+    "timestamp": 1655141650769,
+    "name": "Tarugo con punta 8mm",
+    "id": "64ec412cf9d1d7cae60a",
+    "barCode": "347 1 043167",
+    "clientID": "20222002126"
+  },
+  {
+    "referenceNumber": "00005-000063842",
+    "quantity": 200,
+    "type": "Ingreso",
+    "responsable": "matiscava@hotmail.com",
+    "timestamp": 1655141650769,
+    "name": "Tornillo punta mecha 8' x 2' ",
+    "id": "4923f4dd62f3b433b8c4",
+    "barCode": "347 1 043168",
+    "clientID": "20222002126"
+  },
+  {
+    "referenceNumber": "55440014",
+    "quantity": 200,
+    "type": "Ingreso",
+    "responsable": "matiscava@hotmail.com",
+    "timestamp": 1655141989959,
+    "name": "Tarugo con punta 8mm",
+    "id": "4ee8276329cacb070368",
+    "barCode": "347 1 043167",
+    "clientID": "20222002126"
+  },
+  {
+    "referenceNumber": "55440014",
+    "quantity": 100,
+    "type": "Ingreso",
+    "responsable": "matiscava@hotmail.com",
+    "timestamp": 1655141989959,
+    "name": "Tornillo punta mecha 8' x 2' ",
+    "id": "8d2d0c4ec1f8ec32c73a",
+    "barCode": "347 1 043168",
+    "clientID": "20222002126"
+  },
+  {
+    "referenceNumber": "00005-00006387",
+    "quantity": 200,
+    "type": "Ingreso",
+    "responsable": "matiscava@hotmail.com",
+    "timestamp": 1655142064345,
+    "name": "Tornillo punta mecha 8' x 2' ",
+    "id": "682a8aea415c2b830372",
+    "barCode": "347 1 043168",
+    "clientID": "30537520643"
+  },
+  {
+    "referenceNumber": "00005-00006387",
+    "quantity": 200,
+    "type": "Ingreso",
+    "responsable": "matiscava@hotmail.com",
+    "timestamp": 1655142064345,
+    "name": "Tarugo con punta 8mm",
+    "id": "f42ed221584657f3f172",
+    "barCode": "347 1 043167",
+    "clientID": "30537520643"
+  },
+  {
+    "referenceNumber": "00005-00006381",
+    "quantity": 200,
+    "type": "Egreso",
+    "responsable": "matiscava@hotmail.com",
+    "timestamp": 1655142514371,
+    "name": "Tornillo punta mecha 8' x 2' ",
+    "id": "f0a68f758cf20919d723",
+    "barCode": "347 1 043168",
+    "clientID": "20353756053"
   }
 ]

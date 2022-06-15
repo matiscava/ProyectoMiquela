@@ -1,50 +1,62 @@
 [
   {
-    "name": "Tornillo punta mecha 8' x 2'  ",
+    "name": "Tornillo punta mecha 8' x 2' ",
     "description": "Tornillo de madera",
     "code": "FE001001",
-    "minStock": "500",
-    "varCode": "347 1 043168",
+    "minStock": 500,
+    "barCode": "347 1 043168",
     "type": "ferreteria",
     "id": "10ed3dcae94408b3222a",
-    "stock": "1050",
+    "stock": 1501,
     "responsable": "matiscava@hotmail.com",
-    "timestamp": 1654883430798
+    "timestamp": 1655142514373
   },
   {
-    "varCode": "347 1 043167",
+    "barCode": "347 1 043167",
     "code": "FE001002",
     "minStock": 50,
     "name": "Tarugo con punta 8mm",
     "description": "Tarugo de plastico con punta 8mm",
     "type": "ferreteria",
     "responsable": "matiscava@hotmail.com",
-    "timestamp": 1654608789598,
+    "timestamp": 1655145698795,
     "id": "555ae7ad5f2f2a8a76f9",
-    "stock": 2150
+    "stock": 1450
   },
   {
-    "varCode": "347 1 043166",
+    "barCode": "347 1 043166",
     "code": "FE001003",
     "minStock": 10,
     "name": "Disco de corte 4 1/2",
     "description": "Disco de corte 4 1/2",
     "type": "ferreteria",
     "responsable": "matiscava@hotmail.com",
-    "timestamp": 1653925707445,
+    "timestamp": 1655132714811,
     "id": "46dab34ad74f9c40265c",
-    "stock": 995
+    "stock": 495
   },
   {
     "name": "Placa MDF 18mm",
     "description": "Placa de MDF 2.40 x 1.80 x 18mm",
     "code": "CR001001",
-    "minStock": "10",
-    "varCode": "347 1 050505",
+    "minStock": 10,
+    "barCode": "347 1 050505",
     "type": "carpintería",
     "responsable": "matiscava@hotmail.com",
     "id": "82dd6fea2dd927957038",
     "stock": 0,
     "timestamp": 1654782460706
+  },
+  {
+    "name": "tarugo del 10",
+    "description": "tarugo de 10mm con punta",
+    "code": "FE001004",
+    "minStock": 250,
+    "barCode": "347 1 043145",
+    "type": "ferreteria",
+    "responsable": "matiscava@hotmail.com",
+    "timestamp": 1655146084503,
+    "id": "e3678abc80a33424a4cc",
+    "stock": 0
   }
 ]

@@ -33,8 +33,8 @@ clientController.getClientByID = async (req , res) => {
     const productList = await FSDao.getAll(PRODUCTS_DB);
     const clientHistory = historyList.filter( el => el.clientID === client.cuit);
     clientHistory.forEach( el => {
-      el.item = productList.find( item => item.varCode === el.varCode).name;
-      el.itemID = productList.find( item => item.varCode === el.varCode).id;
+      el.item = productList.find( item => item.barCode === el.barCode).name;
+      el.itemID = productList.find( item => item.barCode === el.barCode).id;
       el.client = client.name;
       el.clientID = client.id;
       el.timestamp = new Date(el.timestamp).toLocaleDateString();

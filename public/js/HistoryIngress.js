@@ -17,26 +17,43 @@ export function HistoryIngress (){
       if (e.target === $newItemBtn){
         let $clone = d.importNode($historyIngressTemmplate, true);
 
-        $clone.querySelectorAll('label')[0].setAttribute('for',`[products][${valueNumber}][varCode]`);
-        $clone.querySelectorAll('input[type=text]')[0].setAttribute('name',`[products][${valueNumber}][varCode]`);
-        $clone.querySelectorAll('input[type=text]')[0].setAttribute('data-next-input',`[products][${valueNumber}][name]`);
-        $clone.querySelectorAll('label')[1].setAttribute('for',`[products][${valueNumber}][name]`);
-        $clone.querySelectorAll('input[type=text]')[1].setAttribute('name',`[products][${valueNumber}][name]`);
+        $clone.querySelectorAll('label')[0].setAttribute('for',`[products][${valueNumber}][barCodeScan]`);
+        $clone.querySelectorAll('input[type=text]')[0].setAttribute('name',`[products][${valueNumber}][barCodeScan]`);
+        $clone.querySelectorAll('label')[1].setAttribute('for',`[products][${valueNumber}][nameScan]`);
+        $clone.querySelectorAll('input[type=text]')[1].setAttribute('name',`[products][${valueNumber}][nameScan]`);
         $clone.querySelectorAll('label')[2].setAttribute('for',`[products][${valueNumber}][quantity]`);
         $clone.querySelectorAll('input[type=number]')[0].setAttribute('name',`[products][${valueNumber}][quantity]`);
-        $clone.querySelector('.btn-code-scan').setAttribute('data-varCode',`[products][${valueNumber}][varCode]`)
+        $clone.querySelector('.btn-code-scan').setAttribute('data-barCode',`${valueNumber}`)
+        $clone.querySelectorAll('input[type=hidden]')[0].setAttribute('name',`[products][${valueNumber}][barCode]`);
+        $clone.querySelectorAll('input[type=hidden]')[1].setAttribute('name',`[products][${valueNumber}][name]`);
+        
         d.querySelector('.items-list').appendChild($clone)
         valueNumber = valueNumber + 1 ;
       }
       if(e.target.matches('.btn-code-scan')){
-        $scanCamPanel.querySelector('article button').setAttribute('data-varCode',`${e.target.getAttribute('data-varCode')}`)
+        $scanCamPanel.querySelector('.scan-cam-container #scan-cam-send').setAttribute('data-barCode',`${e.target.getAttribute('data-barCode')}`)
         $scanCamPanel.classList.add('is-active')
       }
       if(e.target.matches('.scan-cam-container button')){
         $scanCamPanel.classList.remove('is-active')
-        let query = e.target.getAttribute('data-varCode');
-        let $inputText =$historyIngressForm.querySelector(`input[name='${query}']`)
-        $inputText.value = 'Chewbacca';
+        let query = e.target.getAttribute('data-barCode');
+        let $inputText =$historyIngressForm.querySelector(`input[name='[products][${query}][barCode]']`)
+        let $inputTextDisabled =$historyIngressForm.querySelector(`input[name='[products][${query}][barCodeScan]']`)
+        let $inputName = $historyIngressForm.querySelector(`input[name='[products][${query}][nameScan]']`)
+        let $inputNamDisabled = $historyIngressForm.querySelector(`input[name='[products][${query}][name]']`)
+        let name ;
+        itemsList.find(el => el.barCode === sessionStorage.barCode) ? name = itemsList.find(el => el.barCode === sessionStorage.barCode).name : name = 'Producto no encontrado';
+        
+        $inputNamDisabled.value = name || 'Producto No encontrado';
+        $inputName.value = name || 'Producto No encontrado';
+        let text = sessionStorage.barCode || 'error de lectura';
+        
+        
+        $inputText.value = text;
+        $inputTextDisabled.value = text; 
+        sessionStorage.removeItem('barCode');
+        let $resultContainer = document.getElementById('qr-reader-results');
+        $resultContainer.querySelector('.qr-result').textContent = 'Resultado: ';
       }
 
       if(e.target.matches('.create-item .btn-delete-item')){
@@ -50,14 +67,16 @@ export function HistoryIngress (){
       if(e.target === $select){
         let $option = $select.options[$select.options.selectedIndex];
         if($option.value !== '0'){
+          d.querySelector('input[name=clientIDHidden]').value = $option.getAttribute('data-cuit');
           d.querySelector('input[name=clientID]').value = $option.getAttribute('data-cuit');
         }else{
+          d.querySelector('input[name=clientIDHidden]').value = "";
           d.querySelector('input[name=clientID]').value = "";
         }
       }
-      if(e.target.matches('input.var-code-input')){
+      if(e.target.matches('input.bar-code-input')){
         let siblings = getSiblings(e.target);
-        let item = itemsList.find( el => el.varCode === e.target.value)
+        let item = itemsList.find( el => el.barCode === e.target.value)
         if(!item) {
           e.target.classList.add('error')
           siblings[1].classList.add('error')

@@ -11,5 +11,6 @@ historyRoute
   .get('/egress', historyController.getEgress )
   .post('/egress', historyController.postEgress )
   .get('/upgrade/:id', historyController.getUpgradeHistory )
+  .put('/upgrade/', historyController.upgradeHistory )
 
 export default historyRoute;

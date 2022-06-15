@@ -1,5 +1,5 @@
 <%- include('./head.ejs')  %>
-<%- include('./scanVarcode.ejs')  %> 
+<%- include('./scanBarCode.ejs')  %> 
 <%- include('./menu.ejs')  %> 
 <main>
   <h1><%= title %></h1>
@@ -15,15 +15,14 @@
     <label for="name"> Nombre del producto: 
       <input type="text" name="name" placeholder="Electródo para madera" value="<%= history.name %>" required>
     </label>
-    <label for="varCode">Escanear Código De Barra: <input type="text" name="varCodeScan" placeholder="347 1 06548725" value="<%= history.varCode %>" required></label>
-    <!-- <label for="varCode">Escanear Código De Barra: <input type="text" name="varCodeScan" placeholder="347 1 06548725" value="<%= history.varCode %>" disabled required></label> -->
+    <label for="barCode">Escanear Código De Barra: <input type="text" name="barCodeScan" placeholder="347 1 06548725" value="<%= history.barCode %>" disabled required></label>
     <input type="button" value="Escanear Código" class="btn-code-scan">
-    <label for="varCodeDos">Repita el Código De Barra: <input type="text" name="varCode" placeholder="347 1 06548725" value="<%= history.varCode %>" required></label>
+    <label for="barCodeDos">Repita el Código De Barra: <input type="text" name="barCode" placeholder="347 1 06548725" value="<%= history.barCode %>" required></label>
     <label for="quantity">Cantidad: <input type="number" min="0" name="quantity" value="<%= history.quantity %>" required> </label>
     
     <label for="type">
       Seleccione el tipo:
-      <select name="type">
+      <select name="type">  
         <option value="Ingreso"<% if(history.type === "Ingreso") {%> selected<% } %> >Ingreso</option>
         <option value="Egreso" <% if(history.type === "Egreso") {%> selected<% } %> >Egreso</option>
       </select>
@@ -42,6 +41,8 @@
     </article>
   </template>
 </main>
+<script src="https://unpkg.com/html5-qrcode"></script>
+
 <script>
   const clientsList = <%-JSON.stringify(clients)  %>;
   const itemsList = <%-JSON.stringify(items)  %>;

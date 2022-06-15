@@ -29,8 +29,8 @@ FSDao.getBy = async (DB, by , element) => {
       data = list.find( el => el.dni === element.dni )
     }else if( by === 'email' ){
       data = list.find( el => el.email === element.email )
-    }else if( by === 'varCode' ) {
-      data = list.find( el => el.varCode === element.varCode )
+    }else if( by === 'barCode' ) {
+      data = list.find( el => el.barCode === element.barCode )
     }else if( by === 'cuit' ) {
       data = list.find( el => el.cuit === element.cuit )
     }else if( by === 'id' ) {
@@ -110,13 +110,14 @@ FSDao.saveProduct = async ( DB , element ) => {
   try {
     let list = await FSDao.getAll(DB);
     element.timestamp = new Date().getTime();
+    element.minStock = parseInt(element.minStock);
     if(!element.id) {
       element.id = crypto.randomBytes(10).toString('hex');
       element.stock = 0;
       list.push(element);
     }else {
-      let prodIndex = list.findIndex(el => el.varCode == element.varCode);
-      delete element.varCodeScan;
+      let prodIndex = list.findIndex(el => el.barCode == element.barCode);
+      delete element.barCodeScan;
       list.splice(prodIndex,1,element);
     }
     const dataToJSON = JSON.stringify(list,null,2);
@@ -154,15 +155,15 @@ FSDao.saveClient = async ( DB , element ) => {
 
 FSDao.setProductStock = async (DB,element) => {
   try {
-    let prodExists = await FSDao.getBy(DB,'varCode',element),
+    let prodExists = await FSDao.getBy(DB,'barCode',element),
       prodList = await FSDao.getAll(DB);
 
     const date = new Date().getTime();
 
-    if(!prodExists) throw new Error(`El producto ${element.varCode} no existe en nuestro inventario. Debe cargarlo primero antes de continuar.`);
+    if(!prodExists) throw new Error(`El producto ${element.barCode} no existe en nuestro inventario. Debe cargarlo primero antes de continuar.`);
     prodExists.stock += element.quantity;
     prodExists.timestamp = date;
-    let prodIndex = prodList.findIndex(el => el.varCode == element.varCode);
+    let prodIndex = prodList.findIndex(el => el.barCode == element.barCode);
     prodList.splice(prodIndex,1,prodExists);
     let dataToJSON = JSON.stringify(prodList,null,2);
     fs.writeFileSync( DB , dataToJSON);
@@ -175,31 +176,54 @@ FSDao.setProductStock = async (DB,element) => {
   }
 }
 
-FSDao.createIngress = async (DB, productsDB , element) => {
+FSDao.saveHistory = async (DB, productsDB , element) => {
   try {
     const history = await FSDao.getAll(DB);
-    if(!element.products.length) throw new Error(`No ha cargado ningun producto en este ingreso.`);
     const date = new Date().getTime();
-    
-    for(let i=0 ; i < element.products.length ; i++){
-      let prod = element.products[i]
-      prod.quantity = parseInt(prod.quantity);
-      if(element.type === 'Egreso') Math.sign(prod.quantity);
-      let prodExists = await FSDao.setProductStock(productsDB, prod );
-      
-      let historyData = {
-        referenceNumber: element.referenceNumber,
-        quantity: prod.quantity,
-        type: element.type,
-        responsable: element.responsable,
-        date,
-        name: prodExists.name,
-        id: crypto.randomBytes(10).toString('hex'),
-        varCode: prodExists.varCode,
-        clientID: element.clientID
+    let historyExist = history.find( el => el.id === element.id)
+    if(historyExist){
+      let historyIndex = history.findIndex( elIndex => elIndex.id === element.id);
+      element.quantity = parseInt(element.quantity);
+      element.timestamp = date;
+      console.log('saveHistory', element);
+      let quantity = element.quantity;
+      let quantityDiference = quantity - historyExist.quantity ;
+      if(element.type === 'Egreso') {
+        quantityDiference = historyExist.quantity - quantity;
       }
-      history.push(historyData);
+      history.splice( historyIndex , 1 , element );
+      let historySetStock = {
+        quantity: quantityDiference,
+        barCode: element.barCode,
+      }
+      console.log('saveHistory', historySetStock);
+      let refreshStock =  await FSDao.setProductStock(productsDB, historySetStock );
+      if(!refreshStock) throw new Error(`Hubo un error al actualizar el stock del producto: ${element.barCode} - ${element.name}` )
+    }else{
+      if(!element.products.length) throw new Error(`No ha cargado ningun producto en este ingreso.`);
+      for(let i=0 ; i < element.products.length ; i++){
+        let prod = element.products[i]
+        prod.quantity = parseInt(prod.quantity);
+        let quantity = prod.quantity;
+        if(element.type === 'Egreso') prod.quantity = prod.quantity * -1;
+
+        let prodExists = await FSDao.setProductStock(productsDB, prod );
+        
+        let historyData = {
+          referenceNumber: element.referenceNumber,
+          quantity,
+          type: element.type,
+          responsable: element.responsable,
+          timestamp: date,
+          name: prodExists.name,
+          id: crypto.randomBytes(10).toString('hex'),
+          barCode: prodExists.barCode,
+          clientID: element.clientID
+        }
+        history.push(historyData);
+      }
     }
+    
 
     let dataToJSON = JSON.stringify(history,null,2);
     fs.writeFileSync( DB , dataToJSON);

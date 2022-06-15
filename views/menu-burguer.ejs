@@ -1,0 +1,23 @@
+<button class="panel-btn hamburger hamburger--vortex" type="button">
+  <span class="hamburger-box">
+    <span class="hamburger-inner"></span>
+  </span>
+</button>
+<aside class="panel panel-menu">
+  <nav class="menu-responsive">
+    <% if(user && user.admin) { %>  
+      <a href="/products">Productos</a>
+      <a href="/products/create-product">Crear Producto</a>
+      <a href="/history">Historial</a>
+      <a href="/history/ingress">Cargar Ingreso</a>
+      <a href="/history/egress">Cargar Egreso</a>
+      <a href="/clients">Clientes / Proveedores</a>
+      <a href="/clients/create-client">Crear Cliente / Proveedor</a>
+      <a href="/users/signup">Crear Usuario</a>
+    <% }else{ %>
+      <a href="/history">Historial</a>
+      <a href="/clients">Clientes</a>
+      <a href="/products">Productos</a>
+    <% } %>  
+  </nav>  
+</aside>

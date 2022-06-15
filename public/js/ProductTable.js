@@ -14,7 +14,7 @@ export function ProductTable(){
     list.forEach( (el) => {
       const $tds = $productTemplate.querySelectorAll('td'),
         $tableLink = $productTemplate.querySelector('.table-btn');
-      $tds[0].textContent = el.varCode;
+      $tds[0].textContent = el.barCode;
       $tds[1].textContent = el.code;
       $tds[2].textContent = el.name;
       $tds[3].textContent = el.description;
