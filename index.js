@@ -50,12 +50,12 @@ const restFul = expressMethodOverride('_method');
 app
   .use(express.json())
   .use(express.urlencoded({extended:true}))
-  .use(express.static(process.cwd() +'/public'))
+  .use(express.static(path.join(process.cwd() +'/public')))
   .set('content-type', mimeType)
   // .use(express.static(path.join('public'), staticOptions))
   .use(apiSession)
   .use( restFul )
-  .use( passport.initialize() )
+  .use( passport.initialize() ) 
   .use( passport.session() )
   // .use((req, res, next) => {
   //   console.log(req.session);
@@ -64,7 +64,7 @@ app
     
   //   next()
   // })
-  .set('views','./views')
+  .set('views',path.join(process.cwd() + '/views'))
   .set('view engine', 'ejs');
 
 //SERVIDOR
