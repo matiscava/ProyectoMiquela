@@ -853,6 +853,8 @@ input[type="submit"]#btnSubmitForm:hover {
   background-color: var(--second-modal-color) ;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  overflow-y: auto;
 }
 .panel-scan-cam button {
   display: block;
