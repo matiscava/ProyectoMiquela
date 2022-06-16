@@ -562,13 +562,13 @@ form {
   margin-left: 1rem;
 }
 
-aside.panel.panel-scan-cam div.scan-cam-container div#qr-reader {
+/* aside.panel.panel-scan-camdiv.scan-cam-container div#qr-reader {
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: center;
-}
+} */
 
 
 #qr-reader__scan_region {
