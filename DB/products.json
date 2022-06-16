@@ -3,13 +3,13 @@
     "name": "Tornillo punta mecha 8' x 2' ",
     "description": "Tornillo de madera",
     "code": "FE001001",
+    "type": "ferreteria",
     "minStock": 500,
     "barCode": "347 1 043168",
-    "type": "ferreteria",
     "id": "10ed3dcae94408b3222a",
-    "stock": 1501,
+    "stock": "15010",
     "responsable": "matiscava@hotmail.com",
-    "timestamp": 1655142514373
+    "timestamp": 1655406416855
   },
   {
     "barCode": "347 1 043167",

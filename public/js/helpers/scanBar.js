@@ -2,7 +2,6 @@ export function getScan(id) {
   let $resultContainer = document.getElementById(id),
     $display = document.getElementById('qr-reader');
     let width = $display.clientWidth;
-    console.log(width, width/2);
   let lastResult, countResults = 0;
   function onScanSuccess(decodedText, decodedResult) {
       if (decodedText !== lastResult) {
@@ -11,7 +10,6 @@ export function getScan(id) {
           // Handle on success condition with the decoded message.
           console.log(`Scan result ${decodedText}`, decodedResult);
         //   if (decodedResult = undefined) decodedResult = '';
-        console.log();
           $resultContainer.querySelector('.qr-result').textContent = '';
           $resultContainer.querySelector('.qr-result').textContent = `Resultado: ${decodedText}`;
           sessionStorage.barCode = decodedText;
