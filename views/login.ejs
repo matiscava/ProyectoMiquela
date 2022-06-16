@@ -1,21 +1,11 @@
 <%- include('./head.ejs')  %> 
 <header>
-  <div class="container  header">
-    <div>
+  <div class="container  header" id="login-header">
       <img src="/assets/logo-blanco.png" alt="imagen del logo" class="logo">
-    </div>
-    <nav class="nav-menu">
-      <% if(user && user.admin) { %>  
-       <a href="/users/signup">Signup</a>
-      <% } %>  
-    </nav>
   </div>
 </header>
 <main>
-  <h1><%= title %> </h1>
-  <% if(user) { %>  
-   <h2>Bienvenido al Inventario de MIQUELA wood design</h2>
-    <% } %>  
+  <h1>Bienvenido al Inventario de MIQUELA wood design</h1>
   <div class="container container-form">
     <form action="/users/login" method="post" id="login-form">
       <label for="username">Ingrese su Email: <input type="text" name="username" title="Email incorrecto" pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$" placeholder="joseperez@yahoo.com.ar" required></label>
