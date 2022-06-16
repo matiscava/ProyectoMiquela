@@ -2,7 +2,7 @@
 <header>
   <div class="container  header">
     <div>
-      <img src="/assets/logo.png" alt="imagen del logo" class="logo">
+      <img src="/assets/logo-blanco.png" alt="imagen del logo" class="logo">
     </div>
     <nav class="nav-menu">
       <% if(user && user.admin) { %>  
@@ -14,7 +14,7 @@
 <main>
   <h1><%= title %> </h1>
   <% if(user) { %>  
-   <h2><%= user.name %> </h2>
+   <h2>Bienvenido al Inventario de MIQUELA wood design</h2>
     <% } %>  
   <div class="container container-form">
     <form action="/users/login" method="post" id="login-form">
