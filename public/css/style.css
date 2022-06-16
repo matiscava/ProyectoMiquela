@@ -52,6 +52,7 @@ h1{
 }
 
 main .container.container-table {
+  max-width: 1300px;
   overflow-x: auto;
 }
 /* MENU */
@@ -561,7 +562,7 @@ form {
 }
 
 
-/* CLIENT TABLE */
+/* CLIENT FORM */
 
 .client-form {
   display: grid;
@@ -882,6 +883,11 @@ input[type="submit"]#btnSubmitForm:hover {
 .table td,
 .table th{
   padding: 1rem;
+  white-space: nowrap;
+}
+.table td {
+  max-width: 250px;
+  overflow-x: auto;
 }
 
 .table thead:first-child {
