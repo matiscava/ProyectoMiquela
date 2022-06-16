@@ -13,11 +13,17 @@
       <label for="adress">Dirección: <input type="text" name="adress" placeholder="Avenida Siempreviva" required></label>
       <label for="phone">Telefono: <input type="number" name="phone" pattern="[0-9]" placeholder="45544455" required></label>
       <label for="type">
-        Sleccione el tipo de relación:
-        <input type="radio" name="type" id="proveedor" value="proveedor" required checked>
-        <label for="proveedor">proveedor</label>
-        <input type="radio" name="type" id="cliente" value="cliente" required>
-        <label for="cliente">cliente</label>
+        <p>Seleccione el tipo de relación:</p>
+        <div class="input-container">
+          <div class="input">
+            <input type="radio" name="type" id="proveedor" value="proveedor" required checked>
+            <label for="proveedor">proveedor</label>
+          </div>
+          <div class="input">
+            <input type="radio" name="type" id="cliente" value="cliente" required>
+            <label for="cliente">cliente</label>
+          </div>
+        </div>
       </label>
       <input type="submit" id="btnSubmitForm" value="Enviar">
     </form>

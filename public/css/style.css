@@ -59,6 +59,9 @@ main .container.container-table {
   align-items: center;
   justify-content: space-between;
 }
+.logo {
+  width: 200px;
+}
 .nav-menu {
   display: flex;
 }
@@ -330,6 +333,23 @@ form {
   }
 }
 
+@media screen and (max-width: 450px) {
+  .product-form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .product-form label{
+    display: block;
+  }
+  .product-form label:nth-child(n) select,
+  .product-form label:nth-child(n) input{
+    width: 100%;
+    margin: .25rem 0 0 0;
+
+  }
+}
+
 
 /* FORM HISTORY INGRESS*/
 
@@ -452,6 +472,23 @@ form {
 
 }
 
+@media screen and (max-width: 450px) {
+  .history-form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .history-form label{
+    display: block;
+  }
+  .history-form label:nth-child(n) select,
+  .history-form label:nth-child(n) input{
+    width: 100%;
+    margin: .25rem 0 0 0;
+
+  }
+}
+
 /* HISTORY UPGRADE */
 
 #upgrade-history-form {
@@ -501,6 +538,22 @@ form {
   }
 }
 
+@media screen and (max-width: 450px) {
+  #upgrade-history-form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  #upgrade-history-form label{
+    display: block;
+  }
+  #upgrade-history-form label:nth-child(n) input{
+    width: 100%;
+    margin: .25rem 0 0 0;
+
+  }
+}
+
 
 /* CLIENT TABLE */
 
@@ -511,6 +564,22 @@ form {
   justify-content: space-evenly;
   grid-template-columns: repeat(2,1fr);
 }
+.client-form p {
+  margin: 0;
+  width: fit-content;
+}
+.client-form .input-container {
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.input-container .input{
+  display: flex;
+}
+.input-container .input label{
+  margin-left: .5rem;
+}
 .client-form input[type="submit"]{
   grid-column: span 2;
 }
@@ -518,11 +587,12 @@ form {
   display: flex;
   align-items: center;
 }
-.client-form label:last-of-type{
+.client-form label[name= 'type']{
   justify-content: center;
   align-items: flex-start;
+  width: 100%;
 }
-.client-form label:last-of-type input{
+.client-form label[name= 'type'] input{
   flex-grow: initial;
 }
 .client-form label:nth-child(odd) {
@@ -546,8 +616,38 @@ form {
     margin-left: .25rem;
     margin-bottom: .25rem;
   }
-
+  .input-container .input label{
+    margin-left: .5rem;
+  }
 }
+
+@media screen and (max-width: 470px) {
+  .client-form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .client-form label{
+    display: block;
+  }
+  .client-form label:nth-child(n) input{
+    width: 100%;
+    margin: .25rem 0 0 0;
+  }
+  .client-form label[name="type"] {
+    display: flex;
+    flex-direction: column;
+  }
+  .client-form .input-container {
+    margin: .75rem 0 0 0;
+
+  }
+  .client-form label:nth-child(n) input[type="radio"] {
+   width: 1rem;
+  }
+  
+}
+
 
 
 /* BTN CODE SCAN */
@@ -569,7 +669,7 @@ form {
   justify-content: center;
   align-content: center;
 } */
-
+/* 
 
 #qr-reader__scan_region {
   display: flex;
@@ -577,7 +677,7 @@ form {
   justify-content: center;
   align-items: center;
   overflow: hidden;
-}
+} */
 
 /* PANEL */
 
@@ -694,6 +794,9 @@ input[type="submit"]#btnSubmitForm:hover {
   }
   .nav-menu{
     display: none;
+  }
+  .header div {
+    margin: 0 auto;
   }
 }
 
@@ -937,6 +1040,10 @@ input[type="submit"]#btnSubmitForm:hover {
   box-shadow: 0 0 10px 10px silver;
   overflow: hidden;
   overflow-y: auto;
+}
+
+#scan-cam-send {
+  margin-bottom: 1rem;
 }
 
 @media screen and (max-width: 650px) {
