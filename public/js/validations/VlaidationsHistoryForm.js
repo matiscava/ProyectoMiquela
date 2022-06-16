@@ -38,7 +38,7 @@ export   function ValidationsHistoryForm(id) {
     }
   })
   $scanCamPanel.addEventListener('click', (e) => {
-    if( e.target.matches('.scan-cam-container button')){
+    if( e.target.matches('.scan-cam-container #scan-cam-send')){
       $scanCamPanel.classList.remove('is-active')
       let $inputBarCodeDisabled = $form.querySelector(`input[name='barCodeScan']`)
       let text = sessionStorage.barCode;

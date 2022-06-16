@@ -452,6 +452,56 @@ form {
 
 }
 
+/* HISTORY UPGRADE */
+
+#upgrade-history-form {
+  display: grid;
+  row-gap: .5rem;
+  align-items: center;
+  justify-content: space-evenly;
+  grid-template-columns: repeat(2,1fr);
+}
+
+#upgrade-history-form label {
+  display: flex;
+  align-items: center;
+}
+
+#upgrade-history-form label:nth-of-type(odd) {
+  margin-right: .5rem;
+}
+
+#upgrade-history-form label input,
+#upgrade-history-form label select {
+  flex-grow: 1;
+  margin-left: .5rem;
+}
+
+#upgrade-history-form .btn-code-scan {
+  width: fit-content;
+  justify-self: center;
+}
+
+#upgrade-history-form #btnSubmitForm {
+  grid-column: span 2;
+}
+
+@media screen and (max-width: 950px) {
+  #upgrade-history-form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  #upgrade-history-form label:nth-child(n) {
+    margin-right: 0;
+  }
+
+  #upgrade-history-form .btn-code-scan {
+    align-self: center;
+  }
+}
+
+
 /* CLIENT TABLE */
 
 .client-form {
@@ -582,7 +632,7 @@ input[type="submit"]#btnSubmitForm:hover {
 }
 .panel-btn {
   position: fixed;
-  z-index: 999;
+  z-index: 997;
   bottom: 1vh;
   right: 1vw;
   width: 4rem;
@@ -844,10 +894,6 @@ input[type="submit"]#btnSubmitForm:hover {
 }
 
 /* PANEL SCAN BAR*/
-
-/* #qr-reader__dashboard {
-  display: none;
-} */
 
 .panel-scan-cam {
   background-color: var(--second-modal-color) ;

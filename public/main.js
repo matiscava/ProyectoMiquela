@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
     ProductCreateForm();
   }
   if (getLocation.includes('/products/product-') || getLocation.includes('/clients/client-') || getLocation.includes('/history/history-')) {
-
+    HistoryTable();
   }
   if(getLocation === '/users/signup'){
     SignupForm();

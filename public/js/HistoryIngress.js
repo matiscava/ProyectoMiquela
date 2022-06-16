@@ -34,7 +34,7 @@ export function HistoryIngress (){
         $scanCamPanel.querySelector('.scan-cam-container #scan-cam-send').setAttribute('data-barCode',`${e.target.getAttribute('data-barCode')}`)
         $scanCamPanel.classList.add('is-active')
       }
-      if(e.target.matches('.scan-cam-container button')){
+      if(e.target.matches('.scan-cam-container #scan-cam-send')){
         $scanCamPanel.classList.remove('is-active')
         let query = e.target.getAttribute('data-barCode');
         let $inputText =$historyIngressForm.querySelector(`input[name='[products][${query}][barCode]']`)
