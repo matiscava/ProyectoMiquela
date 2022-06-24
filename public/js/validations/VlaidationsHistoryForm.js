@@ -32,6 +32,7 @@ export   function ValidationsHistoryForm(id) {
       }
   })
   $form.addEventListener('click', (e) => {
+
     if(e.target.matches('.btn-code-scan')){
       $scanCamPanel.querySelector('.scan-cam-container #scan-cam-send').setAttribute('data-barCode',`${e.target.getAttribute('data-barCode')}`)
       $scanCamPanel.classList.add('is-active')
@@ -46,6 +47,9 @@ export   function ValidationsHistoryForm(id) {
       sessionStorage.removeItem('barCode');
       let $resultContainer = document.getElementById('qr-reader-results');
       $resultContainer.querySelector('.qr-result').textContent = 'Resultado: ';
+    }
+    if(e.target.matches('.icon-cancel')){
+      $scanCamPanel.classList.remove('is-active')
     }
   })
   $form.addEventListener('keyup', (e) => {

@@ -11,6 +11,7 @@ import { ClientUpgradeForm } from "./js/ClientUpgradeForm.js";
 import { HistoryUpgradeForm } from "./js/HistoryUpgradeForm.js";
 import { ScanBarEgress } from "./js/ScanBarEgress.js";
 import hamburgerMenu from "./js/hamburgerButton.js";
+import { HistoryParticularUpgradeForm } from "./js/HistoryParticularUpgradeForm.js";
 
 let getLocation = window.location.pathname;
 document.addEventListener('DOMContentLoaded', (e) => {
@@ -33,7 +34,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
     HistoryIngress();
   }
   if(getLocation.includes('/history/upgrade/')){
-    HistoryUpgradeForm();
+    HistoryParticularUpgradeForm();
   }
   if(getLocation === '/products'){
     ProductTable();
@@ -44,20 +45,29 @@ document.addEventListener('DOMContentLoaded', (e) => {
   if(getLocation === '/products/create-product'){
     ProductCreateForm();
   }
-  if (getLocation.includes('/products/product-') || getLocation.includes('/clients/client-') || getLocation.includes('/history/history-')) {
+  if (
+    getLocation.includes('/products/product-') ||
+    getLocation.includes('/clients/client-') || 
+    (getLocation.includes('/history/history-') && !getLocation.includes('/upgrade'))) {
     HistoryTable();
   }
   if(getLocation === '/users/signup'){
     SignupForm();
   } 
+
+  if( getLocation.includes('/history/history-') && getLocation.includes('/upgrade') ) {
+    HistoryUpgradeForm();
+  }
+
 })
 
 if( 
   getLocation === '/history/egress' || 
   getLocation === '/history/ingress' || 
-  getLocation === '/products/create-product' ||
+  getLocation === '/products/create-product' ||  
   getLocation.includes('/products/upgrade/') ||
-  getLocation.includes('/history/upgrade/')){
+  getLocation.includes('/history/upgrade/') ||
+  (getLocation.includes('/history/history-') && getLocation.includes('/upgrade'))){
   ScanBarEgress();
 }
 

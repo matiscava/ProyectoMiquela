@@ -19,7 +19,7 @@
         <div class="create-item">
           <label for="[products][0][barCodeScan]">Código de Barras: <input type="text" class="bar-code-input" name="[products][0][barCodeScan]" disabled title="El item debe existir en el inventario de productos." required></label>
           <label for="[products][0][nameScan]">Nombre del Item: <input type="text" name="[products][0][nameScan]" disabled required></label>
-          <button class="btn-code-scan" data-barCode="0">Escanear Código <img id="camera-icon" src="/assets/camera-icon.svg" alt="Saca una foto"></button>       
+          <button type="button" class="btn-code-scan" data-barCode="0">Escanear Código <img id="camera-icon" src="/assets/camera-icon.svg" alt="Saca una foto"></button>       
           <label for="[products][0][quantity]">Cantidad: <input type="number" min="0" name="[products][0][quantity]" required> </label>
           <input type="hidden" class="bar-code-input" name="[products][0][barCode]" title="El item debe existir en el inventario de productos." required>
           <input type="hidden" name="[products][0][name]" required>
@@ -37,7 +37,7 @@
     <label>Código de Barras: <input type="text" class="bar-code-input" disabled required></label>
     <label>Nombre del Item: <input type="text" disabled required></label>
     <div class="create-item-row">
-      <button class="btn-code-scan">Escanear Código <img id="camera-icon" src="/assets/camera-icon.svg" alt="Saca una foto"></button>
+      <button type="button" class="btn-code-scan">Escanear Código <img id="camera-icon" src="/assets/camera-icon.svg" alt="Saca una foto"></button>
       <label>Cantidad: <input type="number" min="0" required></label>
     </div>
     <input type="button" value="Quitar Item" class="btn-delete-item">
@@ -50,5 +50,6 @@
 <script>
   const clientsList = <%-JSON.stringify(clients)  %>;
   const itemsList = <%-JSON.stringify(items)  %>;
+  let historyLength = 1;
 </script>
 <%- include('./footer.ejs')  %> 

@@ -55,6 +55,9 @@ export function HistoryEgress() {
       $resultContainer.querySelector('.qr-result').textContent = 'Resultado: ';
 
     }
+    if(e.target.matches('.icon-cancel')){
+      $scanCamPanel.classList.remove('is-active')
+    }
     
     if(e.target.matches('.create-item .btn-delete-item')){
       let $div = e.target.parentNode;

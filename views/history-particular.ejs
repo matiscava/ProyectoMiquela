@@ -7,8 +7,9 @@
     <p class="details">N° de <% if(historyList[0].type === 'Ingreso'){%>Remito<%}else{%>Orden<%}%>: <%= historyList[0].referenceNumber %> </p>
     <p class="details"><% if(historyList[0].type === 'Ingreso'){%>Proveedor<%}else{%>Cliente<%}%>: <%= historyList[0].client %></p>
     <p class="details  datails-date">Última modificación: <%= new Date(historyList[0].timestamp).toLocaleDateString() %></p>
-    <% if(user.admin) { %> 
+    <% if(user.admin) { %>       
       <p class="details  datails-responsable">Cargado por: <%= historyList[0].responsable %></p>
+      <button class="details-btn" onclick='location.href=`/history/history-<%= historyList[0].referenceNumber %>/upgrade`' >Editar <%= historyList[0].type %></button>
     <% } %> 
   </div>
   <%- include('./history-table.ejs')  %> 

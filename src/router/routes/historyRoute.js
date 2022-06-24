@@ -10,7 +10,9 @@ historyRoute
   .post('/ingress', historyController.postIngress )
   .get('/egress', historyController.getEgress )
   .post('/egress', historyController.postEgress )
-  .get('/upgrade/:id', historyController.getUpgradeHistory )
-  .put('/upgrade/', historyController.upgradeHistory )
+  .get('/upgrade/:id', historyController.getUpgradeParticularHistory )
+  .put('/upgrade/', historyController.upgradeParticularHistory )
+  .get('/history-:id/upgrade', historyController.getUpgradeHistory )
+  .put('/history-:id/upgrade', historyController.upgradeHistory )
 
 export default historyRoute;

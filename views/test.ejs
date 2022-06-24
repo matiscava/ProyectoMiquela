@@ -1,10 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Html-Qrcode Demo</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hamburgers/1.2.1/hamburgers.min.css">
+  <link rel="stylesheet" href="/css/style.css" >
+</head>
 <body>
-    <div id="qr-reader" style="width:500px"></div>
-    <div id="qr-reader-results"></div>
+    <aside class="panel panel-scan-cam is-active">
+        <div class="scan-cam-container">
+          <span class="icon-cancel"></span>
+          <h3>Escanear código</h3>
+          <div id="qr-reader-results">
+            <p class="qr-result">Resultado:</p>
+          </div>
+          <button id="scan-cam-send">Cargar Producto</button>
+          <div id="qr-reader"></div>
+        </div>
+      </aside>
 </body>
 <script src="https://unpkg.com/html5-qrcode"></script>
 <script>

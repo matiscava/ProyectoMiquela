@@ -50,6 +50,9 @@ export function ValidationsProductForm (id) {
       let $resultContainer = document.getElementById('qr-reader-results');
       $resultContainer.querySelector('.qr-result').textContent = 'Resultado: ';
     }
+    if(e.target.matches('.icon-cancel')){
+      $scanCamPanel.classList.remove('is-active')
+    }
   })
   $form.addEventListener('submit', (e) => {
     e.preventDefault()

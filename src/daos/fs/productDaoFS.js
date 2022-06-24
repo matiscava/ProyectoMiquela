@@ -185,7 +185,6 @@ FSDao.saveHistory = async (DB, productsDB , element) => {
       let historyIndex = history.findIndex( elIndex => elIndex.id === element.id);
       element.quantity = parseInt(element.quantity);
       element.timestamp = date;
-      console.log('saveHistory', element);
       let quantity = element.quantity;
       let quantityDiference = quantity - historyExist.quantity ;
       if(element.type === 'Egreso') {
@@ -196,7 +195,6 @@ FSDao.saveHistory = async (DB, productsDB , element) => {
         quantity: quantityDiference,
         barCode: element.barCode,
       }
-      console.log('saveHistory', historySetStock);
       let refreshStock =  await FSDao.setProductStock(productsDB, historySetStock );
       if(!refreshStock) throw new Error(`Hubo un error al actualizar el stock del producto: ${element.barCode} - ${element.name}` )
     }else{

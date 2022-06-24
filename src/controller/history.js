@@ -122,13 +122,9 @@ historyController.postEgress = async (req , res) => {
     data.responsable = user.email;
     data.type = 'Egreso';
 
-    console.log(data);
-
-
     FSDao.saveHistory(HISTORY_DB , PRODUCTS_DB , data);
     
     res.redirect('/history')
-    // res.json(data)
 
   } catch (err) {
     let message = err || "Ocurrio un error";
@@ -149,7 +145,7 @@ historyController.getEgress = async ( req , res ) => {
 
 }
 
-historyController.getUpgradeHistory = async ( req , res ) => {
+historyController.getUpgradeParticularHistory = async ( req , res ) => {
   const historyID = req.params.id;
   let history = await FSDao.getByID(HISTORY_DB, historyID);
   const clients = await FSDao.getAll(CLIENTS_DB);
@@ -157,10 +153,10 @@ historyController.getUpgradeHistory = async ( req , res ) => {
   items = items.filter(el => el.barCode !== history.barCode);
 
   
-  res.render(path.join(process.cwd(),'/views/history-upgrade.ejs'),{ title: `Editar ${history.type}` , user: req.user,clients,items,history })
+  res.render(path.join(process.cwd(),'/views/history-particular-upgrade.ejs'),{ title: `Editar ${history.type}` , user: req.user,clients,items,history })
 }
 
-historyController.upgradeHistory = async ( req , res ) => {
+historyController.upgradeParticularHistory = async ( req , res ) => {
   let data = req.body;
   data.responsable = req.user.email;
   delete data.barCodeScan
@@ -173,4 +169,20 @@ historyController.upgradeHistory = async ( req , res ) => {
   res.redirect('/history')
 }
 
-  export default historyController;
+historyController.getUpgradeHistory = async ( req , res ) => {
+  const historyReferenceNumber = req.params.id;
+  let historyList = await FSDao.getAll(HISTORY_DB);
+  historyList = historyList.filter( hist => hist.referenceNumber === historyReferenceNumber );
+  const clients = await FSDao.getAll(CLIENTS_DB);
+  let items = await FSDao.getAll(PRODUCTS_DB);
+
+  res.render(path.join(process.cwd(),'/views/history-upgrade.ejs'),{ title: `Editar ${historyList[0].type}` , user: req.user,clients,items,historyList })
+}
+
+historyController.upgradeHistory = async ( req , res ) => {
+  let data = req.body;
+
+  res.json(data)
+}
+
+export default historyController;
