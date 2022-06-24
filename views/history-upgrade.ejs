@@ -10,8 +10,22 @@
           <option value="0">...Selecciona un Proveedor...</option>
         </select>
       </label>
+<<<<<<< HEAD
       <label for="clientID" required> N° de Cuit: <input type="text" value="<%= historyList[0].clientID %>" name="clientIDDisabled" disabled required></label>
       <label for="referenceNumber"> N° de Remito: <input type="text" name="referenceNumber"  value="<%= historyList[0].referenceNumber %>" required></label>
+=======
+      <label for="clientID" required> N° de Cuit: <input type="text" value="<%= history.clientID %>" name="clientIDDisabled" disabled required></label>
+      <label for="referenceNumber"> N° de Remito: <input type="text" name="referenceNumber"  value="<%= history.referenceNumber %>" required></label>
+      
+      <label for="name"> Nombre del producto: 
+        <input type="text" name="name" placeholder="Electródo para madera" value="<%= history.name %>" required>
+      </label>
+      <label for="barCode">Escanear Código De Barra: <input type="text" name="barCodeScan" placeholder="347 1 06548725" value="<%= history.barCode %>" disabled required></label>
+      <label for="barCodeDos">Repita el Código De Barra: <input type="text" name="barCode" placeholder="347 1 06548725" value="<%= history.barCode %>" required></label>
+      <button type="button" class="btn-code-scan" data-barCode="0">Escanear Código <img id="camera-icon" src="/assets/camera-icon.svg" alt="Saca una foto"></button>
+      <label for="quantity">Cantidad: <input type="number" min="0" name="quantity" value="<%= history.quantity %>" required> </label>
+      
+>>>>>>> 6fd6b828ed17cea6c0e60a5aca35acb5e4c36ded
       <label for="type">
         Seleccione el tipo:
         <select name="type">  
@@ -44,6 +58,7 @@
   
     </form>
   </div>
+<<<<<<< HEAD
   <template id="history-upgrade-template">
     <div class="create-item">
       <label>Código de Barras: <input type="text" class="bar-code-input" disabled required></label>
@@ -56,6 +71,14 @@
       <input type="hidden" class="bar-code-input" required>
       <input type="hidden" required>
     </div>
+=======
+  <template id="show-template">
+    <article class="problem">
+      <h3></h3>
+      <p></p>
+      <input type="button" type="button">
+    </article>
+>>>>>>> 6fd6b828ed17cea6c0e60a5aca35acb5e4c36ded
   </template>
 </main>
 <script src="https://unpkg.com/html5-qrcode"></script>

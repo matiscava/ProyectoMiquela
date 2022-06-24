@@ -4,12 +4,12 @@
     "description": "Tornillo de madera",
     "code": "FE001001",
     "type": "ferreteria",
-    "minStock": 500,
+    "minStock": 1000,
     "barCode": "347 1 043168",
     "id": "10ed3dcae94408b3222a",
     "stock": 15010,
     "responsable": "matiscava@hotmail.com",
-    "timestamp": 1655406416855
+    "timestamp": 1655828491173
   },
   {
     "barCode": "347 1 043167",

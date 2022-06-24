@@ -55,7 +55,6 @@ export function ValidationsProductForm (id) {
     }
   })
   $form.addEventListener('submit', (e) => {
-    e.preventDefault()
     let $panel = d.querySelector('.panel'),
     $template = d.getElementById('show-template').content,
     $fragment = d.createDocumentFragment();
