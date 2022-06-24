@@ -849,6 +849,10 @@ input[type="submit"]#btnSubmitForm:hover {
   background-color: var(--create-item-color);
 }
 
+.not-scroll {
+  overflow-y: hidden;
+}
+
 @media screen and (max-width: 1150px) {
   .panel-btn {
     display: flex;
