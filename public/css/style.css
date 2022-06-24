@@ -820,6 +820,7 @@ input[type="submit"]#btnSubmitForm:hover {
   justify-content: center;
   align-items: center;
   background-color: var(--main-color);
+  border: 1px solid var(--second-color);
 }
 .menu-responsive {
   width: 100%;
@@ -845,7 +846,7 @@ input[type="submit"]#btnSubmitForm:hover {
 .menu-responsive a:hover {
   font-weight: bold;
   color: var(--second-color);
-  background-color: var(--main-modal-color);
+  background-color: var(--create-item-color);
 }
 
 @media screen and (max-width: 1150px) {
