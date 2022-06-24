@@ -35,7 +35,6 @@ export function ValidationsProductForm (id) {
   })
   $form.addEventListener('click', (e) => {
     if(e.target.matches('.btn-code-scan')){
-      console.log(e.target);
       $scanCamPanel.querySelector('.scan-cam-container #scan-cam-send').setAttribute('data-barCode',`${e.target.getAttribute('data-barCode')}`)
       $scanCamPanel.classList.add('is-active')
     }
