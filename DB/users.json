@@ -19,5 +19,16 @@
     "admin": true,
     "salt": "8d578c80db83195e8d11c87565a5eba04f06a59882b730763d47f3f57cfdfcab",
     "hash": "b847eac68d553501f8ca445076281f1d8d6b46a816860479104cab0e1df6c97b0c230eeb4ed3f74a82cbb24a5694ea3fb427f9db480a1a3c2c1dba9bfdea95b9"
+  },
+  {
+    "name": "admi",
+    "lastname": "nistrador",
+    "phone": "113678",
+    "dni": "132647",
+    "email": "admin@gmail.com",
+    "id": "9b7b3f6a907b6b0e5cba",
+    "admin": true,
+    "salt": "6181be936d8ced89bf48489090050d8a5954537229ee73bacf8afbbc4a4ad2c0",
+    "hash": "f6bf9b4f6e786ea0bd8e19085fa287f715866c66613c1f16b235dd6fce808ebd744208493f21f1f9ad2d834c6af881eed5d95dd158a0c1d41c331b0461313219"
   }
 ]
