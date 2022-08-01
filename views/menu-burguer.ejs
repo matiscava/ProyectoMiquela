@@ -16,8 +16,16 @@
       <a href="/users/signup">Crear Usuario</a>
     <% }else{ %>
       <a href="/history">Historial</a>
-      <a href="/clients">Clientes</a>
+      <% if( user.canIngress || user.canEgress) { %> 
+          <% if( user.canIngress) { %> 
+            <a href="/history/ingress">Cargar Ingreso</a>
+          <% } else { %> 
+            <a href="/history/egress">Cargar Egreso</a>
+          <% } %> 
+        <% } %>
+      <a href="/clients">Clientes / Proveedores</a>
       <a href="/products">Productos</a>
     <% } %>  
+    <a href="/users/logout" class="menu">Cerrar sesion</a>
   </nav>  
 </aside>

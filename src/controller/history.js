@@ -1,20 +1,21 @@
-import FSDao from "../daos/fs/productDaoFS.js";
 import path from 'path';
+import Singleton from "../utils/Singleton.js";
 
 
-const historyController = () => {},
-  USERS_DB = './DB/users.json',
-  CLIENTS_DB = './DB/clients.json',
-  PRODUCTS_DB = './DB/products.json',
-  HISTORY_DB = './DB/history.json';
+const historyController = () => {};
+
+const { daos } = Singleton.getInstance();
+const { clientsDao , productsDao , historyDao } = daos;
 
 historyController.getHistory = async (req , res) => {
   try {
-    let history = await FSDao.getAll(HISTORY_DB);
+    let history = await historyDao.getAll();
+
     if(!(history instanceof Array)) return res.send('<p>Ingresos No es un Array</p>');
     if(!history.length) return res.send('<p>No hay ingresos cargados</p>');
-    let clients = await FSDao.getAll(CLIENTS_DB);
-    let items = await FSDao.getAll(PRODUCTS_DB);
+
+    let clients = await clientsDao.getAll();
+    let items = await productsDao.getAll();
 
     let historyList = [];
     history.forEach( el => {
@@ -31,7 +32,6 @@ historyController.getHistory = async (req , res) => {
 
     
     res.render(path.join(process.cwd(),'/views/history.ejs'),{ title: 'Historial' , user: req.user,historyList })
-    // res.json(history);
   } catch (err) {
     let message = err || "Ocurrio un error";
 
@@ -45,9 +45,8 @@ historyController.getHistory = async (req , res) => {
 
 historyController.getIngress = async ( req , res ) => {
   try {
-
-    let clients = await FSDao.getAll(CLIENTS_DB);
-    let items = await FSDao.getAll(PRODUCTS_DB);
+    let clients = await clientsDao.getAll();
+    let items = await productsDao.getAll();
 
     res.render(path.join(process.cwd(),'/views/history-ingress.ejs'),{ title: 'Cargar un nuevo Ingreso' , user: req.user,clients,items })
   
@@ -65,10 +64,11 @@ historyController.getIngress = async ( req , res ) => {
 historyController. getIngressById = async ( req , res ) => {
   try {
     let referenceNumber = req.params.id;
-    let historyList = await FSDao.getAll(HISTORY_DB);
-    const productsList = await FSDao.getAll(PRODUCTS_DB);
-    const clientList = await FSDao.getAll(CLIENTS_DB);
-    
+
+    let historyList = await historyDao.getAll();
+    const productsList = await productsDao.getAll();
+    const clientList = await clientsDao.getAll();
+
     historyList = historyList.filter( el => el.referenceNumber === referenceNumber );
     historyList.forEach( el => {
       el.client = clientList.find( client => client.cuit === el.clientID).name;
@@ -100,10 +100,11 @@ historyController.postIngress = async (req , res) => {
     data.responsable = user.email;
     data.type = 'Ingreso';
 
-    FSDao.saveHistory(HISTORY_DB , PRODUCTS_DB , data);
-          
+    let updated = await historyDao.saveHistory( data);
+    for(let i = 0 ; i < updated.length ; i++){
+      await productsDao.setProductStock(updated[i]);
+    }
     res.redirect('/history')
-    // res.json(data)  
   } catch (err) {
     let message = err || "Ocurrio un error";
 
@@ -122,8 +123,11 @@ historyController.postEgress = async (req , res) => {
     data.responsable = user.email;
     data.type = 'Egreso';
 
-    FSDao.saveHistory(HISTORY_DB , PRODUCTS_DB , data);
-    
+    let updated = await historyDao.saveHistory(data);
+    for(let i = 0 ; i < updated.length ; i++){
+      console.log(updated[i]);
+      await productsDao.setProductStock(updated[i]);
+    }
     res.redirect('/history')
 
   } catch (err) {
@@ -138,8 +142,8 @@ historyController.postEgress = async (req , res) => {
 }
 
 historyController.getEgress = async ( req , res ) => {
-  let clients = await FSDao.getAll(CLIENTS_DB);
-  let items = await FSDao.getAll(PRODUCTS_DB);
+  let clients = await clientsDao.getAll();
+  let items = await productsDao.getAll();
 
   res.render(path.join(process.cwd(),'/views/history-egress.ejs'),{ title: 'Cargar un nuevo Egreso' , user: req.user,clients,items })
 
@@ -147,9 +151,10 @@ historyController.getEgress = async ( req , res ) => {
 
 historyController.getUpgradeParticularHistory = async ( req , res ) => {
   const historyID = req.params.id;
-  let history = await FSDao.getByID(HISTORY_DB, historyID);
-  const clients = await FSDao.getAll(CLIENTS_DB);
-  let items = await FSDao.getAll(PRODUCTS_DB);
+  let history = await historyDao.getByID(historyID);
+  const clients = await clientsDao.getAll();
+  let items = await productsDao.getAll();
+
   items = items.filter(el => el.barCode !== history.barCode);
 
   
@@ -162,7 +167,12 @@ historyController.upgradeParticularHistory = async ( req , res ) => {
   delete data.barCodeScan
   delete data.client
 
-  let updated = await FSDao.saveHistory(HISTORY_DB,PRODUCTS_DB,data);
+  let updated = await historyDao.saveHistory(data);
+  console.log(updated);
+  for(let i = 0 ; i < updated.length ; i++){
+    await productsDao.setProductStock(updated[i]);
+  }
+
 
   if (!updated) throw new Error(`Ocurrio un error al editar el ${data.type}`);
 
@@ -171,10 +181,11 @@ historyController.upgradeParticularHistory = async ( req , res ) => {
 
 historyController.getUpgradeHistory = async ( req , res ) => {
   const historyReferenceNumber = req.params.id;
-  let historyList = await FSDao.getAll(HISTORY_DB);
+  let historyList = await historyDao.getAll();
+
   historyList = historyList.filter( hist => hist.referenceNumber === historyReferenceNumber );
-  const clients = await FSDao.getAll(CLIENTS_DB);
-  let items = await FSDao.getAll(PRODUCTS_DB);
+  const clients = await clientsDao.getAll();
+  let items = await productsDao.getAll();
 
   res.render(path.join(process.cwd(),'/views/history-upgrade.ejs'),{ title: `Editar ${historyList[0].type}` , user: req.user,clients,items,historyList })
 }
@@ -182,7 +193,20 @@ historyController.getUpgradeHistory = async ( req , res ) => {
 historyController.upgradeHistory = async ( req , res ) => {
   let data = req.body;
 
-  res.json(data)
+  for (let i = 0; i < data.products.length; i++) {
+    const element = data.products[i];
+    element.referenceNumber = data.referenceNumber;
+    element.type = data.type;
+    element.responsable = req.user.email;
+    element.clientID = data.clientID;
+    let updated = await historyDao.saveHistory(element);
+    for(let i = 0 ; i < updated.length ; i++){
+      await productsDao.setProductStock(updated[i]);
+    }
+    
+  }
+  
+  res.redirect('/history')
 }
 
 export default historyController;

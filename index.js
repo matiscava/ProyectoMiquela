@@ -5,11 +5,15 @@ import router from './src/router/index.js';
 import mime from 'mime';
 import path from 'path';
 import expressMethodOverride from 'express-method-override' 
+import options from './src/config/config.js';
+import dotenv from 'dotenv';
+import { rememberMe } from './src/config/passport.js';
+
 
 //VARIABLES
 
 const app = express(),
-  PORT = process.env.PORT || 8080;
+  PORT = options.PORT || 8080;
 
 //CONFIGURAR LA SESION
 
@@ -21,7 +25,7 @@ const apiSession = session({
   cookie: {
     httpOnly: false,
     secure: false,
-    maxAge: 600000
+    maxAge: options.SESSION_AGE
   }
 })
 
@@ -55,6 +59,7 @@ app
   // .use(express.static(path.join('public'), staticOptions))
   .use(apiSession)
   .use( restFul )
+  .use( rememberMe )
   .use( passport.initialize() ) 
   .use( passport.session() )
   // .use((req, res, next) => {
@@ -69,7 +74,13 @@ app
 
 //SERVIDOR
 
-app.use(router)
+app
+  .use(router)
+  .use((req, res) => {
+    res.status(404).json(
+        {error: -2, descripcion: `ruta ${req.originalUrl} método ${req.method} no implementada`}    
+    )
+  })
 
 app.listen( PORT , () => console.log(`Servidor funcionando en http://localhost:${PORT}/`));
 

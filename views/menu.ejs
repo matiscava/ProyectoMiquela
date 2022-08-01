@@ -34,19 +34,36 @@
           <li>
             <a href="/users/signup" class="menu">Crear Usuario</a>
           </li>
+          <li>
+            <a href="/users/logout" class="menu">Cerrar sesion</a>
+          </li>
         </ul>
 
 
         <% }else{ %>
           <ul>
             <li>
-              <a href="/history" class="menu">Historial</a>
+              <a href="/history" class="menu">
+                Historial
+              </a>
+              <% if( user.canIngress || user.canEgress) { %> 
+              <ul class="menu-dropdown">
+                <% if( user.canIngress) { %> 
+                  <li><a href="/history/ingress">Cargar Ingreso</a></li>
+                <% } else { %> 
+                  <li><a href="/history/egress">Cargar Egreso</a></li>
+                <% } %> 
+              </ul>
+              <% } %> 
             </li>
             <li>
               <a href="/clients" class="menu">Clientes</a>
             </li>
             <li>
               <a href="/products" class="menu">Productos</a>
+            </li>
+            <li>
+              <a href="/users/logout" class="menu">Cerrar sesion</a>
             </li>
           </ul>
         <% } %>  

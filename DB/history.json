@@ -1,10 +1,10 @@
 [
   {
     "referenceNumber": "004-00003575",
-    "quantity": 5,
+    "quantity": 10,
     "type": "Ingreso",
     "responsable": "matiscava@hotmail.com",
-    "timestamp": 1653914881445,
+    "timestamp": 1659108358277,
     "name": "Tornillo punta mecha 8' x 2'",
     "id": "1e883e8f5fd2238a2ec1",
     "barCode": "347 1 043168",
@@ -14,12 +14,12 @@
     "referenceNumber": "004-00003575",
     "name": "Tarugo con punta 8mm",
     "barCode": "347 1 043167",
-    "quantity": 100,
+    "quantity": 200,
     "type": "Ingreso",
     "id": "32e9c06bfce5a80fcdc8",
     "clientID": "30537520643",
     "responsable": "matiscava@hotmail.com",
-    "timestamp": 1655145698787
+    "timestamp": 1659108358308
   },
   {
     "referenceNumber": "0000003",
@@ -281,6 +281,28 @@
     "name": "Tornillo punta mecha 8' x 2' ",
     "id": "f0a68f758cf20919d723",
     "barCode": "347 1 043168",
+    "clientID": "20353756053"
+  },
+  {
+    "referenceNumber": "0002-00024580",
+    "quantity": 40,
+    "type": "Ingreso",
+    "responsable": "matiscava@hotmail.com",
+    "timestamp": 1659106387213,
+    "name": "Placa MDF 18mm",
+    "id": "1b8db4c33f3b1a9ac998",
+    "barCode": "347 1 050505",
+    "clientID": "20222002126"
+  },
+  {
+    "referenceNumber": "5500223",
+    "quantity": 10,
+    "type": "Egreso",
+    "responsable": "matiscava@hotmail.com",
+    "timestamp": 1659106449484,
+    "name": "Placa MDF 18mm",
+    "id": "6b09d7fcc3a38d20ace1",
+    "barCode": "347 1 050505",
     "clientID": "20353756053"
   }
 ]

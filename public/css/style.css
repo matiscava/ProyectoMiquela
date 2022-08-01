@@ -181,7 +181,7 @@ main .container.container-table {
   text-decoration: none;
   color: var(--third-color);
   font-weight: bold;
-  padding: 1.5rem 3rem;
+  padding: 1.5rem 2rem;
   transition: .3s;
 }
 .nav-menu>ul>li>a:hover {
@@ -204,6 +204,12 @@ main .container.container-table {
   width: 100%;
 }
 
+@media screen and (max-width: 1323px) {
+  .nav-menu>ul>li>a {
+    font-size: .75rem;
+  }
+}
+
 /*SIGNUP*/
 
 form {
@@ -212,17 +218,24 @@ form {
 }
 #signup-form {
   display: grid;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-evenly;
   grid-template-columns: repeat(2,48% );
 }
 #signup-form label {
   display: flex;
+  white-space: nowrap;
 }
 
-#signup-form input {
+.form-input-container {
   flex-grow: 1;
   margin-left: 1rem;
+}
+
+
+
+#signup-form input {
+  width: 100%;
   margin-bottom: .5rem;
 }
 
@@ -271,6 +284,17 @@ form {
   width: 100%;
   display: flex;
 }
+
+#login-form label[for="rememberMe"] {
+  justify-content: center;
+}
+
+#login-form label[for="rememberMe"] input {
+  flex-grow: 0;
+  margin: 0;
+  margin-right: 0.5rem;
+}
+
 #login-form label > input {
   margin-left: 2rem;
   flex-grow: 1;
@@ -284,6 +308,7 @@ form {
   background-color: var(--form-error-color);
   color: #fff;
   transition: all .3s ease;
+  white-space: break-spaces;
 }
 
 .none {
@@ -314,7 +339,7 @@ form {
 .product-form {
   display: grid;
   row-gap: .5rem;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-evenly;
   grid-template-columns: repeat(6,1fr);
 }
@@ -334,20 +359,33 @@ form {
 
 .product-form label {
   display: flex;
-  align-items: center;
+  align-items: baseline;
+  white-space: nowrap;  
 }
 
-.product-form label input,
-.product-form label select{
+ .product-form label select{ 
   flex-grow: 1;
   margin-right: .5rem;
   margin-left: .5rem;
   height: fit-content;
 }
 
-.product-form label:nth-child(3) input,
-.product-form label:nth-child(5) input{
+.form-input-container {
+  flex-grow: 1;
+  margin-right: .5rem;
+  margin-left: .5rem;
+  height: fit-content;
+}
+.product-form label:nth-child(3) .form-input-container,
+.product-form label:nth-child(5) .form-input-container {
   margin-right: 0;
+}
+.product-form .form-input-container input {
+  width: 100%;
+}
+
+.product-form .contact-form-error {
+  margin-top: 0rem;
 }
 
 @media screen and (max-width: 1200px) {
@@ -363,10 +401,10 @@ form {
   .product-form .btn-code-scan {
     grid-column: auto;
   }
-  .product-form label:nth-child(odd) input {
+  .product-form label:nth-child(odd) .form-input-container {
     margin-right: .5rem;
   }
-  .product-form label:nth-child(even) input,
+  .product-form label:nth-child(even) .form-input-container,
   .product-form label select {
     margin-right: 0;
   }
@@ -386,7 +424,7 @@ form {
     align-items: stretch;
   }
   .product-form label:nth-child(n) select,
-  .product-form label:nth-child(n) input{
+  .product-form label:nth-child(n) .form-input-container{
     margin: 0;
     margin-left: .25rem;
     margin-bottom: .25rem;
@@ -403,10 +441,12 @@ form {
     display: block;
   }
   .product-form label:nth-child(n) select,
-  .product-form label:nth-child(n) input{
+  .product-form label:nth-child(n) .form-input-container{
     width: 100%;
     margin: .25rem 0 0 0;
-
+  }
+  .product-form select {
+    display: block;
   }
 }
 

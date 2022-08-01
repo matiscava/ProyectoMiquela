@@ -1,13 +1,16 @@
 import { isValidPassword } from '../utils/hash.js';
 import passportLocal from 'passport-local';
-import FSDao from '../daos/fs/productDaoFS.js';
+import Singleton from '../utils/Singleton.js';
+import options from './config.js';
 
-const USERS_DB = './DB/users.json',
-  LocalStrategy = passportLocal.Strategy;
+const LocalStrategy = passportLocal.Strategy;
+
+const { daos } = Singleton.getInstance();
+const { usersDao } = daos;
 
 const loginCallback = async ( username , password , done ) => {
   try {
-    const user = await FSDao.findUser(USERS_DB,username);
+    const user = await usersDao.findUser(username);
 
     if (!user){
       return done(null, false)
@@ -24,7 +27,7 @@ const loginCallback = async ( username , password , done ) => {
 
 const signupCallback = async ( req , username , password , done ) => {
   try {
-    let user = await FSDao.findUser(USERS_DB,username);
+    let user = await usersDao.findUser(username);
 
     if (user){
       console.log('el Usuario ya existe');
@@ -32,12 +35,23 @@ const signupCallback = async ( req , username , password , done ) => {
     }
     let data = req.body;
     delete data.repassword;
-    user = await FSDao.createUser(USERS_DB,data);
+    user = await usersDao.createUser(data);
 
     return done(null, user)
   } catch (err) {
     done(err)    
   }
+}
+
+const rememberMe = async (req, res, next) => {
+  if (req.method == 'POST' && req.url == '/users/login'){
+    if(req.body.rememberMe) {
+      req.session.cookie.maxAge =  options.SESSION_AGE;
+    }else{
+      req.session.cookie.expires = false;
+    }
+  }
+  next();
 }
 
 const loginStrategy = new LocalStrategy(loginCallback);
@@ -51,6 +65,7 @@ const signupStrategy = new LocalStrategy(
 
 export {
   loginStrategy,
-  signupStrategy
+  signupStrategy,
+  rememberMe
 }
 

@@ -1,16 +1,15 @@
-import FSDao from "../daos/fs/productDaoFS.js";
 import path from "path";
+import Singleton from "../utils/Singleton.js";
 
-const clientController = () => {},
-  USERS_DB = './DB/users.json',
-  CLIENTS_DB = './DB/clients.json',
-  PRODUCTS_DB = './DB/products.json',
-  HISTORY_DB = './DB/history.json';
+const clientController = () => {};
+
+const { daos } = Singleton.getInstance();
+const { clientsDao , productsDao , historyDao } = daos;
 
 clientController.getClients = async ( req , res ) => {
   try {
 
-    let clients = await FSDao.getAll(CLIENTS_DB)
+    let clients = await clientsDao.getAll();
     if( ! (clients instanceof Array) ) return res.send('<p>Clientes No es un Array</p>');
     if(!clients.length) return res.send('<p>No hay clientes cargados</p>');
 
@@ -28,9 +27,9 @@ clientController.getClients = async ( req , res ) => {
 clientController.getClientByID = async (req , res) => {
   try {
     let clientID = req.params.id;
-    const client = await FSDao.getByID(CLIENTS_DB,clientID);
-    const historyList = await FSDao.getAll(HISTORY_DB);
-    const productList = await FSDao.getAll(PRODUCTS_DB);
+    const client = await clientsDao.getByID(clientID);
+    const historyList = await historyDao.getAll();
+    const productList = await productsDao.getAll();
     const clientHistory = historyList.filter( el => el.clientID === client.cuit);
     clientHistory.forEach( el => {
       el.item = productList.find( item => item.barCode === el.barCode).name;
@@ -40,9 +39,6 @@ clientController.getClientByID = async (req , res) => {
       el.timestamp = new Date(el.timestamp).toLocaleDateString();
     });
     res.render(path.join(process.cwd(),'/views/client.ejs'),{ title: `Detalle del ${client.type}: ${client.name}` , user: req.user, clientSelected: client, clientHistory })       
-
-
-    // res.send(`<h2>Cliente ID: ${clientID}</h2>`)  
   } catch (err) {
       let message = err || "Ocurrio un error";
   
@@ -56,7 +52,7 @@ clientController.getClientByID = async (req , res) => {
 
 clientController.getCreateClient = async ( req , res ) => {
   try {
-    let clients = await FSDao.getAll(CLIENTS_DB);
+    let clients = await clientsDao.getAll();
     res.render(path.join(process.cwd(),'/views/client-create.ejs'),{ title: 'Cargar un nuevo Cliente / Proveedor' , user: req.user,clients })
   } catch (err) {
     let message = err || "Ocurrio un error";
@@ -72,7 +68,7 @@ clientController.createClient = async ( req , res ) => {
   try {
     const data = req.body;
     data.responsable = req.user.email;
-    const newClient = await FSDao.saveClient( CLIENTS_DB , data );
+    const newClient = await clientsDao.saveClient(data );
 
     res.send(`<h2>Se creo un nuevo ${newClient.type} ${newClient.name}, CUIT: ${newClient.cuit}</h2>`)
   } catch (err) {
@@ -88,8 +84,8 @@ clientController.createClient = async ( req , res ) => {
 clientController.getUpgradeClient = async ( req , res ) => {
   try {
     const clientID = req.params.id;
-    const clientSelected = await FSDao.getByID(CLIENTS_DB, clientID);
-    let clientsList = await FSDao.getAll(CLIENTS_DB);
+    const clientSelected = await clientsDao.getByID(clientID);
+    let clientsList = await clientsDao.getAll();
     clientsList = clientsList.filter( el => el.id !== clientID)
     res.render(path.join(process.cwd(),'/views/client-upgrade.ejs'),{ title: `Editando al ${clientSelected.type} ${clientSelected.name}` , user: req.user,clientsList,clientSelected });
   } catch (err) {
@@ -105,7 +101,7 @@ clientController.getUpgradeClient = async ( req , res ) => {
 clientController.putUpgradeClient = async ( req , res ) => {
   let data = req.body;
   data.responsable = req.user.email;
-  let updated = await FSDao.saveClient( CLIENTS_DB , data );
+  let updated = await clientsDao.saveClient( data );
   if(!updated) throw new Error(`Hubo un error al editar al client ${data.type}`);
 
   res.redirect('/clients')

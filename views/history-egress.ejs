@@ -25,8 +25,10 @@
           <input type="hidden" name="[products][0][name]" required>
         </div>
       </div>
-      <input type="button" id="btn-add-item" value="Agregar otro Item">
-      <input type="submit" id="btnSubmitForm" value="Cargar egreso">
+      <div class="btn-container">
+        <input type="button" id="btn-add-item" value="Agregar otro Item">
+        <input type="submit" id="btnSubmitForm" value="Cargar egreso">
+      </div>
       <a href="/products/create-product" class="btn-form-add">Agregar Producto Nuevo</a>
 
     </form>
@@ -36,8 +38,8 @@
   <div class="create-item">
     <label>Código de Barras: <input type="text" class="bar-code-input" disabled required></label>
     <label>Nombre del Item: <input type="text" disabled required></label>
+    <button type="button" class="btn-code-scan">Escanear Código <img id="camera-icon" src="/assets/camera-icon.svg" alt="Saca una foto"></button>
     <div class="create-item-row">
-      <button type="button" class="btn-code-scan">Escanear Código <img id="camera-icon" src="/assets/camera-icon.svg" alt="Saca una foto"></button>
       <label>Cantidad: <input type="number" min="0" required></label>
     </div>
     <input type="button" value="Quitar Item" class="btn-delete-item">

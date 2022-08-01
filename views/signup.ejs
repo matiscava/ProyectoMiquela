@@ -5,13 +5,13 @@
   <h1><%= title %> </h1>
   <div class="container container-form">
     <form action="/users/signup" method="post" id="signup-form">
-      <label for="name">Ingrese su Nombre: <input type="text" name="name" placeholder="Jose" title="El nombre solo acepta letras y espacios en blanco" pattern="^[a-zA-ZÑñÁÉÍÓÚáéíóúüÜ\s]+$" required></label>
-      <label for="lastname">Ingrese su Apellido: <input type="text" name="lastname" placeholder="Perez" title="El Apellido solo acepta letras y espacios en blanco" pattern="^[a-zA-ZÑñÁÉÍÓÚáéíóúüÜ\s]+$" required></label>
-      <label for="phone">Ingrese su Telefono: <input type="number" name="phone" placeholder="1155663377" title="El telefono solo acepta números" pattern="[0-9]" minlength="8" maxlength="10" required></label>
-      <label for="dni">Ingrese su DNI: <input type="number" name="dni" placeholder="35742568" title="El DNI solo acepta números" pattern="[0-9]" required></label>
-      <label for="email">Ingrese su Email: <input type="text" name="email" title="Email incorrecto" pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$" placeholder="joseperez@yahoo.com.ar" required></label>
-      <label for="password">Ingrese su Contraseña: <input type="password" name="password" placeholder="Contraseña" title="La contraseña debe tener entre 8 y 20 caracteres, debe tener al menos una Mayúscula, una Minúscula, un Número y un carácter especial." pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ -/:-@\[-`{-~]).{8,20}$" required></label>
-      <label for="repassword">Repita su Contraseña: <input type="password" name="repassword" placeholder="Repetir Contraseña" title="La contraseña debe tener entre 8 y 20 caracteres, debe tener al menos una Mayúscula, una Minúscula, un Número y un carácter especial." pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ -/:-@\[-`{-~]).{8,20}$" required></label>
+      <label for="name">Ingrese su Nombre: <div class="form-input-container"><input type="text" name="name" placeholder="Jose" title="El nombre solo acepta letras y espacios en blanco" pattern="^[a-zA-ZÑñÁÉÍÓÚáéíóúüÜ\s]+$" required></div></label>
+      <label for="lastname">Ingrese su Apellido: <div class="form-input-container"><input type="text" name="lastname" placeholder="Perez" title="El Apellido solo acepta letras y espacios en blanco" pattern="^[a-zA-ZÑñÁÉÍÓÚáéíóúüÜ\s]+$" required></div></label>
+      <label for="phone">Ingrese su Telefono: <div class="form-input-container"><input type="number" name="phone" placeholder="1155663377" title="El telefono solo acepta números" pattern="[0-9]" minlength="8" maxlength="10" required></div></label>
+      <label for="dni">Ingrese su DNI: <div class="form-input-container"><input type="number" name="dni" placeholder="35742568" title="El DNI solo acepta números" pattern="[0-9]" required></div></label>
+      <label for="email">Ingrese su Email: <div class="form-input-container"><input type="text" name="email" title="Email incorrecto" pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$" placeholder="joseperez@yahoo.com.ar" required></div></label>
+      <label for="password">Ingrese su Contraseña: <div class="form-input-container"><input type="password" name="password" placeholder="Contraseña" title="La contraseña debe tener entre 8 y 20 caracteres, debe tener al menos una Mayúscula, una Minúscula, un Número y un carácter especial." pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ -/:-@\[-`{-~]).{8,20}$" required></div></label>
+      <label for="repassword">Repita su Contraseña:<div class="form-input-container"><input type="password" name="repassword" placeholder="Repetir Contraseña" title="La contraseña debe tener entre 8 y 20 caracteres, debe tener al menos una Mayúscula, una Minúscula, un Número y un carácter especial." pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ -/:-@\[-`{-~]).{8,20}$" required></div></label>
       <input type="submit" id="btnSubmitForm" value="Enviar">
       <!-- <input type="submit" value="Enviar" > -->
     </form>

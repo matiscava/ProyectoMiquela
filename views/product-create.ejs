@@ -6,13 +6,19 @@
   <div class="container  container-form" >
     <form action="/products/create-product" method="POST" class="product-form" id="create-product-form">
       <label for="name"> Nombre del producto: 
-        <input type="text" name="name" placeholder="Electródo para madera" required>
+        <div class="form-input-container">
+          <input type="text" name="name" placeholder="Electródo para madera" required>
+        </div>
       </label>
       <label for="description">Descripción: 
-        <input type="text" name="description" placeholder="Electródo para soldar madera" required>
+        <div class="form-input-container">
+          <input type="text" name="description" placeholder="Electródo para soldar madera" required>
+        </div>
       </label>
       <label for="code"> Código Interno : 
-        <input type="text" pattern="^([A-Z]{2})+([0-9]{6})$" title="El codigo debe iniciar con 2 letras mayúsculas y finalizar con 6 números" placeholder="CR001001" name="code" required>
+        <div class="form-input-container">
+          <input type="text" pattern="^([A-Z]{2})+([0-9]{6})$" title="El codigo debe iniciar con 2 letras mayúsculas y finalizar con 6 números" placeholder="CR001001" name="code" required>
+        </div>
       </label>
       <label for="type">
         Seleccione el tipo de producto:
@@ -23,10 +29,20 @@
         </select>
       </label>
       <label for="minStock">Stock Mínimo: 
-        <input type="number" name="minStock" title="Debe ingresar el Stock minimo con Numeros enteros" pattern="^[0-9]{1,20}$" placeholder="50" required>
+        <div class="form-input-container">
+          <input type="number" name="minStock" title="Debe ingresar el Stock minimo con Numeros enteros" pattern="^[0-9]{1,20}$" placeholder="50" required>
+        </div>
       </label>
-      <label for="barCode">Escanear Código De Barra: <input type="text" name="barCodeScan" placeholder="347 1 06548725" disabled required></label>
-      <label for="barCodeDos">Repita el Código De Barra: <input type="text" name="barCode" placeholder="347 1 06548725" required></label>      
+      <label for="barCode">Escanear Código De Barra:
+        <div class="form-input-container">
+          <input type="text" name="barCodeScan" placeholder="347 1 06548725" disabled required>
+        </div>
+      </label>
+      <label for="barCodeDos">Repita el Código De Barra: 
+        <div class="form-input-container">
+          <input type="text" name="barCode" placeholder="347 1 06548725" required>      
+        </div>
+      </label>
       <button type="button" class="btn-code-scan">Escanear Código <img id="camera-icon" src="/assets/camera-icon.svg" alt="Saca una foto"></button>
       <input type="submit" id="btnSubmitForm" value="Enviar">
     </form>

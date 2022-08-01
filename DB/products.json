@@ -7,9 +7,9 @@
     "minStock": 1000,
     "barCode": "347 1 043168",
     "id": "10ed3dcae94408b3222a",
-    "stock": 15010,
+    "stock": 15015,
     "responsable": "matiscava@hotmail.com",
-    "timestamp": 1655828491173
+    "timestamp": 1659108358306
   },
   {
     "barCode": "347 1 043167",
@@ -19,9 +19,9 @@
     "description": "Tarugo de plastico con punta 8mm",
     "type": "ferreteria",
     "responsable": "matiscava@hotmail.com",
-    "timestamp": 1655145698795,
+    "timestamp": 1659108358346,
     "id": "555ae7ad5f2f2a8a76f9",
-    "stock": 1450
+    "stock": 1550
   },
   {
     "barCode": "347 1 043166",
@@ -44,8 +44,8 @@
     "type": "carpintería",
     "responsable": "matiscava@hotmail.com",
     "id": "82dd6fea2dd927957038",
-    "stock": 0,
-    "timestamp": 1654782460706
+    "stock": 30,
+    "timestamp": 1659106449503
   },
   {
     "name": "tarugo del 10",

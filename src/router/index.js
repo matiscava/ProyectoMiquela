@@ -8,7 +8,7 @@ import productRoute from './routes/productRoute.js';
 import clientRoute from './routes/clientRoute.js';
 import historyRoute from './routes/historyRoute.js';
 import { isAuth } from '../utils/authMiddelware.js';
-
+ 
 const router = express.Router();
 
 router
