@@ -6,6 +6,7 @@ import mime from 'mime';
 import path from 'path';
 import expressMethodOverride from 'express-method-override' 
 import options from './src/config/config.js';
+import env from './src/env.js';
 import dotenv from 'dotenv';
 import { rememberMe } from './src/config/passport.js';
 
@@ -13,7 +14,7 @@ import { rememberMe } from './src/config/passport.js';
 //VARIABLES
 
 const app = express(),
-  PORT = options.PORT || 8080;
+  PORT = parseInt(process.env.PORT) || 8080;
 
 //CONFIGURAR LA SESION
 
@@ -25,7 +26,7 @@ const apiSession = session({
   cookie: {
     httpOnly: false,
     secure: false,
-    maxAge: options.SESSION_AGE
+    maxAge: process.env.SESSION_AGE
   }
 })
 
@@ -81,7 +82,7 @@ app
         {error: -2, descripcion: `ruta ${req.originalUrl} método ${req.method} no implementada`}    
     )
   })
-console.log('Base de datos',options.mongodb.cnxStr);
+// console.log('Base de datos',options.mongodb.cnxStr);
 app.listen( PORT , () => console.log(`Servidor funcionando en http://localhost:${PORT}/`));
 
 
