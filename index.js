@@ -16,6 +16,7 @@ import { rememberMe } from './src/config/passport.js';
 const app = express(),
   PORT = parseInt(process.env.PORT) || 8080;
 
+
 //CONFIGURAR LA SESION
 
 const apiSession = session({
@@ -26,7 +27,7 @@ const apiSession = session({
   cookie: {
     httpOnly: false,
     secure: false,
-    maxAge: process.env.SESSION_AGE
+    maxAge: parseInt(process.env.SESSION_AGE)
   }
 })
 
