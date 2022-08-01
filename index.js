@@ -81,7 +81,7 @@ app
         {error: -2, descripcion: `ruta ${req.originalUrl} método ${req.method} no implementada`}    
     )
   })
-
+console.log('Base de datos',options.mongodb.cnxStr);
 app.listen( PORT , () => console.log(`Servidor funcionando en http://localhost:${PORT}/`));
 
 
