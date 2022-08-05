@@ -1,6 +1,7 @@
 export function ValidationsClientForm ( id ) {
   const d = document,
     $form = d.getElementById(id),
+    socket = io.connect(),
     $inputs = $form.querySelectorAll('[required]');
   let formValues = {};
 
@@ -76,6 +77,14 @@ export function ValidationsClientForm ( id ) {
       $panel.innerHTML = "";
       $panel.appendChild($fragment);
   } else {
+    let message;
+    if(window.location.pathname.includes('upgrade')){
+        message= `Ha editado el Cliente: ${$inputs[0].value}`;
+    }else{
+        message= `Ha creado el Cliente: ${$inputs[0].value}`;
+    }
+    socket.emit('notification', {message})
+
     e.defaultPrevented();
   }
  }) 

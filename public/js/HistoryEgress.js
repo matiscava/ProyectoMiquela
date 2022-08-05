@@ -7,7 +7,8 @@ export function HistoryEgress() {
   $historyEgressTemmplate = d.getElementById('history-egress-template').content,
   $newItemBtn = d.getElementById('btn-add-item'),
   $scanCamPanel = d.querySelector('.panel-scan-cam'),
-  $select = d.querySelector('select[name=client]');
+  $select = d.querySelector('select[name=client]'),
+  socket = io.connect();
   let valueNumber = 1
 
 
@@ -43,6 +44,8 @@ export function HistoryEgress() {
       let $inputName = $historyEgressForm.querySelector(`input[name='[products][${query}][nameScan]']`)
       let $inputNamDisabled = $historyEgressForm.querySelector(`input[name='[products][${query}][name]']`)
       let name = sessionStorage.barCode ? itemsList.find(el => el.barCode === sessionStorage.barCode).name : 'Error';
+      let stock = sessionStorage.barCode ? itemsList.find(el => el.barCode === sessionStorage.barCode).stock : '';
+      $historyEgressForm.querySelector(`input[name='[products][${query}][quantity]']`).setAttribute('max',stock)
       $inputNamDisabled.value = name || 'Producto No encontrado';
       $inputName.value = name || 'Producto No encontrado';
       let text = sessionStorage.barCode || 'error de lectura';
@@ -94,4 +97,30 @@ export function HistoryEgress() {
       }
     }
   })
+
+  d.addEventListener('submit', (e) => {
+    let send = false;
+    setTimeout(() => {
+      
+      let message = `Ha cargado un nuevo Egreso de ${$select.options[$select.options.selectedIndex].value} N° ${d.querySelector('input[name=referenceNumber]').value}`;
+      const $divs = d.querySelectorAll('.create-item');
+
+      for( let i = 0; i < $divs.length; i++) {
+        const $inputs = $divs[i].querySelectorAll('input');
+        let data = {};
+        data.barCode = $inputs[0].value;
+        data.name = $inputs[1].value;
+        data.diference = $inputs[2].value;
+        
+        socket.emit('change-stock',data);
+
+      }
+      
+      socket.emit('notification', {message} );
+      send = true;
+
+    }, send);
+    
+  })
+
 }

@@ -1,9 +1,10 @@
 import path from 'path';
 
 import Singleton from '../utils/Singleton.js';
+import { io } from '../../main.js';
 
 const { daos } = Singleton.getInstance();
-const { usersDao } = daos;
+const { usersDao , notificationsDao } = daos;
 
 const userController = () => {};
 
@@ -22,7 +23,7 @@ userController.getUsers = async (req , res) => {
   } catch (err) {
     let message = err || "Ocurrio un error";
 
-    console.log(`Error ${err.status}: ${message}`);
+    console.error(`Error ${err.status}: ${message}`);
     res.send( `
     <h1>Ocurrio un error</h1>
     <p>Error ${err.status}: ${message}</p>
@@ -33,6 +34,34 @@ userController.getUsers = async (req , res) => {
 userController.getSignup = ( req , res ) => {
   let user = req.user;
   res.render( path.join(process.cwd(),'/views/signup.ejs'),{title: 'Signup',user})
+}
+
+userController.postSignup = async ( req , res ) => {
+  
+  try {
+    let user = req.user;
+    let data = req.body;
+    let userExist = await usersDao.findUser(data.email);
+    if(userExist) throw new Error(`Ya existe un usuario logueado con el mail ${data.email}`);
+    delete data.repassword;
+
+    const newUser = await usersDao.createUser(data);
+    let notification = {
+      responsable: user.email,
+      receiver: 'all',
+      message: `Ha creado el usuario: ${newUser.email}`
+    }
+    notification = await notificationsDao.newNotification(notification);   
+    res.redirect('/products')
+  } catch (err) {
+    let message = err || "Ocurrio un error";
+
+    console.error(`Error ${err.status}: ${message}`);
+    res.send( `
+    <h1>Ocurrio un error</h1>
+    <p>Error ${err.status}: ${message}</p>
+    ` );
+  }
 }
 
 userController.getLogin = ( req , res ) => {

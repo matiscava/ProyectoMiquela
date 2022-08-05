@@ -4,22 +4,18 @@ import passport from 'passport';
 import router from './src/router/index.js';
 import mime from 'mime';
 import path from 'path';
-import expressMethodOverride from 'express-method-override' 
-import options from './src/config/config.js';
-import env from './src/env.js';
-import dotenv from 'dotenv';
+import expressMethodOverride from 'express-method-override' ;
 import { rememberMe } from './src/config/passport.js';
 
 
 //VARIABLES
 
-const app = express(),
-  PORT = parseInt(process.env.PORT) || 8080;
+const app = express();
 
 
 //CONFIGURAR LA SESION
 
-const apiSession = session({
+export const apiSession = session({
   secret: 'cookie-negri',
   resave: true,
   rolling: true,
@@ -34,18 +30,6 @@ const apiSession = session({
 //GET MIME TYPE
 
 const mimeType = mime.getType(path);
-// const setHeadersOnStatic = (res, path, stat) => {
-//   const type = mime.getType(path);
-//   res.set('content-type', type);
-// }
-
-// const staticOptions = {
-//   setHeaders: setHeadersOnStatic
-// }
-
-
-
-
 
 //METHOD-OVERRIDE
 
@@ -58,17 +42,15 @@ app
   .use(express.urlencoded({extended:true}))
   .use(express.static(path.join(process.cwd() +'/public')))
   .set('content-type', mimeType)
-  // .use(express.static(path.join('public'), staticOptions))
   .use(apiSession)
   .use( restFul )
-  .use( rememberMe )
+  // .use( rememberMe )
   .use( passport.initialize() ) 
   .use( passport.session() )
   // .use((req, res, next) => {
   //  console.log(req.session);
   //  console.log(req.user);
-  //  console.log(req.url,req.params);
-    
+  //  console.log(req.url,req.params);    
   //   next()
   // })
   .set('views',path.join(process.cwd() + '/views'))
@@ -82,8 +64,7 @@ app
     res.status(404).json(
         {error: -2, descripcion: `ruta ${req.originalUrl} método ${req.method} no implementada`}    
     )
-  })
-// console.log('Base de datos',options.mongodb.cnxStr);
-app.listen( PORT , () => console.log(`Servidor funcionando en http://localhost:${PORT}/`));
+  });  
 
 
+export default app;

@@ -8,7 +8,7 @@ export function getScan(id) {
           ++countResults;
           lastResult = decodedText;
           // Handle on success condition with the decoded message.
-          console.log(`Scan result ${decodedText}`, decodedResult);
+          // console.log(`Scan result ${decodedText}`, decodedResult);
         //   if (decodedResult = undefined) decodedResult = '';
           $resultContainer.querySelector('.qr-result').textContent = '';
           $resultContainer.querySelector('.qr-result').textContent = `Resultado: ${decodedText}`;

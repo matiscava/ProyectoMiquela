@@ -8,7 +8,8 @@ export function HistoryIngress (){
     $historyIngressTemmplate = d.getElementById('history-ingress-template').content,
     $newItemBtn = d.getElementById('btn-add-item'),
     $scanCamPanel = d.querySelector('.panel-scan-cam'),
-    $select = d.querySelector('select[name=client]');
+    $select = d.querySelector('select[name=client]'),
+    socket = io.connect();
     let valueNumber = 1
     
     SetClientsList('proveedor',$select);
@@ -90,6 +91,30 @@ export function HistoryIngress (){
           siblings[1].value= item.name;
         }
       }
+    })
+
+    d.addEventListener('submit', (e) => {
+      let send = false;
+      setTimeout(() => {
+        
+        let message = `Ha cargado un nuevo Ingreso de ${$select.options[$select.options.selectedIndex].value} N° ${d.querySelector('input[name=referenceNumber]').value}`;
+        const $divs = d.querySelectorAll('.create-item');
+        for( let i = 0; i < $divs.length; i++) {
+          const $inputs = $divs[i].querySelectorAll('input');
+          let data = {};
+          data.barCode = $inputs[0].value;
+          data.name = $inputs[1].value;
+          data.diference = $inputs[2].value * -1;
+          
+          socket.emit('change-stock',data);
+  
+        }
+        
+        socket.emit('notification', {message} );
+        send = true;
+  
+      }, send);
+      
     })
 
 }

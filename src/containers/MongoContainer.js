@@ -145,15 +145,22 @@ export default class MongoContainer {
       if(!element.id) {
         element.stock = 0;
         const document = await new this.collection(element);
-        const response = await document.save()
+        const response = await document.save();
+        let result = asPOJO(response);
+        result.id = result._id;
+        delete result._id;  
+        delete result.__v;  
+        
+        return result;
       }else {
         delete element.barCodeScan;
+        element.stock = parseInt(element.stock)
         const { n, nModified } = await this.collection.updateOne({ _id: element.id }, {
           $set: element
         })
         if (n == 0 || nModified == 0) throw new Error(`Elemento con el id: '${id}' no fue encontrado`);
+        return element;
       }
-      return true;
     } catch (err) {
       let message = err || "Ocurrio un error";
       console.error(`Error ${err.status}: ${message}`);
@@ -192,7 +199,6 @@ export default class MongoContainer {
       prodExists.stock += element.quantity;
 
       prodExists.timestamp = date;
-      console.log(prodExists);
       const { n, nModified } = await this.collection.updateOne({ _id: prodExists.id }, {
         $set: prodExists
       })
@@ -241,12 +247,10 @@ export default class MongoContainer {
             barCode: prod.barCode,
             clientID: element.clientID
           }
-          console.log('save History', historyData);
           const document = new this.collection(historyData);
           const response = await document.save()
         }
       }
-      console.log("save HIstory", historySetStock);
       return historySetStock;
       
   
@@ -254,6 +258,17 @@ export default class MongoContainer {
       let message = err || "Ocurrio un error";
       console.error(`Error ${err.status}: ${message}`);
     }
+  }
+
+  async newNotification ( element ) {
+    element.timestamp = new Date().getTime();
+    const document = new this.collection(element);
+    const response = await document.save();
+    let result = asPOJO(response);
+    result.id = result._id;
+    delete result._id;  
+    delete result.__v;  
+    return result;
   }
 
 

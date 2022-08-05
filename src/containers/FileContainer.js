@@ -123,7 +123,7 @@ export default class FileContainer {
       }
       const dataToJSON = JSON.stringify(list,null,2);
       fs.writeFileSync( `${this.file}` , dataToJSON);
-      return true;
+      return element;
     } catch (err) {
       let message = err || "Ocurrio un error";
       console.error(`Error ${err.status}: ${message}`);

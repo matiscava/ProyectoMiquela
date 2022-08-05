@@ -1,16 +1,16 @@
 {
   "name": "negri",
-  "version": "1.0.0",
+  "version": "1.5.0",
   "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon index.js",
-    "start": "node index.js production",
+    "dev": "nodemon main.js",
+    "start": "node main.js production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "matiscava",
   "license": "ISC",
   "dependencies": {
     "crypto": "^1.0.1",
@@ -27,6 +27,7 @@
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "passport-remember-me": "^0.0.1",
+    "socket.io": "^4.5.1",
     "start": "^5.1.0"
   }
 }

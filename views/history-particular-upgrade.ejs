@@ -19,7 +19,7 @@
       <label for="barCode">Escanear Código De Barra: <input type="text" name="barCodeScan" placeholder="347 1 06548725" value="<%= history.barCode %>" disabled required></label>
       <label for="barCodeDos">Repita el Código De Barra: <input type="text" name="barCode" placeholder="347 1 06548725" value="<%= history.barCode %>" required></label>
       <button type="button" class="btn-code-scan" data-barCode="0">Escanear Código <img id="camera-icon" src="/assets/camera-icon.svg" alt="Saca una foto"></button>
-      <label for="quantity">Cantidad: <input type="number" min="0" name="quantity" value="<%= history.quantity %>" required> </label>
+      <label for="quantity">Cantidad: <input type="number" min="0" name="quantity" value="<%= history.quantity %>" data-quantity="<%= history.quantity %>" required> </label>
       
       <label for="type">
         Seleccione el tipo:

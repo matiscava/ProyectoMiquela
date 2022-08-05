@@ -6,7 +6,7 @@ export const renameField = (record, from, to) => {
     return record
 }
 export const removeField = (record, field) => {
-    const value = record[field]
+    // const value = record[field]
     delete record[field]
-    return value
+    return record
 }

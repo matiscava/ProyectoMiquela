@@ -35,7 +35,7 @@ historyController.getHistory = async (req , res) => {
   } catch (err) {
     let message = err || "Ocurrio un error";
 
-    console.log(`Error ${err.status}: ${message}`);
+    console.error(`Error ${err.status}: ${message}`);
     res.send( `
     <h1>Ocurrio un error</h1>
     <p>Error ${err.status}: ${message}</p>
@@ -53,7 +53,7 @@ historyController.getIngress = async ( req , res ) => {
   } catch (err) {
     let message = err || "Ocurrio un error";
 
-    console.log(`Error ${err.status}: ${message}`); 
+    console.error(`Error ${err.status}: ${message}`); 
     res.send( `
     <h1>Ocurrio un error</h1>
     <p>Error ${err.status}: ${message}</p>
@@ -84,7 +84,7 @@ historyController. getIngressById = async ( req , res ) => {
   } catch (err) {
     let message = err || "Ocurrio un error";
 
-    console.log(`Error ${err.status}: ${message}`); 
+    console.error(`Error ${err.status}: ${message}`); 
     res.send( `
     <h1>Ocurrio un error</h1>
     <p>Error ${err.status}: ${message}</p>
@@ -108,7 +108,7 @@ historyController.postIngress = async (req , res) => {
   } catch (err) {
     let message = err || "Ocurrio un error";
 
-    console.log(`Error ${err.status}: ${message}`); 
+    console.error(`Error ${err.status}: ${message}`); 
     res.send( `
     <h1>Ocurrio un error</h1>
     <p>Error ${err.status}: ${message}</p>
@@ -125,7 +125,6 @@ historyController.postEgress = async (req , res) => {
 
     let updated = await historyDao.saveHistory(data);
     for(let i = 0 ; i < updated.length ; i++){
-      console.log(updated[i]);
       await productsDao.setProductStock(updated[i]);
     }
     res.redirect('/history')
@@ -133,7 +132,7 @@ historyController.postEgress = async (req , res) => {
   } catch (err) {
     let message = err || "Ocurrio un error";
 
-    console.log(`Error ${err.status}: ${message}`); 
+    console.error(`Error ${err.status}: ${message}`); 
     res.send( `
     <h1>Ocurrio un error</h1>
     <p>Error ${err.status}: ${message}</p>
@@ -168,7 +167,6 @@ historyController.upgradeParticularHistory = async ( req , res ) => {
   delete data.client
 
   let updated = await historyDao.saveHistory(data);
-  console.log(updated);
   for(let i = 0 ; i < updated.length ; i++){
     await productsDao.setProductStock(updated[i]);
   }

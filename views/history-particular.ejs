@@ -16,6 +16,6 @@
 </main>
 <script>
   const historyList = <%-JSON.stringify(historyList)  %>;
-  const userAdmin = <%-JSON.stringify(user.admin)  %>;
+  const userAdmin = <%-JSON.stringify(user.admin) || false %>;
 </script>
 <%- include('./footer.ejs')  %> 

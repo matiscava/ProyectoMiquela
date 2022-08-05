@@ -5,6 +5,7 @@ export   function ValidationsHistoryForm(id) {
     $form = d.getElementById(id),
     $inputs = $form.querySelectorAll('[required]'),
     $select = $form.querySelector('select[name=client]'),
+    socket = io.connect(),
     $scanCamPanel = d.querySelector('.panel-scan-cam');
     
   let formValues = {};
@@ -131,6 +132,23 @@ export   function ValidationsHistoryForm(id) {
       $panel.innerHTML = "";
       $panel.appendChild($fragment);
     }else{
+      let message = `Ha editado el ${$select.options[$select.options.selectedIndex].value} N° ${$inputs[1].value}`;
+      let data = {};
+      data.barCode = $inputs[4].value;
+      data.name = $inputs[3].value;
+      let quantity = $inputs[6].value,
+        originalQuantity = $inputs[6].getAttribute('data-quantity'),
+        type = $form.querySelector('select[name="type"]').options[$form.querySelector('select[name="type"]').options.selectedIndex].value;
+      data.diference = originalQuantity - quantity ;
+      if(type === 'Egreso'){
+        data.diference = data.diference * -1;
+      }
+
+      socket.emit('notification', {message} );
+      socket.emit('change-stock',data);
+        
+
+
       e.defaultPrevented();
     }
    }) 

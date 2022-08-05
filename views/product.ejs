@@ -20,7 +20,7 @@
 </main>
 <script>
   const historyList = <%-JSON.stringify(productHistory)  %>;
-  const userAdmin = <%-JSON.stringify(user.admin)  %>;
+  const userAdmin = <%-JSON.stringify(user.admin) || false %> ;
 
 
 </script>

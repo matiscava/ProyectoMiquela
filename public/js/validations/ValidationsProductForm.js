@@ -3,6 +3,7 @@ export function ValidationsProductForm (id) {
     $form = d.getElementById(id),
     $inputs = $form.querySelectorAll('[required]'),
     $scanCamPanel = d.querySelector('.panel-scan-cam'),
+    socket = io.connect(),
     $scanBtn = d.querySelector('.btn-code-span');
   let formValues = {};
   
@@ -117,6 +118,12 @@ export function ValidationsProductForm (id) {
       $panel.innerHTML = "";
       $panel.appendChild($fragment);
     }
-
+    let message;
+    if(window.location.pathname.includes('upgrade')){
+        message= `Ha editado el Producto: ${$inputs[0].value}`
+    }else{
+        message= `Ha creado el Producto: ${$inputs[0].value}`
+    }
+    socket.emit('notification', {message} )
   })
 }

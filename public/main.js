@@ -12,6 +12,7 @@ import { HistoryUpgradeForm } from "./js/HistoryUpgradeForm.js";
 import { ScanBarEgress } from "./js/ScanBarEgress.js";
 import hamburgerMenu from "./js/hamburgerButton.js";
 import { HistoryParticularUpgradeForm } from "./js/HistoryParticularUpgradeForm.js";
+import socket from "./js/socket/index.js";
 
 let getLocation = window.location.pathname;
 document.addEventListener('DOMContentLoaded', (e) => {
@@ -71,4 +72,5 @@ if(
   ScanBarEgress();
 }
 
-hamburgerMenu('.panel-btn','.panel-menu','menu-responsive')
+hamburgerMenu('.panel-btn','.panel-menu','menu-responsive');
+socket;

@@ -17,7 +17,7 @@ clientController.getClients = async ( req , res ) => {
 
   } catch (err) {
     let message = err || "Ocurrio un error";
-    console.log(`Error ${err.status}: ${message}`);
+    console.error(`Error ${err.status}: ${message}`);
     res.send( `
     <h1>Ocurrio un error</h1>
     <p>Error ${err.status}: ${message}</p>
@@ -42,7 +42,7 @@ clientController.getClientByID = async (req , res) => {
   } catch (err) {
       let message = err || "Ocurrio un error";
   
-      console.log(`Error ${err.status}: ${message}`); 
+      console.error(`Error ${err.status}: ${message}`); 
       res.send( `
       <h1>Ocurrio un error</h1>
       <p>Error ${err.status}: ${message}</p>
@@ -56,7 +56,7 @@ clientController.getCreateClient = async ( req , res ) => {
     res.render(path.join(process.cwd(),'/views/client-create.ejs'),{ title: 'Cargar un nuevo Cliente / Proveedor' , user: req.user,clients })
   } catch (err) {
     let message = err || "Ocurrio un error";
-    console.log(`Error ${err.status}: ${message}`);
+    console.error(`Error ${err.status}: ${message}`);
     res.send( `
     <h1>Ocurrio un error</h1>
     <p>Error ${err.status}: ${message}</p>
@@ -70,10 +70,10 @@ clientController.createClient = async ( req , res ) => {
     data.responsable = req.user.email;
     const newClient = await clientsDao.saveClient(data );
 
-    res.send(`<h2>Se creo un nuevo ${newClient.type} ${newClient.name}, CUIT: ${newClient.cuit}</h2>`)
+    res.redirect('/clients')
   } catch (err) {
     let message = err || "Ocurrio un error";
-    console.log(`Error ${err.status}: ${message}`);
+    console.error(`Error ${err.status}: ${message}`);
     res.send( `
     <h1>Ocurrio un error</h1>
     <p>Error ${err.status}: ${message}</p>
@@ -90,7 +90,7 @@ clientController.getUpgradeClient = async ( req , res ) => {
     res.render(path.join(process.cwd(),'/views/client-upgrade.ejs'),{ title: `Editando al ${clientSelected.type} ${clientSelected.name}` , user: req.user,clientsList,clientSelected });
   } catch (err) {
     let message = err || "Ocurrio un error";
-    console.log(`Error ${err.status}: ${message}`);
+    console.error(`Error ${err.status}: ${message}`);
     res.send( `
     <h1>Ocurrio un error</h1>
     <p>Error ${err.status}: ${message}</p>

@@ -1,6 +1,7 @@
 export function ValidationsSignupForm (d,formValues) {
   const $form = d.getElementById('signup-form'),
-  $inputs = d.querySelectorAll('#signup-form [required]');
+  $inputs = d.querySelectorAll('#signup-form [required]'),
+  socket = io.connect();
 
   $inputs.forEach( (el) => {
     const $span = d.createElement('span');
@@ -57,6 +58,9 @@ export function ValidationsSignupForm (d,formValues) {
       $panel.innerHTML = "";
       $panel.appendChild($fragment);
     }else{
+      socket.emit('notification', {
+        message: `Ha creado el Usuario: ${$inputs[4].value}`
+      })
       e.defaultPrevented();
     }
   })

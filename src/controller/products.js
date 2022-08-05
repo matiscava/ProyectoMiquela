@@ -3,7 +3,7 @@ import Singleton from "../utils/Singleton.js";
 
 const productController = () => {};
 const { daos } = Singleton.getInstance();
-const { clientsDao , productsDao , historyDao } = daos;
+const { clientsDao , productsDao , historyDao , notificationsDao } = daos;
 
   productController.getProducts = async ( req , res ) => {
     try {
@@ -13,7 +13,7 @@ const { clientsDao , productsDao , historyDao } = daos;
 
     } catch (err) {
       let message = err || "Ocurrio un error";
-      console.log(`Error ${err.status}: ${message}`);
+      console.error(`Error ${err.status}: ${message}`);
       res.send( `
       <h1>Ocurrio un error</h1>
       <p>Error ${err.status}: ${message}</p>
@@ -40,7 +40,7 @@ const { clientsDao , productsDao , historyDao } = daos;
       res.render(path.join(process.cwd(),'/views/product.ejs'),{ title: `Detalle del Producto ${product.name}` , user: req.user, product, productHistory })       
     } catch (err) {
       let message = err || "Ocurrio un error";
-      console.log(`Error ${err.status}: ${message}`);
+      console.error(`Error ${err.status}: ${message}`);
       res.send( `
       <h1>Ocurrio un error</h1>
       <p>Error ${err.status}: ${message}</p>
@@ -55,7 +55,7 @@ const { clientsDao , productsDao , historyDao } = daos;
       res.render(path.join(process.cwd(),'/views/product-create.ejs'),{ title: 'Cargar un nuevo Producto' , user: req.user,products });
     } catch (err) {
       let message = err || "Ocurrio un error";
-      console.log(`Error ${err.status}: ${message}`);
+      console.error(`Error ${err.status}: ${message}`);
       res.send( `
       <h1>Ocurrio un error</h1>
       <p>Error ${err.status}: ${message}</p>
@@ -69,12 +69,11 @@ const { clientsDao , productsDao , historyDao } = daos;
       data.responsable = req.user.email;
       if( ! (data instanceof Object) ) throw new Error('El dato enviado no es un objeto');
       const created = await productsDao.saveProduct(data);
-
       if(!created)throw new Error('Hubo un error al crear el producto');
       res.redirect('/products')
     } catch (err) {
       let message = err || "Ocurrio un error";
-      console.log(`Error ${err.status}: ${message}`);
+      console.error(`Error ${err.status}: ${message}`);
       res.send( `
       <h1>Ocurrio un error</h1>
       <p>Error ${err.status}: ${message}</p>
@@ -96,6 +95,12 @@ const { clientsDao , productsDao , historyDao } = daos;
     let data = req.body;
     data.responsable = req.user.email;
     let updated = await productsDao.saveProduct(data)
+    let notification = {
+      responsable: updated.responsable,
+      receiver: 'all',
+      message: `Ha editado el producto: ${updated.name}`
+    }
+    notification = await notificationsDao.newNotification(notification);
 
     if(!updated) throw new Error('Hubo un error al editar el producto');
 
