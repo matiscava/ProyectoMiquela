@@ -16,8 +16,8 @@ const canIngress = (req, res, next) => {
   }
 }
 
-const canEngress = (req, res, next) => {
-  if( req.isAuthenticated() && (req.user.admin || req.user.canEIngress)){
+const canEgress = (req, res, next) => {
+  if( req.isAuthenticated() && (req.user.admin || req.user.canEgress)){
     next();
   } else if (!req.isAuthenticated()){
     res.redirect('/')
@@ -39,6 +39,6 @@ const isAdmin = (req, res, next) => {
 export {
   isAdmin,
   isAuth,
-  canEngress,
+  canEgress,
   canIngress
 }

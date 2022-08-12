@@ -5,8 +5,10 @@ import router from './src/router/index.js';
 import mime from 'mime';
 import path from 'path';
 import expressMethodOverride from 'express-method-override' ;
+import serveFavicon from 'serve-favicon';
 import { rememberMe } from './src/config/passport.js';
 
+const FAVICON = path.join(process.cwd() +'/public/assets/favicon.png');
 
 //VARIABLES
 
@@ -44,7 +46,8 @@ app
   .set('content-type', mimeType)
   .use(apiSession)
   .use( restFul )
-  // .use( rememberMe )
+  .use( rememberMe )
+  .use( serveFavicon( FAVICON ) )
   .use( passport.initialize() ) 
   .use( passport.session() )
   // .use((req, res, next) => {

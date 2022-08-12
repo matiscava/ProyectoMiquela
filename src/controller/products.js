@@ -3,7 +3,7 @@ import Singleton from "../utils/Singleton.js";
 
 const productController = () => {};
 const { daos } = Singleton.getInstance();
-const { clientsDao , productsDao , historyDao , notificationsDao } = daos;
+const { clientsDao , productsDao , historyDao , notificationsDao , usersDao } = daos;
 
   productController.getProducts = async ( req , res ) => {
     try {
@@ -70,6 +70,15 @@ const { clientsDao , productsDao , historyDao , notificationsDao } = daos;
       if( ! (data instanceof Object) ) throw new Error('El dato enviado no es un objeto');
       const created = await productsDao.saveProduct(data);
       if(!created)throw new Error('Hubo un error al crear el producto');
+
+      let notification = {
+        responsable: created.responsable,
+        receiver: 'all',
+        message: `Ha editado el producto: ${created.name}`
+      }
+      notification = await notificationsDao.newNotification(notification);
+      await usersDao.addNotificationToAll(notificationd);
+      
       res.redirect('/products')
     } catch (err) {
       let message = err || "Ocurrio un error";
@@ -101,6 +110,8 @@ const { clientsDao , productsDao , historyDao , notificationsDao } = daos;
       message: `Ha editado el producto: ${updated.name}`
     }
     notification = await notificationsDao.newNotification(notification);
+    await usersDao.addNotificationToAll(notification);
+    
 
     if(!updated) throw new Error('Hubo un error al editar el producto');
 

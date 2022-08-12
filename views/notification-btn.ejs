@@ -1,0 +1,22 @@
+<button class="panel-btn notification-btn" type="button">
+  <span class="icon-bell">
+    <span class="notifications-unviewed"></span>
+  </span>
+</button>
+
+<aside class="panel panel-notification">
+  <h2>Notificaciones</h2>
+  <span class=""></span>
+  <div id="notifications-container-panel">
+    <ul id="notifications-list-panel" data-client=<%= user.email %> >
+  
+    </ul>
+  </div>
+</aside>
+
+<template id="notification-panel-li-template">
+  <li class="notification-li">
+    <p class="notification-li-responsable"></p>
+    <p class="notification-li-message"></p>
+  </li>
+</template>

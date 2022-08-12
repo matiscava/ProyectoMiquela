@@ -35,25 +35,14 @@ userRoute
       // issue a remember me cookie if the option was checked
       if (!req.body.rememberMe) { return next(); }
       req.session.cookie.maxAge = 604800000;
-      // req.session.cookie.httpOnly = true;
+      req.session.cookie.httpOnly = true;
 
       return next();
 
-      // console.log('login token', token);
-      // console.log('login cookie', re.cookie);
-      // Token.save(token, { userId: req.user.id }, function(err) {
-        //   if (err) { return done(err); }
-        //   res.cookie('remember_me', token, { path: '/', httpOnly: true, maxAge: 604800000 }); // 7 days
-        //   return next();
-      // });
     },
     userController.getHome
   )
   .get('/signup', isAdmin, userController.getSignup)
-  // .post('/signup',
-  //   passport.authenticate('signup', {failureRedirect: '/users/fail-signup'} ),
-  //   userController.getHome
-  // )
   .post('/signup', isAdmin, userController.postSignup)
   .get('/logout', userController.logout);
 

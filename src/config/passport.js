@@ -2,12 +2,11 @@ import { isValidPassword } from '../utils/hash.js';
 import passportLocal from 'passport-local';
 import Singleton from '../utils/Singleton.js';
 import options from './config.js';
-import { io } from '../../main.js';
 
 const LocalStrategy = passportLocal.Strategy;
 
 const { daos } = Singleton.getInstance();
-const { usersDao , notificationsDao } = daos;
+const { usersDao } = daos;
 
 const loginCallback = async ( username , password , done ) => {
   try {
@@ -43,13 +42,7 @@ const rememberMe = async (req, res, next) => {
 }
 
 const loginStrategy = new LocalStrategy(loginCallback);
-// const signupStrategy = new LocalStrategy(
-//   {
-//     usernameField: 'email',
-//     passReqToCallback: true
-//   },
-//   signupCallback
-//   )
+
 
 export {
   loginStrategy,

@@ -10,15 +10,11 @@ export default class FileContainer {
     try {
       let data = await fs.promises.readFile(this.file,'utf-8')
       if(!data) return fs.writeFileSync(`${this.file}`,'[]');
-      let products = JSON.parse(data);
-      return products;
+      let list = JSON.parse(data);
+      return list;
     } catch (err) {
       let message = err || "Ocurrio un error";
       console.error(`Error ${err.status}: ${message}`);
-      res.send( `
-      <h1>Ocurrio un error</h1>
-      <p>Error ${err.status}: ${message}</p>
-      ` );
     }
   }
 
@@ -92,7 +88,6 @@ export default class FileContainer {
       console.error(`Error ${err.status}: ${message}`);
     }
   }
-
   async logUser (element) {
     try {
       let user = await this.getBy('email',element)
@@ -245,6 +240,85 @@ export default class FileContainer {
       let message = err || "Ocurrio un error";
       console.error(`Error ${err.status}: ${message}`);
     }
+  }
+
+  async newNotification ( element ) {
+    try {
+      element.timestamp = new Date().getTime();
+      let notifications = await this.getAll();
+      console.log('new notifications',notifications);
+      element.id = crypto.randomBytes(10).toString('hex'),
+      notifications.push(element)
+      let dataToJSON = JSON.stringify(notifications,null,2);
+      fs.writeFileSync( `${this.file}` , dataToJSON);
+      return element;
+    } catch (err) {
+      let message = err || "Ocurrio un error";
+      console.error(`Error ${err.status}: ${message}`);
+    }
+  }
+
+  async addNotificationToAll ( data ) {
+    try {
+      let users = await this.getAll();
+      data.viewed = false;
+      for (let i = 0; i < users.length; i++) {
+        const user = users[i];
+        user.notifications.push(data);
+      }
+      let dataToJSON = JSON.stringify(users,null,2);
+      fs.writeFileSync( `${this.file}` , dataToJSON);
+    } catch (err) {
+      let message = err || "Ocurrio un error";
+      console.error(`Error ${err.status}: ${message}`);
+    }
+
+  }
+  async addNotificationTo ( userId , data ) {
+    try {      
+      let user = await this.getByID(userId);
+      const users = await this.getAll();
+      let userIndex = users.findIndex( userIndex => userIndex.id === user.id);
+      
+  
+      data.viewed = false;
+      user.notifications.push(data);
+      users.splice(userIndex,1,user);
+  
+      let dataToJSON = JSON.stringify(users,null,2);
+      fs.writeFileSync( `${this.file}` , dataToJSON);
+  
+      return true;
+    } catch (err) {
+      let message = err || "Ocurrio un error";
+      console.error(`Error ${err.status}: ${message}`);
+    }
+  }
+
+  async seeNotification(data) {
+    try{
+      let user = await this.getBy('email',data[0]);
+      let users = await this.getAll();
+      data.forEach(el => {        
+        let notification = user.notifications.find( noti => noti.id === el.notiId );
+        let notificationIndex = user.notifications.findIndex( noti => noti.id === el.notiId )
+        
+        notification.viewed = true;
+        console.log('seeNotification',notification);
+        user.notifications.splice( notificationIndex,1,notification);
+      });
+
+      let userIndex = users.findIndex( el => el.id === user.id );
+      users.splice(userIndex,1,user);
+      let dataToJSON = JSON.stringify(users,null,2);
+      fs.writeFileSync( `${this.file}` , dataToJSON);
+
+      return true;
+    } catch (err) {
+      let message = err || "Ocurrio un error";
+      console.error(`Error ${err.status}: ${message}`);
+    }
+
   }
   
 }

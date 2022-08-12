@@ -17,16 +17,18 @@ io.use( ( socket , next) => {
 io.on( 'connection' , async (socket) => {
   try {    
     const user = socket.request && socket.request.session && socket.request.session.passport && socket.request.session.passport.user;
-    
     if( user && user !== undefined ){
       socket.join('login');
-      const userLog = await usersDao.getByID(user);
+      let userLog = await usersDao.getByID(user);
       socket
         .on('notification', (data) => {
           notiNumber++;
           data.id = notiNumber;
           data.responsable = userLog.email;
           socket.to('login').emit( 'new-notification' , data );
+          data.viewed = false;
+          userLog.notifications.push(data)
+          socket.to('login').emit( 'get-notifications' , userLog.notifications );
         })
         .on('change-stock', async (data) => {
           let product = await productsDao.getBy('barCode',data);
@@ -35,11 +37,23 @@ io.on( 'connection' , async (socket) => {
             let message =`el stock del producto ${product.name} está por debajo del minimo`;
             notiNumber++;
             data.id = notiNumber;
+            data.type = 'warn';
             data.responsable = userLog.email;
             data.message = message;
             socket.to('login').emit( 'new-warn' , data );
+            data.viewed = false;
+            userLog.notifications.push(data)
+            socket.to('login').emit( 'get-notifications' , userLog.notifications );
+
           }
         })
+        .on('see-notification', async (data) => {
+          if( data.length && userLog.email === data[0].email ){
+          let seeNoti = await usersDao.seeNotification(data);
+          }
+
+        })
+        .emit('get-notifications', userLog.notifications)
     }
   } catch (err) {
     let message = err || "Ocurrio un error";

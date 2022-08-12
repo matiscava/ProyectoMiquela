@@ -7,9 +7,9 @@
     "minStock": 1000,
     "barCode": "347 1 043168",
     "id": "10ed3dcae94408b3222a",
-    "stock": 15015,
+    "stock": "1501500",
     "responsable": "matiscava@hotmail.com",
-    "timestamp": 1659108358306
+    "timestamp": 1660137568688
   },
   {
     "barCode": "347 1 043167",
@@ -19,7 +19,7 @@
     "description": "Tarugo de plastico con punta 8mm",
     "type": "ferreteria",
     "responsable": "matiscava@hotmail.com",
-    "timestamp": 1659108358346,
+    "timestamp": 1660143333326,
     "id": "555ae7ad5f2f2a8a76f9",
     "stock": 1550
   },

@@ -51,7 +51,8 @@ userController.postSignup = async ( req , res ) => {
       receiver: 'all',
       message: `Ha creado el usuario: ${newUser.email}`
     }
-    notification = await notificationsDao.newNotification(notification);   
+    notification = await notificationsDao.newNotification(notification);
+    await usersDao.addNotificationToAll(notification)
     res.redirect('/products')
   } catch (err) {
     let message = err || "Ocurrio un error";
@@ -65,6 +66,7 @@ userController.postSignup = async ( req , res ) => {
 }
 
 userController.getLogin = ( req , res ) => {
+
   if(req.user) res.redirect('/products')
   res.render( path.join(process.cwd(),'/views/login.ejs'),{ title: 'Login',user : req.user })
 }

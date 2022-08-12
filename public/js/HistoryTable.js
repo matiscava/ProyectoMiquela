@@ -24,7 +24,9 @@ export function HistoryTable(){
       $a[2].setAttribute('href',`/products/product-${el.itemID}`); 
 
       $historyTemplate.querySelector('.form-date').textContent = el.timestamp;
-      $historyTemplate.querySelector('.form-quantity').textContent = el.quantity;
+      let quantity = el.quantity;
+      if(el.type === 'Egreso') quantity = quantity * -1;
+      $historyTemplate.querySelector('.form-quantity').textContent = quantity;
       $historyTemplate.querySelector('.form-type').textContent = el.type;
       if(userAdmin) {
         const $tableLink = $historyTemplate.querySelector('.table-btn');

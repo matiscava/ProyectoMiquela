@@ -1,15 +1,5 @@
 [
   {
-    "name": "pepe",
-    "lastname": "grillo",
-    "phone": "11111",
-    "dni": "111111",
-    "email": "pepegrillo@hotmail.com",
-    "id": "faed5381a2115c62990f",
-    "salt": "5ec8090af5101ef4039e00f772c7e23884b7d57c4b4b71abb0bd2513ce9dddca",
-    "hash": "e80de7c051e2cba869ce3f046604729822cdfd199c842d8d5bb9af6a6b7aab3c7d253e6b7f021deabd95dff20df8928f08b25dd7e09f8260ed209e16d9b190c5"
-  },
-  {
     "name": "Matias",
     "lastname": "scavarelli",
     "phone": "1155633083",
@@ -18,17 +8,24 @@
     "id": "eb12c264dd2f4ef0c8be",
     "admin": true,
     "salt": "8d578c80db83195e8d11c87565a5eba04f06a59882b730763d47f3f57cfdfcab",
-    "hash": "b847eac68d553501f8ca445076281f1d8d6b46a816860479104cab0e1df6c97b0c230eeb4ed3f74a82cbb24a5694ea3fb427f9db480a1a3c2c1dba9bfdea95b9"
-  },
-  {
-    "name": "admi",
-    "lastname": "nistrador",
-    "phone": "113678",
-    "dni": "132647",
-    "email": "admin@gmail.com",
-    "id": "9b7b3f6a907b6b0e5cba",
-    "admin": true,
-    "salt": "6181be936d8ced89bf48489090050d8a5954537229ee73bacf8afbbc4a4ad2c0",
-    "hash": "f6bf9b4f6e786ea0bd8e19085fa287f715866c66613c1f16b235dd6fce808ebd744208493f21f1f9ad2d834c6af881eed5d95dd158a0c1d41c331b0461313219"
+    "hash": "b847eac68d553501f8ca445076281f1d8d6b46a816860479104cab0e1df6c97b0c230eeb4ed3f74a82cbb24a5694ea3fb427f9db480a1a3c2c1dba9bfdea95b9",
+    "notifications": [
+      {
+        "responsable": "matiscava@hotmail.com",
+        "receiver": "all",
+        "message": "Ha editado el producto: Tornillo punta mecha 8' x 2' ",
+        "timestamp": 1660137568690,
+        "id": "84112f17ca89334c6bdf",
+        "viewed": true
+      },
+      {
+        "responsable": "matiscava@hotmail.com",
+        "receiver": "all",
+        "message": "Ha editado el Ingreso N° 004-00003576",
+        "timestamp": 1660143333311,
+        "id": "0291891361ebd8394bcd",
+        "viewed": true
+      }
+    ]
   }
 ]

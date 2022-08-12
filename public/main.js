@@ -15,6 +15,7 @@ import { HistoryParticularUpgradeForm } from "./js/HistoryParticularUpgradeForm.
 import socket from "./js/socket/index.js";
 
 let getLocation = window.location.pathname;
+console.log(window.innerWidth);
 document.addEventListener('DOMContentLoaded', (e) => {
   if(getLocation === '/clients'){
     ClientTable();
@@ -72,5 +73,5 @@ if(
   ScanBarEgress();
 }
 
-hamburgerMenu('.panel-btn','.panel-menu','menu-responsive');
+hamburgerMenu('.panel-btn.hamburger','.panel-menu','menu-responsive');
 socket;

@@ -4,9 +4,9 @@
       <img src="/assets/logo.png" alt="imagen del logo" class="logo">
     </div>
     <nav class="nav-menu">
-      <% if(user && user.admin) { %>  
-        <ul>
-          <li>
+      <ul>
+        <% if(user && user.admin) { %>  
+          <li class="nav-li">
             <a href="/products" class="menu">
               Productos
             </a>
@@ -14,7 +14,7 @@
               <li><a href="/products/create-product">Crear Producto</a></li>
             </ul>
           </li>
-          <li>
+          <li class="nav-li">
             <a href="/history" class="menu">
               Historial
             </a>
@@ -23,7 +23,7 @@
               <li><a href="/history/egress">Cargar Egreso</a></li>
             </ul>
           </li>
-          <li>
+          <li class="nav-li">
             <a href="/clients" class="menu">
               Clientes / Proveedor
             </a>
@@ -31,43 +31,40 @@
               <li><a href="/clients/create-client">Crear Cliente / Proveedor</a></li>
             </ul>
           </li>
-          <li>
+          <li class="nav-li">
             <a href="/users/signup" class="menu">Crear Usuario</a>
           </li>
-          <li>
+        <% }else{ %>
+          <li class="nav-li">
+            <a href="/history" class="menu">
+              Historial
+            </a>
+            <% if( user.canIngress || user.canEgress) { %> 
+            <ul class="menu-dropdown">
+              <% if( user.canIngress) { %> 
+                <li><a href="/history/ingress">Cargar Ingreso</a></li>
+              <% } else { %> 
+                <li><a href="/history/egress">Cargar Egreso</a></li>
+              <% } %> 
+            </ul>
+            <% } %> 
+          </li>
+          <li class="nav-li">
+            <a href="/clients" class="menu">Clientes</a>
+          </li>
+          <li class="nav-li">
+            <a href="/products" class="menu">Productos</a>
+          </li>
+          <% } %>  
+          <li class="nav-li">
             <a href="/users/logout" class="menu">Cerrar sesion</a>
           </li>
-        </ul>
-
-
-        <% }else{ %>
-          <ul>
-            <li>
-              <a href="/history" class="menu">
-                Historial
-              </a>
-              <% if( user.canIngress || user.canEgress) { %> 
-              <ul class="menu-dropdown">
-                <% if( user.canIngress) { %> 
-                  <li><a href="/history/ingress">Cargar Ingreso</a></li>
-                <% } else { %> 
-                  <li><a href="/history/egress">Cargar Egreso</a></li>
-                <% } %> 
-              </ul>
-              <% } %> 
-            </li>
-            <li>
-              <a href="/clients" class="menu">Clientes</a>
-            </li>
-            <li>
-              <a href="/products" class="menu">Productos</a>
-            </li>
-            <li>
-              <a href="/users/logout" class="menu">Cerrar sesion</a>
-            </li>
-          </ul>
-        <% } %>  
-      </nav>
-    </div>
+          <li style="position: relative;">
+            <%- include('./notification-icon.ejs') %> 
+          </li>
+      </ul>
+    </nav>
+  </div>
 </header>
 <%- include('./menu-burguer.ejs') %> 
+<%- include('./notification-btn.ejs') %> 

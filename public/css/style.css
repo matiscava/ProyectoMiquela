@@ -55,6 +55,15 @@
 .icon-user:before {
   content: "\e971";
 }
+.icon-chevron-thin-down:before {
+  content: "\e901";
+}
+.icon-dots-three-horizontal:before {
+  content: "\e902";
+}
+.icon-triangle-down:before {
+  content: "\e903";
+}
 
 
 html {
@@ -129,19 +138,23 @@ main .container.container-table {
   padding: 0;
   display: flex;
 }
-.nav-menu li {
+/* .nav-menu li {
+*/
+.nav-menu li.nav-li,
+.nav-menu li.nav-li li {
   display: block;
   position: relative;
   text-decoration: none;
   transition: 0.3s;
 }
 
-.nav-menu li:hover,
+/* .nav-menu li:hover,
 .nav-menu li:focus-within {
   color: blueviolet;
-}
+} */
 
-.nav-menu li:focus-within a {
+.nav-menu li.nav-li:focus-within a,
+.nav-menu li.nav-li li:focus-within a {
   outline: none;
 }
 
@@ -162,7 +175,8 @@ main .container.container-table {
   min-width: 100%;
   width: max-content;
 }
-.menu-dropdown>li>a {
+.menu-dropdown>li.nav-li>a,
+.menu-dropdown>li.nav-li li>a{
   text-decoration: none;
   display: block;
   color: var(--third-color);
@@ -171,37 +185,47 @@ main .container.container-table {
   padding: .5rem 1.5rem;
   transition: .3s;
 }
-.menu-dropdown>li>a:hover {
+.menu-dropdown>li.nav-li>a:hover,
+.menu-dropdown>li.nav-li li>a:hover,
+.notidication-icon:hover {
   /* background-color: var(--main-modal-color);
   color: #fffc67; */
   color: rgba(139, 137, 137, 0.5);
 }
 
-.nav-menu>ul>li>a {
+.nav-menu>ul>li.nav-li>a,
+.nav-menu>ul>li.nav-li li>a {
+
   text-decoration: none;
   color: var(--third-color);
   font-weight: bold;
   padding: 1.5rem 2rem;
   transition: .3s;
 }
-.nav-menu>ul>li>a:hover {
+.nav-menu>ul>li.nav-li>a:hover ,
+.nav-menu>ul>li.nav-li li>a:hover {
+
   /* background-color: rgba(0, 0, 0, 0.205);
   color: blueviolet; */
   color: rgba(139, 137, 137, 0.5);
 } 
 
-.nav-menu ul li:hover > ul,
-.nav-menu ul li:focus-within > ul,
-.nav-menu ul li ul:hover,
-.nav-menu ul li ul:focus {
+.nav-menu ul li.nav-li:hover > ul,
+.nav-menu ul li.nav-li:focus-within > ul,
+.nav-menu ul li.nav-li ul:hover,
+.nav-menu ul li.nav-li ul:focus {
    visibility: visible;
    opacity: 1;
    display: block;
 }
 
-.nav-menu ul li ul li {
+.nav-menu ul li.nav-li ul li {
   clear: both;
   width: 100%;
+}
+
+.nav-menu ul li.nav-li .menu-dropdown>li{
+  padding: .5rem 1rem;
 }
 
 @media screen and (max-width: 1323px) {
@@ -769,23 +793,6 @@ form {
   margin-left: 1rem;
 }
 
-/* aside.panel.panel-scan-camdiv.scan-cam-container div#qr-reader {
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
-} */
-/* 
-
-#qr-reader__scan_region {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-} */
-
 /* PANEL */
 
 .panel {
@@ -851,7 +858,7 @@ input[type="submit"]#btnSubmitForm:hover {
 /* MENU HAMBURGUESA */
 
 .panel-menu {
-  transform: translate(0,100%);
+  transform: translate(0,-100%);
   background-color: var(--first-modal-color); 
 }
 .panel-btn {
@@ -868,6 +875,7 @@ input[type="submit"]#btnSubmitForm:hover {
   align-items: center;
   background-color: var(--main-color);
   border: 1px solid var(--second-color);
+  transition: .3s;
 }
 .menu-responsive {
   width: 100%;
@@ -898,6 +906,15 @@ input[type="submit"]#btnSubmitForm:hover {
 
 .not-scroll {
   overflow-y: hidden;
+}
+
+.notification-btn{
+  right: 8vw;
+  cursor: pointer;
+}
+
+.notification-btn span{
+  font-size: 1.5rem;
 }
 
 @media screen and (max-width: 1150px) {
@@ -1225,10 +1242,145 @@ input[type="submit"]#btnSubmitForm:hover {
   font-size: .8rem;
 }
 
+.notidication-icon{
+  cursor: pointer;
+  transition: 0.5s;
+  font-size: 1.5rem;
+  position: absolute;
+}
+
+.notifications-unviewed {
+  background: var(--form-error-color);
+  padding: 0 0.27rem;
+  border-radius: 50%;
+  font-size: .75rem;
+  font-weight: bolder;
+  color: var(--form-error-color);
+  cursor: pointer;
+  position: relative;
+  bottom: 1.2rem;
+  left: 0.75rem;
+}
+
+#notifications-list {
+  background-color: var(--second-color);
+  width: 14rem;
+  padding: 0;
+  position: absolute;
+  left: -5.5rem;
+  top: 2.5rem;
+  transition:  0.3s;
+  overflow: hidden;
+  overflow-y: auto;
+  max-height: 16rem;
+}
+.notification-li {
+  background-color: #d1d1d1;
+  padding: 0.3rem;
+  border-bottom: 1px solid var(--second-modal-color);
+}
+.notification-li:last-of-type {
+  border-bottom: 0;
+}
+.notification-li p {
+  margin: 0;
+  font-size: 1rem;
+  text-align: start;
+}
+
+.notification-li-responsable {
+  padding-bottom: 0.5rem;
+  color: var(--submit-color);
+}
+.notification-li-message {
+  padding-bottom: 0.25rem;
+  color: var(--second-color);
+}
+.un-see {
+  background-color: var(--main-color);
+}
+
+.notifications-btn {
+  width: 100%;
+  cursor: pointer;
+  background-color: var(--main-color);
+}
+.notification-btn.panel-btn:hover,
+.notification-btn.panel-btn:active{
+  opacity: .7;
+}
+.notifications-btn span{
+  transition: .3s;
+}
+.notification-btn .icon-cancel {
+  position:initial;
+  transition: .3s;
+  font-size: 1.4rem;
+}
+.notification-btn .icon-cancel:hover,
+.notification-btn:hover .icon-cancel {
+  color:#000;
+
+}
+
+.panel-notification {
+  /* De abajo */
+  transform: translate(0,100vh);
+  background: var(--main-color);
+  box-shadow:  0px -1px 17px 4px var(--second-color);
+  border-radius: 2rem 2rem 0 0;
+  max-height: 50vh;
+  flex-direction: column;
+  align-content: center;
+  text-align: center;
+  width: 95vw;
+  margin: 0 auto;
+}
+.panel.panel-notification.is-active{
+  transform: translate(0,50vh);
+}
+#notifications-container-panel {
+  flex-grow: 1;
+  background: white;
+  margin: 0 2rem;
+  background-color:var(--main-color);
+  overflow: hidden;
+  overflow-y: auto;
+}
+#notifications-list-panel {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+
+@media screen and (max-width: 1323px) {
+  .notidication-icon{
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  #notifications-list{
+    width: 12rem;
+  }
+  .notification-li p {
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 1150px) {
+  span.notifications-unviewed{
+    position: absolute;
+    font-size: 1rem;
+    bottom: 0;
+    left: auto;
+  }
+}
+
 @media screen and (max-width: 900px) {
   #notifications {
     width: 50vw;
   }
+
 }
 @media screen and (max-width: 450px) {
   #notifications {

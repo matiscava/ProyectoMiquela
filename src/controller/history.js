@@ -5,7 +5,7 @@ import Singleton from "../utils/Singleton.js";
 const historyController = () => {};
 
 const { daos } = Singleton.getInstance();
-const { clientsDao , productsDao , historyDao } = daos;
+const { clientsDao , productsDao , historyDao , notificationsDao , usersDao} = daos;
 
 historyController.getHistory = async (req , res) => {
   try {
@@ -19,12 +19,11 @@ historyController.getHistory = async (req , res) => {
 
     let historyList = [];
     history.forEach( el => {
-      let data = { type: el.type, referenceNumber: el.referenceNumber };
+      let data = { type: el.type, referenceNumber: el.referenceNumber, quantity: el.quantity };
       let client = clients.find(client => client.cuit === el.clientID);
       let newDate = new Date(el.timestamp).toLocaleDateString();
 
       let item = items.find(item => item.barCode === el.barCode );
-      el.type == 'Egreso' ? data.quantity = el.quantity*-1 : data.quantity = el.quantity;
 
       data = {...data, client: client.name, clientID: client.id,timestamp: newDate, item: item.name, itemID: item.id,id : el.id }
       historyList.push(data);
@@ -101,8 +100,25 @@ historyController.postIngress = async (req , res) => {
     data.type = 'Ingreso';
 
     let updated = await historyDao.saveHistory( data);
+    let notification = {
+      responsable: data.responsable,
+      receiver: 'all',
+      message: `Ha cargado el ${data.type} N° ${data.referenceNumber}`
+    }
+    notification = await notificationsDao.newNotification(notification);
+
     for(let i = 0 ; i < updated.length ; i++){
-      await productsDao.setProductStock(updated[i]);
+      let product = await productsDao.setProductStock(updated[i]);
+      if(product.minStock > product.stock){
+        let notification = {
+          responsable: req.user.email,
+          receiver: 'all',
+          type: 'warn',
+          message: `el stock del producto ${product.name} está por debajo del minimo`
+        }
+        notification = await notificationsDao.newNotification(notification);
+        await usersDao.addNotificationToAll(notification)
+      }
     }
     res.redirect('/history')
   } catch (err) {
@@ -124,8 +140,26 @@ historyController.postEgress = async (req , res) => {
     data.type = 'Egreso';
 
     let updated = await historyDao.saveHistory(data);
+    let notification = {
+      responsable: data.responsable,
+      receiver: 'all',
+      message: `Ha cargado el ${data.type} N° ${data.referenceNumber}`
+    }
+    notification = await notificationsDao.newNotification(notification);
+
     for(let i = 0 ; i < updated.length ; i++){
-      await productsDao.setProductStock(updated[i]);
+      let product = await productsDao.setProductStock(updated[i]);
+      if(product.minStock > product.stock){
+        let notification = {
+          responsable: req.user.email,
+          receiver: 'all',
+          type: 'warn',
+          message: `el stock del producto ${product.name} está por debajo del minimo`
+        }
+        notification = await notificationsDao.newNotification(notification);
+        await usersDao.addNotificationToAll(notification)
+      }
+
     }
     res.redirect('/history')
 
@@ -167,8 +201,26 @@ historyController.upgradeParticularHistory = async ( req , res ) => {
   delete data.client
 
   let updated = await historyDao.saveHistory(data);
+  let notification = {
+    responsable: data.responsable,
+    receiver: 'all',
+    message: `Ha editado el ${data.type} N° ${data.referenceNumber}`
+  }
+  notification = await notificationsDao.newNotification(notification);
+  await usersDao.addNotificationToAll(notification)
   for(let i = 0 ; i < updated.length ; i++){
-    await productsDao.setProductStock(updated[i]);
+    let product = await productsDao.setProductStock(updated[i]);
+    if(product.minStock > product.stock){
+      let notification = {
+        responsable: req.user.email,
+        receiver: 'all',
+        type: 'warn',
+        message: `el stock del producto ${product.name} está por debajo del minimo`
+      }
+      notification = await notificationsDao.newNotification(notification);
+      await usersDao.addNotificationToAll(notification)
+    }
+
   }
 
 
@@ -198,8 +250,25 @@ historyController.upgradeHistory = async ( req , res ) => {
     element.responsable = req.user.email;
     element.clientID = data.clientID;
     let updated = await historyDao.saveHistory(element);
+    let notification = {
+      responsable: data.responsable,
+      receiver: 'all',
+      message: `Ha editado el ${data.type} N° ${data.referenceNumber}`
+    }
+    notification = await notificationsDao.newNotification(notification);
+
     for(let i = 0 ; i < updated.length ; i++){
-      await productsDao.setProductStock(updated[i]);
+      let product = await productsDao.setProductStock(updated[i]);
+      if(product.minStock > product.stock){
+        let notification = {
+          responsable: req.user.email,
+          receiver: 'all',
+          type: 'warn',
+          message: `el stock del producto ${product.name} está por debajo del minimo`
+        }
+        notification = await notificationsDao.newNotification(notification);
+        await usersDao.addNotificationToAll(notification)
+      }
     }
     
   }

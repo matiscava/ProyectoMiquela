@@ -36,10 +36,6 @@ export default class MongoContainer {
     } catch (err) {
       let message = err || "Ocurrio un error";
       console.error(`Error ${err.status}: ${message}`);
-      res.send( `
-      <h1>Ocurrio un error</h1>
-      <p>Error ${err.status}: ${message}</p>
-      ` );
     }
   }
 
@@ -144,7 +140,7 @@ export default class MongoContainer {
       element.minStock = parseInt(element.minStock);
       if(!element.id) {
         element.stock = 0;
-        const document = await new this.collection(element);
+        const document = new this.collection(element);
         const response = await document.save();
         let result = asPOJO(response);
         result.id = result._id;
@@ -261,15 +257,82 @@ export default class MongoContainer {
   }
 
   async newNotification ( element ) {
-    element.timestamp = new Date().getTime();
-    const document = new this.collection(element);
-    const response = await document.save();
-    let result = asPOJO(response);
-    result.id = result._id;
-    delete result._id;  
-    delete result.__v;  
-    return result;
+    try {
+      element.timestamp = new Date().getTime();
+      const document = new this.collection(element);
+      const response = await document.save();
+      let result = asPOJO(response);
+      result.id = result._id;
+      delete result._id;  
+      delete result.__v;  
+      return result;
+    } catch (err) {
+      let message = err || "Ocurrio un error";
+      console.error(`Error ${err.status}: ${message}`);
+    }
   }
 
+  async addNotificationToAll ( data ) {
+    try{
+      let users = await this.getAll();
+      data.viewed = false;
+
+      for( let i = 0 ; i < users.length ; i ++) {
+        let user = users[i];
+        user.notifications.push(data);
+        const { n, nModified } = await this.collection.updateOne({ _id: user.id }, {
+          $set: user
+        })
+        if (n == 0 || nModified == 0) throw new Error(`Elemento con el id: '${user.id}' no fue encontrado`);
+
+      }
+
+      return true;
+    } catch (err) {
+      let message = err || "Ocurrio un error";
+      console.error(`Error ${err.status}: ${message}`);
+    }
+  }
+
+  async addNotificationTo ( userId , data ) {
+    try{
+      let user = await this.getByID(userId)
+      data.viewed = false;
+      user.notifications.push(data);
+      const { n, nModified } = await this.collection.updateOne({ _id: userId }, {
+        $set: user
+      })
+      if (n == 0 || nModified == 0) throw new Error(`Elemento con el id: '${userId}' no fue encontrado`);
+      
+      return true;
+    } catch (err) {
+      let message = err || "Ocurrio un error";
+      console.error(`Error ${err.status}: ${message}`);
+    }
+  }
+  async seeNotification(data) {
+    try{
+      let user = await this.getBy('email',data[0]);
+      data.forEach(el => {        
+        let notification = user.notifications.find( noti => noti.id === el.notiId );
+        let notificationIndex = user.notifications.findIndex( noti => noti.id === el.notiId )
+        
+        notification.viewed = true;
+        user.notifications.splice( notificationIndex,1,notification);
+      });
+
+
+      const { n, nModified } = await this.collection.updateOne({ _id: user.id }, {
+        $set: user
+      })
+      if (n == 0 || nModified == 0) throw new Error(`Elemento con el id: '${user.id}' no fue encontrado`);
+      
+      return true;
+
+    }catch (err) {
+      let message = err || "Ocurrio un error";
+      console.error(`Error ${err.status}: ${message}`);
+    }
+  }
 
 }

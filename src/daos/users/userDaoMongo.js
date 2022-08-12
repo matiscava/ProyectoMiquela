@@ -13,7 +13,8 @@ class UserDaoMongo extends MongoContainer {
       dni: {type: String, required:true},
       email: {type: String, required:true},
       salt: {type: String, required: true},
-      hash: {type: String, required: true}
+      hash: {type: String, required: true},
+      notifications: {type: Array, default: [], required: true}
       })
   }
 };
