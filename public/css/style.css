@@ -187,7 +187,7 @@ main .container.container-table {
 }
 .menu-dropdown>li.nav-li>a:hover,
 .menu-dropdown>li.nav-li li>a:hover,
-.notidication-icon:hover {
+.notification-icon:hover {
   /* background-color: var(--main-modal-color);
   color: #fffc67; */
   color: rgba(139, 137, 137, 0.5);
@@ -1230,11 +1230,12 @@ input[type="submit"]#btnSubmitForm:hover {
   font-style: italic;
   color: var(--submit-color);
 }
-.notification-container .notification-responsable.warn {
+.notification-container .notification-responsable.warn,
+.notification-li-warn {
   margin-top: 0;
   font-style:normal;
   text-transform: capitalize;
-  color: red;
+  color: #d74d4d;
 }
 
 .notification-container .notification-message {
@@ -1242,7 +1243,7 @@ input[type="submit"]#btnSubmitForm:hover {
   font-size: .8rem;
 }
 
-.notidication-icon{
+.notification-icon{
   cursor: pointer;
   transition: 0.5s;
   font-size: 1.5rem;
@@ -1303,6 +1304,7 @@ input[type="submit"]#btnSubmitForm:hover {
 .notifications-btn {
   width: 100%;
   cursor: pointer;
+  list-style: none;
   background-color: var(--main-color);
 }
 .notification-btn.panel-btn:hover,
@@ -1355,7 +1357,7 @@ input[type="submit"]#btnSubmitForm:hover {
 
 
 @media screen and (max-width: 1323px) {
-  .notidication-icon{
+  .notification-icon{
     font-size: 1rem;
     line-height: 1.5;
   }

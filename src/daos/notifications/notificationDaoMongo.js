@@ -10,7 +10,8 @@ class NotificationDaoMongo extends MongoContainer {
       timestamp: {type: Number, required: true},
       responsable: {type: String, required: true},
       message: {type: String, required:true},
-      receiver: {type: String, required:true}
+      receiver: {type: String, required:true},
+      type: {type: String, default: 'notification'}
     })
   }
 };

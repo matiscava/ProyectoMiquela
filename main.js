@@ -49,9 +49,8 @@ io.on( 'connection' , async (socket) => {
         })
         .on('see-notification', async (data) => {
           if( data.length && userLog.email === data[0].email ){
-          let seeNoti = await usersDao.seeNotification(data);
+            let seeNoti = await usersDao.seeNotification(data);
           }
-
         })
         .emit('get-notifications', userLog.notifications)
     }

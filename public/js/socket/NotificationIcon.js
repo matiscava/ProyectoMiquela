@@ -1,6 +1,6 @@
 const NotificationIcon = (data) => {
   const d = document,
-    $notificationSpan = d.querySelector('.notidication-icon'),
+    $notificationSpan = d.querySelector('.notification-icon'),
     $notificationLength = d.querySelectorAll('.notifications-unviewed'),
     $template = d.getElementById('notification-li-template').content,
     $notificationListFragment = d.createDocumentFragment(),
@@ -33,6 +33,10 @@ const NotificationIcon = (data) => {
           if($li.classList.contains('un-see')){
             $li.classList.remove('un-see');
             unSee = unSee-1;
+            let dataMessage = data.find( men => men.id == $li.getAttribute('data-noti-id'));
+            let dataMessageIndex = data.findIndex( men => men.id == $li.getAttribute('data-noti-id'));
+            dataMessage.viewed = true;
+            data.splice(dataMessageIndex,1,dataMessage);
             message.push({
               email : $notificationList.getAttribute('data-client'),
               notiId: $li.getAttribute('data-noti-id')
@@ -67,16 +71,18 @@ const NotificationIcon = (data) => {
         notificationLength($notificationLength);
         $template.querySelector('.notification-li').setAttribute('data-noti-id', el.id);
         $template.querySelector('.notification-li-responsable').innerHTML = el.responsable;
-        if(el.type === 'warn'){
-          let $p = d.createElement('p').classList.add('notification-li-warn')
-          $p.innerHTML = 'ATENCION!'
-          $template.insertAfter($p, $template.querySelector('.notification-li').firstElementChild )
-        } 
         $template.querySelector('.notification-li-message').innerHTML = el.message;
         
         let $clone = d.importNode($template, true);
+        let $firstChild = $clone.children[0];
+        if(el.type === 'warn'){
+          let $p = d.createElement('p');
+          $p.classList.add('notification-li-warn');
+          $p.innerHTML = 'ATENCION!';
+
+          $firstChild.insertBefore($p, $firstChild.children[1] )
+        } 
         $notificationListFragment.appendChild($clone);
-        if(el.type === 'warn')$template.removeChild('.notification-li-warn')
       }
       $notificationList.appendChild($notificationListFragment); 
       if(data.length !== k) createSpan()
@@ -86,6 +92,7 @@ const NotificationIcon = (data) => {
       if(el.viewed !== true) unSee++;
     });
 
+    getNotifications();
 
 
     d.addEventListener('click', (e) => {
@@ -97,7 +104,7 @@ const NotificationIcon = (data) => {
         getNotifications()
       }
       if(e.target == $notificationSpan || e.target.parentElement ==  $notificationSpan){
-        e.preventDefault();
+        // e.preventDefault();
         while ($notificationList.firstChild) {
           $notificationList.removeChild($notificationList.lastChild);
         }

@@ -3,7 +3,7 @@ const NotificationBtn = (data) => {
   const d = document,
     $notificationBtn = d.querySelector('.panel-btn.notification-btn'),
     $notificationAside = d.querySelector('.panel.panel-notification'),
-    $notificationLength = d.querySelectorAll('.notifications-unviewed'),
+    $notificationLength = d.querySelectorAll('span.notifications-unviewed'),
     $notificationTemplate = d.getElementById('notification-panel-li-template').content,
     $notificationListFragment = d.createDocumentFragment(),
     $notificationContainer = d.getElementById('notifications-container-panel'),
@@ -12,8 +12,18 @@ const NotificationBtn = (data) => {
     let unSee = 0;
     let timmer;
     let i = 0,lengthData = 4;
-    data.reverse();
+    // data.reverse();
 
+    function notificationLength($span) {
+      $span.forEach( $notification => {
+        if(unSee > 0){
+          $notification.textContent = '.';
+          $notification.classList.remove('none')
+        }else{
+          $notification.classList.add('none')
+        }
+      });
+    }
     function invocation() {
       timmer = setTimeout(() => {    
         let message = [];    
@@ -25,22 +35,18 @@ const NotificationBtn = (data) => {
               email : $notificationList.getAttribute('data-client'),
               notiId: $li.getAttribute('data-noti-id')
             });
-            notificationLength();
+            let dataMessage = data.find( men => men.id == $li.getAttribute('data-noti-id'));
+            let dataMessageIndex = data.findIndex( men => men.id == $li.getAttribute('data-noti-id'));
+            dataMessage.viewed = true;
+            data.splice(dataMessageIndex,1,dataMessage);
+            notificationLength($notificationLength);
           }
+          console.log('message', message);
           if(message.length) socket.emit('see-notification', message )
         });
       }, 3000);
     } 
-    function notificationLength($span) {
-      $span.forEach( $notification => {
-        if(unSee > 0){
-          $notification.textContent = '.';
-          $notification.classList.remove('none')
-        }else{
-          $notification.classList.add('none')
-        }
-      });
-    }
+
     function createSpan(){
       let $li = document.createElement('li');
       let $span = document.createElement('span');
@@ -59,19 +65,27 @@ const NotificationBtn = (data) => {
         }else{
           $notificationTemplate.querySelector('.notification-li').classList.remove('un-see');
         }
-        notificationLength($notificationLength);
+        // notificationLength($notificationLength);
         $notificationTemplate.querySelector('.notification-li').setAttribute('data-noti-id', el.id);
         $notificationTemplate.querySelector('.notification-li-responsable').innerHTML = el.responsable;
-        if(el.type === 'warn'){
-          let $p = d.createElement('p').classList.add('notification-li-warn')
-          $p.innerHTML = 'ATENCION!'
-          $notificationTemplate.insertAfter($p, $notificationTemplate.querySelector('.notification-li').firstElementChild )
-        } 
+        // if(el.type === 'warn'){
+        //   let $p = d.createElement('p')
+        //   $p.classList.add('notification-li-warn')
+        //   $p.innerHTML = 'ATENCION!'
+        //   $notificationTemplate.insertAfter($p, $notificationTemplate.querySelector('.notification-li') )
+        // } 
         $notificationTemplate.querySelector('.notification-li-message').innerHTML = el.message;
     
         let $clone = d.importNode($notificationTemplate, true);
+        let $firstChild = $clone.children[0];
+        if(el.type === 'warn'){
+          let $p = d.createElement('p');
+          $p.classList.add('notification-li-warn');
+          $p.innerHTML = 'ATENCION!';
+
+          $firstChild.insertBefore($p, $firstChild.children[1] )
+        } 
         $notificationListFragment.appendChild($clone);
-        if(el.type === 'warn')$notificationTemplate.removeChild('.notification-li-warn')
       }
 
       $notificationList.appendChild($notificationListFragment); 
@@ -81,9 +95,11 @@ const NotificationBtn = (data) => {
       if(el.viewed !== true) unSee++;
     });
 
+  getNotifications();
 
   d.addEventListener('click', (e) => {
     if( e.target == $notificationBtn || e.target.parentElement == $notificationBtn) {
+      console.log();
       while ($notificationList.firstChild) {
         $notificationList.removeChild($notificationList.lastChild);
       }
