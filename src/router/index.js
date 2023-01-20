@@ -26,8 +26,13 @@ router
 .use('/history', isAuth , historyRoute )
 //ERROR 404
 .use((req, res) => {
-  res.status(404).json(
-      {error: -2, descripcion: `ruta ${req.originalUrl} método ${req.method} no implementada`}    
+  res.status(404)
+  .render(
+    path.join(process.cwd(),'/views/404.ejs'),
+    {
+      title:'Error 404',
+      message: `la Ruta ${req.originalUrl}, no está implementada.`
+    }    
   )
 })
 

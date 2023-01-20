@@ -11,7 +11,6 @@ const { usersDao } = daos;
 const loginCallback = async ( username , password , done ) => {
   try {
     const user = await usersDao.findUser(username);
-
     if (!user){
       return done(null, false)
     }
@@ -28,12 +27,9 @@ const loginCallback = async ( username , password , done ) => {
 const rememberMe = async (req, res, next) => {
   if (req.method == 'POST' && req.url == '/users/login'){
     if(req.body.rememberMe) {
-      console.log('recuerdame');
       req.session.cookie.maxAge =  604800000;
       req.session.cookie.expires = true;
-
     }else{
-      console.log('no lo hagas');
       req.session.cookie.maxAge =  options.SESSION_AGE;
       req.session.cookie.expires = false;
     }

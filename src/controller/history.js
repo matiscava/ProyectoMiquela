@@ -1,4 +1,7 @@
 import path from 'path';
+import clientMapper from '../mapper/clientMapper.js';
+import historyMapper from '../mapper/historyMapper.js';
+import itemMapper from '../mapper/itemMapper.js';
 import Singleton from "../utils/Singleton.js";
 
 
@@ -19,18 +22,13 @@ historyController.getHistory = async (req , res) => {
 
     let historyList = [];
     history.forEach( el => {
-      let data = { type: el.type, referenceNumber: el.referenceNumber, quantity: el.quantity };
       let client = clients.find(client => client.cuit === el.clientID);
-      let newDate = new Date(el.timestamp).toLocaleDateString();
-
       let item = items.find(item => item.barCode === el.barCode );
-
-      data = {...data, client: client.name, clientID: client.id,timestamp: newDate, item: item.name, itemID: item.id,id : el.id }
-      historyList.push(data);
-    })
+      historyList.push(historyMapper.mapHistoryToHistoryDtoTable(el,client,item)); 
+    });
 
     
-    res.render(path.join(process.cwd(),'/views/history.ejs'),{ title: 'Historial' , user: req.user,historyList })
+    res.render(path.join(process.cwd(),'/views/history.ejs'),{ title: 'Historial' , user: req.user,historyList });
   } catch (err) {
     let message = err || "Ocurrio un error";
 
@@ -47,8 +45,20 @@ historyController.getIngress = async ( req , res ) => {
     let clients = await clientsDao.getAll();
     let items = await productsDao.getAll();
 
-    res.render(path.join(process.cwd(),'/views/history-ingress.ejs'),{ title: 'Cargar un nuevo Ingreso' , user: req.user,clients,items })
-  
+    const itemList = [];
+    items.forEach( i => itemList.push( itemMapper.mapItemToItemDtoHistoryIngress(i) ) );
+    const clientList = [];
+    clients.forEach( c => clientList.push( clientMapper.mapClientToClientSelect(c) ) );
+    
+    res.render(
+      path.join(process.cwd(),'/views/history-ingress.ejs'),
+      { 
+        title: 'Cargar un nuevo Ingreso' ,
+        user: req.user,
+        clientList,
+        itemList 
+      }
+    );
   } catch (err) {
     let message = err || "Ocurrio un error";
 
@@ -60,7 +70,7 @@ historyController.getIngress = async ( req , res ) => {
   }
 }
 
-historyController. getIngressById = async ( req , res ) => {
+historyController.getIngressById = async ( req , res ) => {
   try {
     let referenceNumber = req.params.id;
 
@@ -69,16 +79,24 @@ historyController. getIngressById = async ( req , res ) => {
     const clientList = await clientsDao.getAll();
 
     historyList = historyList.filter( el => el.referenceNumber === referenceNumber );
-    historyList.forEach( el => {
-      el.client = clientList.find( client => client.cuit === el.clientID).name;
-      el.clientID = clientList.find( client => client.cuit === el.clientID).id;
-      el.item = el.name;
-      delete el.name;
-      el.timestamp = new Date(el.timestamp).toLocaleDateString();
-      el.itemID = productsList.find( prod => prod.barCode === el.barCode).id;
-    })
     
-    res.render(path.join(process.cwd(),'/views/history-particular.ejs'),{ title: `Edite el ${historyList[0].type} N°: ${referenceNumber}` , user: req.user , historyList });
+    const historyDtoList = [];
+    historyList.forEach( el => {
+      historyDtoList.push(
+        historyMapper.mapHistoryToHistoryDtoTable(
+          el,
+          clientList.find( client => client.cuit === el.clientID),
+          productsList.find( prod => prod.barCode === el.barCode)
+        )
+      );
+    });
+    
+    res.render(
+      path.join(process.cwd(),'/views/history-particular.ejs'),
+      { title: `Edite el ${historyList[0].type} N°: ${referenceNumber}`,
+       user: req.user,
+       historyDtoList
+      });
  
   } catch (err) {
     let message = err || "Ocurrio un error";
@@ -117,10 +135,10 @@ historyController.postIngress = async (req , res) => {
           message: `el stock del producto ${product.name} está por debajo del minimo`
         }
         notification = await notificationsDao.newNotification(notification);
-        await usersDao.addNotificationToAll(notification)
+        await usersDao.addNotificationToAll(notification);
       }
     }
-    res.redirect('/history')
+    res.redirect('/history');
   } catch (err) {
     let message = err || "Ocurrio un error";
 
@@ -159,9 +177,8 @@ historyController.postEgress = async (req , res) => {
         notification = await notificationsDao.newNotification(notification);
         await usersDao.addNotificationToAll(notification)
       }
-
     }
-    res.redirect('/history')
+    res.redirect('/history');
 
   } catch (err) {
     let message = err || "Ocurrio un error";
@@ -177,9 +194,20 @@ historyController.postEgress = async (req , res) => {
 historyController.getEgress = async ( req , res ) => {
   let clients = await clientsDao.getAll();
   let items = await productsDao.getAll();
-
-  res.render(path.join(process.cwd(),'/views/history-egress.ejs'),{ title: 'Cargar un nuevo Egreso' , user: req.user,clients,items })
-
+  const clientList = [];
+  clients.forEach(c => clientList.push( clientMapper.mapClientToClientSelect(c) ) );
+  const itemList = [];
+  items.forEach( i => itemList.push( itemMapper.mapItemToItemDtoHistoryEgress(i) ) );
+  
+  res.render(
+    path.join(process.cwd(),'/views/history-egress.ejs'),
+    { 
+      title: 'Cargar un nuevo Egreso',
+      user: req.user,
+      clientList,
+      itemList
+    }
+  );
 }
 
 historyController.getUpgradeParticularHistory = async ( req , res ) => {
@@ -187,11 +215,31 @@ historyController.getUpgradeParticularHistory = async ( req , res ) => {
   let history = await historyDao.getByID(historyID);
   const clients = await clientsDao.getAll();
   let items = await productsDao.getAll();
-
+  
   items = items.filter(el => el.barCode !== history.barCode);
 
+  const clientList = [];
+  clients.forEach( c =>
+    {
+      if(history.type ==='Ingreso' && c.type === "proveedor" || history.type ==='Egreso' && c.type === "cliente" ){
+        clientList.push( clientMapper.mapClientToClientSelect(c) ) 
+      }     
+    }
+  );
+    
+  const itemList = [];
+  items.forEach( i => itemList.push( itemMapper.mapItemToItemDtoBarCode(i) ) );
   
-  res.render(path.join(process.cwd(),'/views/history-particular-upgrade.ejs'),{ title: `Editar ${history.type}` , user: req.user,clients,items,history })
+  res.render(
+    path.join(process.cwd(),'/views/history-particular-upgrade.ejs'),
+    {
+      title: `Editar ${history.type}`,
+      user: req.user,
+      clientList,
+      itemList,
+      history
+    }
+  )
 }
 
 historyController.upgradeParticularHistory = async ( req , res ) => {
@@ -235,9 +283,25 @@ historyController.getUpgradeHistory = async ( req , res ) => {
 
   historyList = historyList.filter( hist => hist.referenceNumber === historyReferenceNumber );
   const clients = await clientsDao.getAll();
-  let items = await productsDao.getAll();
+  const items = await productsDao.getAll();
 
-  res.render(path.join(process.cwd(),'/views/history-upgrade.ejs'),{ title: `Editar ${historyList[0].type}` , user: req.user,clients,items,historyList })
+  const clientList = [];
+  clients.forEach( c => clientList.push( clientMapper.mapClientToClientSelect(c) ) );
+  const itemList = [];
+  items.forEach( i => itemList.push( itemMapper.mapItemToItemDtoHistoryEgress(i) ) )
+  const historyDtoList = [];
+  historyList.forEach( h=> historyDtoList.push( historyMapper.mapHistoryToHistotyDtoUpdate(h) ) );
+  
+  res.render(
+    path.join(process.cwd(),'/views/history-upgrade.ejs'),
+    { 
+      title: `Editar ${historyList[0].type}`,
+      user: req.user,
+      clientList,
+      itemList,
+      historyDtoList
+    }
+  )
 }
 
 historyController.upgradeHistory = async ( req , res ) => {

@@ -13,9 +13,9 @@ import { ScanBarEgress } from "./js/ScanBarEgress.js";
 import hamburgerMenu from "./js/hamburgerButton.js";
 import { HistoryParticularUpgradeForm } from "./js/HistoryParticularUpgradeForm.js";
 import socket from "./js/socket/index.js";
+import { ForgetPasswordForm } from "./js/ForgetPasswordForm.js";
 
 let getLocation = window.location.pathname;
-console.log(window.innerWidth);
 document.addEventListener('DOMContentLoaded', (e) => {
   if(getLocation === '/clients'){
     ClientTable();
@@ -55,7 +55,11 @@ document.addEventListener('DOMContentLoaded', (e) => {
   }
   if(getLocation === '/users/signup'){
     SignupForm();
-  } 
+  }
+
+  if(getLocation === '/users/forget-password'){
+    ForgetPasswordForm();
+  }
 
   if( getLocation.includes('/history/history-') && getLocation.includes('/upgrade') ) {
     HistoryUpgradeForm();

@@ -45,7 +45,6 @@
       </label>
       <button type="button" class="btn-code-scan">Escanear Código <img id="camera-icon" src="/assets/camera-icon.svg" alt="Saca una foto"></button>
       <input type="hidden" name="id" value="<%= product.id %>" required>
-      <input type="hidden" name="stock" value="<%= product.stock %>" required>
       <input type="hidden" name="_method" value="PUT">
       <input type="submit"  id="btnSubmitForm" value="Enviar">
     </form>
@@ -60,6 +59,6 @@
 </main>
 <script src="https://unpkg.com/html5-qrcode"></script>
 <script>
-  const productsList = <%-JSON.stringify(productsList)  %>;
+  const productsList = <%-JSON.stringify(productsList)%>;
 </script>
 <%- include('./footer.ejs')  %> 

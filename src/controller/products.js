@@ -1,4 +1,6 @@
 import path from "path";
+import historyMapper from "../mapper/historyMapper.js";
+import productMapper from "../mapper/productMapper.js";
 import Singleton from "../utils/Singleton.js";
 
 const productController = () => {};
@@ -7,17 +9,24 @@ const { clientsDao , productsDao , historyDao , notificationsDao , usersDao } = 
 
   productController.getProducts = async ( req , res ) => {
     try {
-      let products = await productsDao.getAll();
-
-      res.render(path.join(process.cwd(),'/views/products.ejs'),{ title: 'Productos' , user: req.user, products })
-
+      const products = await productsDao.getAll();
+      const productList = [];
+      products.forEach( p => productList.push( productMapper.mapProductToPoductDtoTable(p) ) );
+      res.render(
+        path.join(process.cwd(),'/views/products.ejs'),
+        {
+          title: 'Productos',
+          user: req.user,
+          productList
+        }
+      );
     } catch (err) {
       let message = err || "Ocurrio un error";
       console.error(`Error ${err.status}: ${message}`);
       res.send( `
       <h1>Ocurrio un error</h1>
       <p>Error ${err.status}: ${message}</p>
-      ` )
+      ` );
     }
   }
 
@@ -30,14 +39,19 @@ const { clientsDao , productsDao , historyDao , notificationsDao , usersDao } = 
       const clientList = await clientsDao.getAll();
 
       const productHistory = historyList.filter(el => el.barCode === product.barCode);
-      productHistory.forEach( el => {
-        el.itemID = productID;
-        el.item = product.name;
-        el.client = clientList.find( client => client.cuit === el.clientID).name;
-        el.clientID = clientList.find( client => client.cuit === el.clientID).id;
-        el.timestamp = new Date(el.timestamp).toLocaleDateString();
-      });
-      res.render(path.join(process.cwd(),'/views/product.ejs'),{ title: `Detalle del Producto ${product.name}` , user: req.user, product, productHistory })       
+      
+      const historyProductList = [];
+      productHistory.forEach( h => historyProductList.push( historyMapper.mapHistoryToHistoryDtoTable( h, clientList.find( c => c.cuit === h.clientID ), product ) ) );
+      
+      res.render(
+        path.join(process.cwd(),'/views/product.ejs'),
+        { 
+          title: `Detalle del Producto ${product.name}`,
+          user: req.user,
+          product,
+          historyProductList
+        }
+      );       
     } catch (err) {
       let message = err || "Ocurrio un error";
       console.error(`Error ${err.status}: ${message}`);
@@ -50,9 +64,19 @@ const { clientsDao , productsDao , historyDao , notificationsDao , usersDao } = 
 
   productController.getCreateProduct = async ( req , res ) => {
     try {
-      let products = await productsDao.getAll();
-
-      res.render(path.join(process.cwd(),'/views/product-create.ejs'),{ title: 'Cargar un nuevo Producto' , user: req.user,products });
+      const products = await productsDao.getAll();
+      
+      const productList = [];
+      products.forEach( p => productList.push( productMapper.mapProductToProductDtoCreateForm(p) ) );
+      
+      res.render(
+        path.join(process.cwd(),'/views/product-create.ejs'),
+        {
+          title: 'Cargar un nuevo Producto',
+          user: req.user,
+          productList
+        }
+      );
     } catch (err) {
       let message = err || "Ocurrio un error";
       console.error(`Error ${err.status}: ${message}`);
@@ -77,9 +101,9 @@ const { clientsDao , productsDao , historyDao , notificationsDao , usersDao } = 
         message: `Ha editado el producto: ${created.name}`
       }
       notification = await notificationsDao.newNotification(notification);
-      await usersDao.addNotificationToAll(notificationd);
+      await usersDao.addNotificationToAll(notification);
       
-      res.redirect('/products')
+      res.redirect('/products');
     } catch (err) {
       let message = err || "Ocurrio un error";
       console.error(`Error ${err.status}: ${message}`);
@@ -92,11 +116,23 @@ const { clientsDao , productsDao , historyDao , notificationsDao , usersDao } = 
 
   productController.getUpgradeProduct = async ( req , res )=> {
     let productID = req.params.id;
-    const product = await productsDao.getByID(productID);
-    let productsList = await productsDao.getAll();
-    productsList = productsList.filter( el => el.id !== productID );
+    const prod = await productsDao.getByID(productID);
+    const prodList = await productsDao.getAll();
+    prodList = prodList.filter( el => el.id !== productID );
 
-    res.render(path.join(process.cwd(),'/views/product-upgrade.ejs'),{ title: `Editando el producto ${product.name}` , user: req.user,productsList,product });
+    const product = productMapper.mapProductToProductDtoUpdateForm(prod);
+    const productsList = [];
+    prodList.forEach( p => productsList.push( productMapper.mapProductToPoductDtoTable(p) ) );
+    
+    res.render(
+      path.join(process.cwd(),'/views/product-upgrade.ejs'),
+      {
+        title: `Editando el producto ${product.name}`,
+        user: req.user,
+        productsList,
+        product
+      }
+    );
 
   }
 

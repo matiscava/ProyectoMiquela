@@ -17,9 +17,11 @@ export function ProductTable(){
       $tds[0].textContent = el.barCode;
       $tds[1].textContent = el.code;
       $tds[2].textContent = el.name;
-      $tds[3].textContent = el.description;
-      $tds[4].textContent = el.type;
-      $tds[5].textContent = el.stock;
+      $tds[3].textContent = el.type;
+      $tds[4].textContent = el.stock;
+      // $tds[3].textContent = el.description;
+      // $tds[4].textContent = el.type;
+      // $tds[5].textContent = el.stock;
       $tableLink.textContent = 'Ver Producto';
       $tableLink.setAttribute('href', `/products/product-${el.id}`)
       let $clone = d.importNode($productTemplate, true);

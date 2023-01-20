@@ -81,7 +81,7 @@ export   function ValidationsHistoryForm(id) {
       formValues[`${$input.name}`] =  $input.value;
     })
     let oldCuit = clientsList.find(el => el.cuit === formValues.cuit );
-    let oldVarCode = itemsList.find(el => el.barCode === formValues.barCode )
+    let oldBarCode = itemsList.find(el => el.barCode === formValues.barCode )
     if(oldCuit) {
     e.preventDefault();
   
@@ -99,7 +99,7 @@ export   function ValidationsHistoryForm(id) {
       })
       $panel.innerHTML = "";
       $panel.appendChild($fragment);
-    }else if(oldVarCode) {
+    }else if(oldBarCode) {
     e.preventDefault();
     $inputs[4].value = '';
     $inputs[5].value = '';

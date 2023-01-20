@@ -20,14 +20,7 @@
       <label for="barCodeDos">Repita el Código De Barra: <input type="text" name="barCode" placeholder="347 1 06548725" value="<%= history.barCode %>" required></label>
       <button type="button" class="btn-code-scan" data-barCode="0">Escanear Código <img id="camera-icon" src="/assets/camera-icon.svg" alt="Saca una foto"></button>
       <label for="quantity">Cantidad: <input type="number" min="0" name="quantity" value="<%= history.quantity %>" data-quantity="<%= history.quantity %>" required> </label>
-      
-      <label for="type">
-        Seleccione el tipo:
-        <select name="type">  
-          <option value="Ingreso"<% if(history.type === "Ingreso") {%> selected<% } %> >Ingreso</option>
-          <option value="Egreso" <% if(history.type === "Egreso") {%> selected<% } %> >Egreso</option>
-        </select>
-      </label>
+      <input type="hidden" name="type" value="<%= history.type %>">
       <input type="hidden" name="id" value="<%= history.id %>" required>
       <input type="hidden" value="<%= history.clientID %>" name="clientID" required>
   
@@ -46,8 +39,8 @@
 <script src="https://unpkg.com/html5-qrcode"></script>
 
 <script>
-  const clientsList = <%-JSON.stringify(clients)  %>;
-  const itemsList = <%-JSON.stringify(items)  %>;
+  const clientsList = <%-JSON.stringify(clientList)  %>;
+  const itemsList = <%-JSON.stringify(itemList)  %>;
   const histoyCuit = <%-JSON.stringify(history.clientID)  %>;
   let historyLength = 1;
 </script>

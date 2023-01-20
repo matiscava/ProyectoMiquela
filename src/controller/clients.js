@@ -1,5 +1,7 @@
 import path from "path";
 import Singleton from "../utils/Singleton.js";
+import clientMapper from "../mapper/clientMapper.js";
+import historyMapper from "../mapper/historyMapper.js";
 
 const clientController = () => {};
 
@@ -12,8 +14,9 @@ clientController.getClients = async ( req , res ) => {
     let clients = await clientsDao.getAll();
     if( ! (clients instanceof Array) ) return res.send('<p>Clientes No es un Array</p>');
     if(!clients.length) return res.send('<p>No hay clientes cargados</p>');
-
-    res.render(path.join(process.cwd(),'/views/clients.ejs'),{ title: 'Clientes y Proveedores' , user: req.user,clients })
+    const clientsList = [];
+    clients.forEach( client => clientsList.push( clientMapper.mapClientToClientDtoTable(client) ) ); 
+    res.render(path.join(process.cwd(),'/views/clients.ejs'),{ title: 'Clientes y Proveedores' , user: req.user,clientsList })
 
   } catch (err) {
     let message = err || "Ocurrio un error";
@@ -26,19 +29,32 @@ clientController.getClients = async ( req , res ) => {
 }
 clientController.getClientByID = async (req , res) => {
   try {
-    let clientID = req.params.id;
-    const client = await clientsDao.getByID(clientID);
+    const client = await clientsDao.getByID(req.params.id);
     const historyList = await historyDao.getAll();
     const productList = await productsDao.getAll();
     const clientHistory = historyList.filter( el => el.clientID === client.cuit);
+
+    const clientSelected = clientMapper.mapClientToClientDtoById(client);
+    
+    const clientHistoryList = [];
     clientHistory.forEach( el => {
-      el.item = productList.find( item => item.barCode === el.barCode).name;
-      el.itemID = productList.find( item => item.barCode === el.barCode).id;
-      el.client = client.name;
-      el.clientID = client.id;
-      el.timestamp = new Date(el.timestamp).toLocaleDateString();
-    });
-    res.render(path.join(process.cwd(),'/views/client.ejs'),{ title: `Detalle del ${client.type}: ${client.name}` , user: req.user, clientSelected: client, clientHistory })       
+        clientHistoryList.push( 
+          historyMapper.mapHistoryToHistoryDtoTable(
+            el,
+            client,
+            productList.find( item => item.barCode === el.barCode)
+          )
+        )
+      }
+    );
+
+    res.render(
+      path.join(process.cwd(),'/views/client.ejs'),
+      { 
+        title: `Detalle del ${client.type}: ${client.name}`,
+        user: req.user,
+        clientSelected,
+        clientHistoryList })       
   } catch (err) {
       let message = err || "Ocurrio un error";
   
@@ -53,7 +69,16 @@ clientController.getClientByID = async (req , res) => {
 clientController.getCreateClient = async ( req , res ) => {
   try {
     let clients = await clientsDao.getAll();
-    res.render(path.join(process.cwd(),'/views/client-create.ejs'),{ title: 'Cargar un nuevo Cliente / Proveedor' , user: req.user,clients })
+    
+    const clientsList = [];
+    clients.forEach( client => clientsList.push(clientMapper.mapClientToCLientDtoCreateForm(client))); 
+   
+    res.render(
+      path.join(process.cwd(),'/views/client-create.ejs'),
+      { title: 'Cargar un nuevo Cliente / Proveedor' ,
+        user: req.user,
+        clientsList 
+      })
   } catch (err) {
     let message = err || "Ocurrio un error";
     console.error(`Error ${err.status}: ${message}`);
@@ -68,7 +93,7 @@ clientController.createClient = async ( req , res ) => {
   try {
     const data = req.body;
     data.responsable = req.user.email;
-    const newClient = await clientsDao.saveClient(data );
+    await clientsDao.saveClient(data );
 
     res.redirect('/clients')
   } catch (err) {
@@ -85,9 +110,18 @@ clientController.getUpgradeClient = async ( req , res ) => {
   try {
     const clientID = req.params.id;
     const clientSelected = await clientsDao.getByID(clientID);
-    let clientsList = await clientsDao.getAll();
-    clientsList = clientsList.filter( el => el.id !== clientID)
-    res.render(path.join(process.cwd(),'/views/client-upgrade.ejs'),{ title: `Editando al ${clientSelected.type} ${clientSelected.name}` , user: req.user,clientsList,clientSelected });
+    let clients = await clientsDao.getAll();
+    clients = clients.filter( el => el.id !== clientID);
+    const clientsList = [];
+    clients.forEach( client => clientsList.push(clientMapper.mapClientToCLientDtoCreateForm(client))); 
+    res.render(
+      path.join(process.cwd(),'/views/client-upgrade.ejs'),
+      { title: `Editando al ${clientSelected.type} ${clientSelected.name}`,
+       user: req.user,
+       clientsList,
+       clientSelected 
+      }
+    );
   } catch (err) {
     let message = err || "Ocurrio un error";
     console.error(`Error ${err.status}: ${message}`);

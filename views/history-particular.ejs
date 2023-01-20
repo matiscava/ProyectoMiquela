@@ -4,18 +4,18 @@
 <main>
   <h1><%= title %></h1>
   <div class="container">
-    <p class="details">N° de <% if(historyList[0].type === 'Ingreso'){%>Remito<%}else{%>Orden<%}%>: <%= historyList[0].referenceNumber %> </p>
-    <p class="details"><% if(historyList[0].type === 'Ingreso'){%>Proveedor<%}else{%>Cliente<%}%>: <%= historyList[0].client %></p>
-    <p class="details  datails-date">Última modificación: <%= new Date(historyList[0].timestamp).toLocaleDateString() %></p>
+    <p class="details">N° de <% if(historyDtoList[0].type === 'Ingreso'){%>Remito<%}else{%>Orden<%}%>: <%= historyDtoList[0].referenceNumber %> </p>
+    <p class="details"><% if(historyDtoList[0].type === 'Ingreso'){%>Proveedor<%}else{%>Cliente<%}%>: <%= historyDtoList[0].client %></p>
+    <p class="details  datails-date">Última modificación: <%= new Date(historyDtoList[0].timestamp).toLocaleDateString() %></p>
     <% if(user.admin) { %>       
-      <p class="details  datails-responsable">Cargado por: <%= historyList[0].responsable %></p>
-      <button class="details-btn" onclick='location.href=`/history/history-<%= historyList[0].referenceNumber %>/upgrade`' >Editar <%= historyList[0].type %></button>
+      <p class="details  datails-responsable">Cargado por: <%= historyDtoList[0].responsable %></p>
+      <button class="details-btn" onclick='location.href=`/history/history-<%= historyDtoList[0].referenceNumber %>/upgrade`' >Editar <%= historyDtoList[0].type %></button>
     <% } %> 
   </div>
   <%- include('./history-table.ejs')  %> 
 </main>
 <script>
-  const historyList = <%-JSON.stringify(historyList)  %>;
+  const historyList = <%-JSON.stringify(historyDtoList)  %>;
   const userAdmin = <%-JSON.stringify(user.admin) || false %>;
 </script>
 <%- include('./footer.ejs')  %> 

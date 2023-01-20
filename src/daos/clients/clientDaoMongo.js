@@ -9,7 +9,7 @@ class ClientDaoMongo extends MongoContainer {
     super('clients', {
         cuit: {type: String, required:true},
         name: {type: String, required:true},
-        adress: {type: String, required:true},
+        address: {type: String, required:true},
         phone: {type: Number, required:true},
         email: {type: String, required:true},
         type: { type: String, required: true },

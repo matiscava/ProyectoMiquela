@@ -30,22 +30,26 @@ userRoute
   .get('/', isAuth, userController.getUsers)
   .get('/login', userController.getLogin)
   .post('/login', 
-    passport.authenticate('login', {failureRedirect: '/users/fail-login'}),
+    passport.authenticate('login', {failureRedirect: '/users/login'}),
     function(req, res, next) {
+      if( req.user.forgetPassword) {
+        return res.redirect('/users/new-password')
+      }; 
       // issue a remember me cookie if the option was checked
-      if (!req.body.rememberMe) { return next(); }
+      if (!req.body.rememberMe) return next();
       req.session.cookie.maxAge = 604800000;
       req.session.cookie.httpOnly = true;
-
       return next();
-
     },
     userController.getHome
   )
+  .get('/forget-password', userController.getForgetPassword)
+  .put('/forget-password', userController.putForgetPassword)
   .get('/signup', isAdmin, userController.getSignup)
   .post('/signup', isAdmin, userController.postSignup)
+  .get('/new-password', userController.getNewPasswordForm)
   .get('/logout', userController.logout);
-
+  
 export default userRoute;
 
 

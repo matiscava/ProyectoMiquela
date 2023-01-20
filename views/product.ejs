@@ -19,9 +19,7 @@
   <%- include('./history-table.ejs')  %> 
 </main>
 <script>
-  const historyList = <%-JSON.stringify(productHistory)  %>;
-  const userAdmin = <%-JSON.stringify(user.admin) || false %> ;
-
-
+  const historyList = <%-JSON.stringify(historyProductList)%>;
+  const userAdmin = <%-JSON.stringify(user.admin) || false %>;
 </script>
 <%- include('./footer.ejs')  %> 

@@ -115,6 +115,20 @@ main .container.container-table {
   max-width: 1300px;
   overflow-x: auto;
 }
+
+.navigate-link{
+  display: block;
+  text-decoration: none;
+  font-family: 'Open Sans';
+  margin-top: 20px;
+  color: var(--second-color);
+  transition: .3s ease;
+}
+.navigate-link:hover{
+  font-weight: bold;
+}
+
+
 /* MENU */
 .header {
   margin: 0 auto;
@@ -256,7 +270,7 @@ form {
   margin-left: 1rem;
 }
 
-
+.info{text-align: center;}
 
 #signup-form input {
   width: 100%;
@@ -295,6 +309,11 @@ form {
 
 
 /* LOGIN */
+
+.container.container-login-form {
+  max-width: 800px;
+  text-align: center;
+}
 
 #login-form {
   margin: 0 auto;
@@ -363,6 +382,35 @@ form {
   }
 
 
+}
+
+/* FORGET PASSWORD FORM */
+#forget-password-form{
+  max-width: 800px;
+  display: grid;
+  row-gap: .5rem;
+  align-items: baseline;
+  justify-content: space-evenly;
+  grid-template-columns: repeat(2,1fr);
+}
+
+#forget-password-form label,
+#forget-password-form input[type="submit"] {
+  grid-column: span 2 ;
+}
+
+#forget-password-form label{
+  display: flex;
+  align-items: baseline;
+  white-space: nowrap;
+}
+
+#forget-password-form .form-input-container input {
+  width: 100%;
+}
+
+#forget-password-form .contact-form-error {
+  margin-top: 0rem;
 }
 
 /* CREATE PRODUCT FORM */

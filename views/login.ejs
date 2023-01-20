@@ -6,14 +6,15 @@
 </header>
 <main>
   <h1><%= title %> </h1>
-  <div class="container container-form">
+  <div class="container container-login-form">
     <form action="/users/login" method="post" id="login-form">
       <label for="username">Ingrese su Email: <input type="text" name="username" title="Email incorrecto" pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$" placeholder="joseperez@yahoo.com.ar" required></label>
       <label for="password">Ingrese su Contraseña: <input type="password" name="password" placeholder="Contraseña" title="La contraseña debe tener entre 8 y 20 caracteres, debe tener al menos una Mayúscula, una Minúscula, un Número y un carácter especial." pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ -/:-@\[-`{-~]).{8,20}$" required></label>
       <label for="rememberMe"> <input type="checkbox" name="rememberMe" id="rememberMe"> Recordar Sesión. </label>
       <input type="submit" id="btnSubmitForm" value="Enviar">
-
+        
     </form>
+    <a class="navigate-link" href="/users/forget-password">Olvide mi contraseña</a>
     <% if(user && user.admin) { %>  
     <a href="/users/signup" class="inner-link">Ir al Signup</a>
     <% } %>  

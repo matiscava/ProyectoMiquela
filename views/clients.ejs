@@ -27,11 +27,11 @@
               <option value="descendente">De Mayor a Menor</option>
             </select>
           </th>
-          <th>
+          <!-- <th>
             Dirección
-            <button class="filter-btn" data-filter-name="adress" data-filter-active="inactive">&#9662;</button>
+            <button class="filter-btn" data-filter-name="address" data-filter-active="inactive">&#9662;</button>
             <br>
-            <select name="adress" class="none">
+            <select name="address" class="none">
               <option value="todos">Todos</option>
               <option value="ascendente">De Menor a Mayor</option>
               <option value="descendente">De Mayor a Menor</option>
@@ -46,7 +46,7 @@
               <option value="ascendente">De Menor a Mayor</option>
               <option value="descendente">De Mayor a Menor</option>
             </select>
-          </th>
+          </th> -->
           <th>
             Correo electrónico
             <button class="filter-btn" data-filter-name="email" data-filter-active="inactive">&#9662;</button>
@@ -78,8 +78,8 @@
       <tr>
         <td></td>
         <td></td>
-        <td></td>
-        <td></td>
+        <!-- <td></td>
+        <td></td> -->
         <td></td>
         <td></td>
         <td><a class="table-btn"></a></td>
@@ -88,6 +88,6 @@
 
 </main>
 <script>
-  const clientList = <%-JSON.stringify(clients)  %>;
+  const clientList = <%-JSON.stringify(clientsList)  %>;
 </script>
 <%- include('./footer.ejs')  %> 

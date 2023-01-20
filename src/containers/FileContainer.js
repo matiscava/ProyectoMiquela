@@ -246,7 +246,6 @@ export default class FileContainer {
     try {
       element.timestamp = new Date().getTime();
       let notifications = await this.getAll();
-      console.log('new notifications',notifications);
       element.id = crypto.randomBytes(10).toString('hex'),
       notifications.push(element)
       let dataToJSON = JSON.stringify(notifications,null,2);
@@ -304,7 +303,6 @@ export default class FileContainer {
         let notificationIndex = user.notifications.findIndex( noti => noti.id === el.notiId )
         
         notification.viewed = true;
-        console.log('seeNotification',notification);
         user.notifications.splice( notificationIndex,1,notification);
       });
 

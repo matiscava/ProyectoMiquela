@@ -4,38 +4,38 @@
 <main>
   <h1><%= title %></h1>
   <div class="container  container-form">
-    <form action="/history/history-<%= historyList[0].referenceNumber %>/upgrade" method="POST" class="history-form" id="history-upgrade-form">
+    <form action="/history/history-<%= historyDtoList[0].referenceNumber %>/upgrade" method="POST" class="history-form" id="history-upgrade-form">
       <label for="client"> Seleccione el proveedor: 
         <select name="client">
           <option value="0">...Selecciona un Proveedor...</option>
         </select>
       </label>
-      <label for="clientID" required> N° de Cuit: <input type="text" value="<%= historyList[0].clientID %>" name="clientIDDisabled" disabled required></label>
-      <label for="referenceNumber"> N° de Remito: <input type="text" name="referenceNumber"  value="<%= historyList[0].referenceNumber %>" required></label>
+      <label for="clientID" required> N° de Cuit: <input type="text" value="<%= historyDtoList[0].clientID %>" name="clientIDDisabled" disabled required></label>
+      <label for="referenceNumber"> N° de Remito: <input type="text" name="referenceNumber"  value="<%= historyDtoList[0].referenceNumber %>" required></label>
       <label for="type">
         Seleccione el tipo:
         <select name="type">  
-          <option value="Ingreso"<% if(historyList[0].type === "Ingreso") {%> selected<% } %> >Ingreso</option>
-          <option value="Egreso" <% if(historyList[0].type === "Egreso") {%> selected<% } %> >Egreso</option>
+          <option value="Ingreso"<% if(historyDtoList[0].type === "Ingreso") {%> selected<% } %> >Ingreso</option>
+          <option value="Egreso" <% if(historyDtoList[0].type === "Egreso") {%> selected<% } %> >Egreso</option>
         </select>
       </label>
       <div class="items-list">
 
-        <% for(var i=0; i<historyList.length; i++) { %>
+        <% for(var i=0; i<historyDtoList.length; i++) { %>
 
           <div class="create-item">
-            <label for="[products][<%= i %>][barCodeScan]">Código de Barras: <input type="text" class="bar-code-input" name="[products][<%= i %>][barCodeScan]" value="<%= historyList[i].barCode %>" title="El item debe existir en el inventario de productos." disabled required></label>          
-            <label for="[products][<%= i %>][nameScan]">Nombre del Item: <input type="text" name="[products][<%= i %>][nameScan]" value="<%= historyList[i].name %>" disabled required></label>
+            <label for="[products][<%= i %>][barCodeScan]">Código de Barras: <input type="text" class="bar-code-input" name="[products][<%= i %>][barCodeScan]" value="<%= historyDtoList[i].barCode %>" title="El item debe existir en el inventario de productos." disabled required></label>          
+            <label for="[products][<%= i %>][nameScan]">Nombre del Item: <input type="text" name="[products][<%= i %>][nameScan]" value="<%= historyDtoList[i].name %>" disabled required></label>
             <button type="button" class="btn-code-scan" data-barCode="<%= i %>">Escanear Código <img id="camera-icon" src="/assets/camera-icon.svg" alt="Saca una foto"></button>
-            <label for="[products][<%= i %>][quantity]">Cantidad: <input type="number" min="0" name="[products][<%= i %>][quantity]" value="<%= historyList[i].quantity %>" data-stock="<%= items.find( el => el.barCode === historyList[i].barCode ).stock %>" data-name="quantity" required> </label>
-            <input type="hidden" class="bar-code-input" data-barCode="<%= i %>" name="[products][<%= i %>][barCode]" value="<%= historyList[i].barCode %>" title="El item debe existir en el inventario de productos." required>
-            <input type="hidden" name="[products][<%= i %>][name]" value="<%= historyList[i].name %>" required>
-            <input type="hidden" name="[products][<%= i %>][id]" value="<%= historyList[i].id %>" required>
+            <label for="[products][<%= i %>][quantity]">Cantidad: <input type="number" min="0" name="[products][<%= i %>][quantity]" value="<%= historyDtoList[i].quantity %>" data-stock="<%= itemList.find( el => el.barCode === historyDtoList[i].barCode ).stock %>" data-name="quantity" required> </label>
+            <input type="hidden" class="bar-code-input" data-barCode="<%= i %>" name="[products][<%= i %>][barCode]" value="<%= historyDtoList[i].barCode %>" title="El item debe existir en el inventario de productos." required>
+            <input type="hidden" name="[products][<%= i %>][name]" value="<%= historyDtoList[i].name %>" required>
+            <input type="hidden" name="[products][<%= i %>][id]" value="<%= historyDtoList[i].id %>" required>
           </div>
         <%}%>
 
       </div>
-      <input type="hidden" value="<%= historyList[0].clientID %>" name="clientID" required>
+      <input type="hidden" value="<%= historyDtoList[0].clientID %>" name="clientID" required>
       <div class="btn-container">
         <input type="button" id="btn-add-item" value="Agregar otro Item">
         <input type="submit" id="btnSubmitForm" value="Enviar">
@@ -61,9 +61,9 @@
 <script src="https://unpkg.com/html5-qrcode"></script>
 
 <script>
-  const clientsList = <%-JSON.stringify(clients)  %>;
-  const itemsList = <%-JSON.stringify(items)  %>;
-  const histoyCuit = <%-JSON.stringify(historyList[0].clientID)  %>;
-  let historyLength = <%= Object.keys(historyList).length %>;
+  const clientsList = <%-JSON.stringify(clientList) %>;
+  const itemsList = <%-JSON.stringify(itemList) %>;
+  const histoyCuit = <%-JSON.stringify(historyDtoList[0].clientID)  %>;
+  let historyLength = <%= Object.keys(historyDtoList).length %>;
 </script>
 <%- include('./footer.ejs')  %> 

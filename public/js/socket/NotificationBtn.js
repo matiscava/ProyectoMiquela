@@ -41,7 +41,6 @@ const NotificationBtn = (data) => {
             data.splice(dataMessageIndex,1,dataMessage);
             notificationLength($notificationLength);
           }
-          console.log('message', message);
           if(message.length) socket.emit('see-notification', message )
         });
       }, 3000);
@@ -99,7 +98,6 @@ const NotificationBtn = (data) => {
 
   d.addEventListener('click', (e) => {
     if( e.target == $notificationBtn || e.target.parentElement == $notificationBtn) {
-      console.log();
       while ($notificationList.firstChild) {
         $notificationList.removeChild($notificationList.lastChild);
       }

@@ -20,8 +20,7 @@ io.on( 'connection' , async (socket) => {
     if( user && user !== undefined ){
       socket.join('login');
       let userLog = await usersDao.getByID(user);
-      socket
-        .on('notification', (data) => {
+      socket.on('notification', (data) => {
           notiNumber++;
           data.id = notiNumber;
           data.responsable = userLog.email;
@@ -29,8 +28,8 @@ io.on( 'connection' , async (socket) => {
           data.viewed = false;
           userLog.notifications.push(data)
           socket.to('login').emit( 'get-notifications' , userLog.notifications );
-        })
-        .on('change-stock', async (data) => {
+      })
+      socket.on('change-stock', async (data) => {
           let product = await productsDao.getBy('barCode',data);
 
           if(product.minStock > (product.stock - data.diference)){
@@ -46,13 +45,13 @@ io.on( 'connection' , async (socket) => {
             socket.to('login').emit( 'get-notifications' , userLog.notifications );
 
           }
-        })
-        .on('see-notification', async (data) => {
-          if( data.length && userLog.email === data[0].email ){
-            let seeNoti = await usersDao.seeNotification(data);
-          }
-        })
-        .emit('get-notifications', userLog.notifications)
+      })
+      socket.on('see-notification', async (data) => {
+        if( data.length && userLog.email === data[0].email ){
+          let seeNoti = await usersDao.seeNotification(data);
+        }
+      })
+      socket.emit('get-notifications', userLog.notifications)
     }
   } catch (err) {
     let message = err || "Ocurrio un error";

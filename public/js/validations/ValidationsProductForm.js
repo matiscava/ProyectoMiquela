@@ -64,7 +64,7 @@ export function ValidationsProductForm (id) {
     })
 
     let oldCode = productsList.find(el=> el.code === formValues.code);
-    let oldVarCode = productsList.find(el=> el.barCode === formValues.barCode);
+    let oldBarCode = productsList.find(el=> el.barCode === formValues.barCode);
 
     if (oldCode){
       e.preventDefault()
@@ -83,7 +83,7 @@ export function ValidationsProductForm (id) {
       $panel.innerHTML = "";
       $panel.appendChild($fragment);
     }
-    if (oldVarCode){
+    if (oldBarCode){
       e.preventDefault()
       $inputs[4].value = '';
       $inputs[5].value = '';

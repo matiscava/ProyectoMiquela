@@ -2,7 +2,7 @@
   {
     "cuit": "30537520643",
     "name": "ERNESTO A.ROSSI Y CIA S.A.",
-    "adress": "",
+    "address": "",
     "phone": 44554455,
     "email": "ernestorossi@hotmail.com",
     "id": "1579cae3eded975ce6c0",
@@ -14,7 +14,7 @@
     "name": "SUNLIGHT",
     "cuit": "20222002126",
     "email": "sunglight@hotmail.com",
-    "adress": "Av Cabildo 2023",
+    "address": "Av Cabildo 2023",
     "phone": "55886633",
     "type": "proveedor",
     "id": "f1992fe78f9e0528b2a0",
@@ -24,7 +24,7 @@
   {
     "cuit": "20353756053",
     "name": "Pedro Alfonso",
-    "adress": "",
+    "address": "",
     "phone": 55886633,
     "email": "Peter@hotmail.com",
     "id": "f1992fe78f9e048as2a0",

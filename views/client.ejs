@@ -5,7 +5,7 @@
   <h1><%= title %></h1>
   <div class="container">
     <p class="details"><% if(clientSelected.type === 'proveedor'){%>CUIT<%}else{%>CUIL<%}%>: <%= clientSelected.cuit %> </p>
-    <p class="details">Dirección: <%= clientSelected.adress %></p>
+    <p class="details">Dirección: <%= clientSelected.address %></p>
     <p class="details">Teléfono: <%= clientSelected.phone %></p>
     <p class="details">Mail: <%= clientSelected.email %></p>
     <% if(user.admin) { %> 
@@ -17,7 +17,7 @@
   <%- include('./history-table.ejs')  %> 
 </main>
 <script>
-  const historyList = <%-JSON.stringify(clientHistory)  %>;
+  const historyList = <%-JSON.stringify(clientHistoryList)  %>;
   const userAdmin = <%-JSON.stringify(user.admin) || false %>;
 
 

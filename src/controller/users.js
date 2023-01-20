@@ -1,7 +1,7 @@
 import path from 'path';
 
 import Singleton from '../utils/Singleton.js';
-import { io } from '../../main.js';
+import userMapper from '../mapper/userMapper.js';
 
 const { daos } = Singleton.getInstance();
 const { usersDao , notificationsDao } = daos;
@@ -66,7 +66,6 @@ userController.postSignup = async ( req , res ) => {
 }
 
 userController.getLogin = ( req , res ) => {
-
   if(req.user) res.redirect('/products')
   res.render( path.join(process.cwd(),'/views/login.ejs'),{ title: 'Login',user : req.user })
 }
@@ -76,6 +75,46 @@ userController.logout = ( req , res ) => {
     if (err) { return next(err); }
     res.redirect('/');
   });
+}
+
+userController.getForgetPassword = async ( req , res ) => {
+  try {
+    if(req.user) res.redirect('/products')
+    const users = await usersDao.getAll();
+    const userList = [];
+    users.forEach( u => userList.push( userMapper.mapUserToUserDtoForgetPassword(u) ) );
+  
+    res.render( path.join(process.cwd(),'/views/user-forget-password.ejs'), {title: "Restaurar Contraseña",userList} );
+  } catch (err) {
+    let message = err || "Ocurrio un error";
+
+    console.error(`Error ${err.status}: ${message}`);
+    res.send( `
+    <h1>Ocurrio un error</h1>
+    <p>Error ${err.status}: ${message}</p>
+    ` );
+  }
+}
+
+userController.putForgetPassword = async (req,res) => {
+  try {
+    let data = req.body;
+    let updated = await usersDao.forgetPassword(data);
+    if (!updated) throw new Error('No se pudo cambiar la contraseña');
+    res.redirect('/');
+  } catch (err) {
+    let message = err || "Ocurrio un error";
+
+    console.error(`Error ${err.status}: ${message}`);
+    res.send( `
+    <h1>Ocurrio un error</h1>
+    <p>Error ${err.status}: ${message}</p>
+    ` );
+  }
+}
+
+userController.getNewPasswordForm = (req, res) => {
+  console.log(req.user);
 }
 
 
